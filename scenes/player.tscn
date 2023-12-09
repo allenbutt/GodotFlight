@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ljlrtydq5xq"]
+
+[ext_resource type="Texture2D" uid="uid://bnqv2tqh7ktbh" path="res://art/Glider.png" id="1_x4r3j"]
+[ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="2_lhof1"]
+
+[node name="player" type="CharacterBody2D"]
+
+[node name="Glider" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_x4r3j")
+
+[node name="Glider2" type="Sprite2D" parent="."]
+position = Vector2(166, -1)
+texture = ExtResource("2_lhof1")
