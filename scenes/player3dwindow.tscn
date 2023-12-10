@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1xlldkbakg5t"]
+
+[ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
+[ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
+
+[node name="Window" type="Node3D"]
+
+[node name="Player3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_5m3tf")
+
+[node name="Sprite3D" type="Sprite3D" parent="Player3D"]
+texture_filter = 2
+texture = ExtResource("1_7ave1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -4)
+fov = 76.5182
