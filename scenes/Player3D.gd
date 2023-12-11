@@ -1,6 +1,6 @@
 extends CharacterBody3D
 var player_speed = 5.0
-var rotation_speed = 0.1
+var rotation_speed = 0.2
 var max_normal_rotation = 0.45
 
 func _physics_process(delta):
