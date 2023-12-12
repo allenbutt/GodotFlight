@@ -1,7 +1,7 @@
 extends CharacterBody3D
 var player_speed = 5.0
 var rotation_speed = 0.2
-var max_normal_rotation = 0.45
+var max_normal_rotation = 0.9
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -27,14 +27,14 @@ func player_movement(delta):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 	
-#	if direction.x < 0:
-#		self.rotation = clamp(self.rotation - rotation_speed, max_normal_rotation * -1, max_normal_rotation)
-#	if direction.x > 0:
-#		self.rotation = clamp(self.rotation + rotation_speed, max_normal_rotation * -1, max_normal_rotation)
-#	if direction.x == 0 and self.rotation < 0:
-#		self.rotation = clamp(self.rotation + rotation_speed/1, max_normal_rotation * -1, 0)
-#	if direction.x == 0 and self.rotation > 0:
-#		self.rotation = clamp(self.rotation - rotation_speed/1, 0, max_normal_rotation)
+	if direction.x > 0:
+		self.rotation.z = clamp(self.rotation.z - rotation_speed, max_normal_rotation * -1, max_normal_rotation)
+	if direction.x < 0:
+		self.rotation.z = clamp(self.rotation.z + rotation_speed, max_normal_rotation * -1, max_normal_rotation)
+	if direction.x == 0 and self.rotation.z < 0:
+		self.rotation.z = clamp(self.rotation.z + rotation_speed/1, max_normal_rotation * -1, 0)
+	if direction.x == 0 and self.rotation.z > 0:
+		self.rotation.z = clamp(self.rotation.z - rotation_speed/1, 0, max_normal_rotation)
 	
 	velocity.x = direction.x * player_speed * dash_bonus
 	velocity.y = direction.y * player_speed * dash_bonus

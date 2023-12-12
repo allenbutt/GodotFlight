@@ -15,6 +15,10 @@ func _ready():
 
 
 func _process(delta):
-	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + movement
+	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed
 #	var target_xform = self.global_transform.translated_local(offset)
 #	transform.origin.z = transform.origin.z+0.1
+	if Input.is_action_pressed("shift"):
+		Global.forward_speed = 0.2
+	else:
+		Global.forward_speed = 0.1
