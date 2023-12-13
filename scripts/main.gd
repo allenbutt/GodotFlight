@@ -5,7 +5,7 @@ var start = 0.5
 
 var target_xform
 var offset = Vector3(0,0,0)
-var lerp_speed = 3.0
+var lerp_speed = 1.0
 
 @onready var player = $Window
 
@@ -19,6 +19,6 @@ func _process(delta):
 #	var target_xform = self.global_transform.translated_local(offset)
 #	transform.origin.z = transform.origin.z+0.1
 	if Input.is_action_pressed("shift"):
-		Global.forward_speed = 0.2
+		Global.forward_speed = 0.15
 	else:
 		Global.forward_speed = 0.1
