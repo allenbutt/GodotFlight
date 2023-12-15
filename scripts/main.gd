@@ -12,6 +12,7 @@ var lerp_speed = 1.0
 func _ready():
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
+	$Window.export_target = $Camera3D
 
 
 func _process(delta):
