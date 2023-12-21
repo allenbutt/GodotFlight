@@ -1,6 +1,6 @@
 extends CharacterBody3D
 var player_speed = 5.0
-var rotation_speed = 0.2
+var rotation_speed = 0.1
 var max_normal_rotation = 0.9
 @onready var player_rotation_node = $Player_Rotation
 

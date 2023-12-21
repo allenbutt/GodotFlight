@@ -13,6 +13,5 @@ func _process(delta):
 	var target_xform = target.global_transform.translated_local(offset)
 	global_transform = global_transform.interpolate_with(target_xform, lerp_speed * delta)
 
-	
-	look_at(target.global_transform.origin, target.transform.basis.y)
-	target.look_at(target.global_transform.origin, target.transform.basis.y)
+	if global_transform.origin.is_equal_approx(target.transform.basis.y) == false:
+		look_at(target.global_transform.origin, target.transform.basis.y)
