@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkmfwlcjl184w"]
+
+[ext_resource type="ArrayMesh" uid="uid://d3qdrmtopd0uh" path="res://art/blendermodel/Airship/model.obj" id="1_0cey7"]
+[ext_resource type="Script" path="res://scripts/enemy_ship.gd" id="1_cih4s"]
+
+[node name="EnemyShip" type="Node3D"]
+script = ExtResource("1_cih4s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = ExtResource("1_0cey7")
