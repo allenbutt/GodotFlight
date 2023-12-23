@@ -20,4 +20,4 @@ func _process(delta):
 		Global.forward_speed = Global.forward_speed_base * 1.5
 	else:
 		Global.forward_speed = Global.forward_speed_base
-	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed
+	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60

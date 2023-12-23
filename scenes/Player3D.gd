@@ -1,6 +1,8 @@
 extends CharacterBody3D
-var player_speed = 5.0
-var rotation_speed = 0.1
+var player_speed = 0.0
+var player_speed_max = 6.0
+var acceleration = 0.75
+var rotation_speed = 0.167
 var max_normal_rotation = 0.9
 @onready var player_rotation_node = $Player_Rotation
 
@@ -27,19 +29,26 @@ func player_movement(delta):
 		
 #Angle the ship's model depending on moving left and right	
 	if direction.x > 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z - rotation_speed, max_normal_rotation * -1, max_normal_rotation)
+		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z - rotation_speed * delta * 60, max_normal_rotation * -1, max_normal_rotation)
 	if direction.x < 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z + rotation_speed, max_normal_rotation * -1, max_normal_rotation)
+		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z + rotation_speed * delta * 60, max_normal_rotation * -1, max_normal_rotation)
 	if direction.x == 0 and player_rotation_node.rotation.z < 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z + rotation_speed/1, max_normal_rotation * -1, 0)
+		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z + rotation_speed * delta * 60/1, max_normal_rotation * -1, 0)
 	if direction.x == 0 and player_rotation_node.rotation.z > 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z - rotation_speed/1, 0, max_normal_rotation)
+		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z - rotation_speed * delta * 60/1, 0, max_normal_rotation)
 
 #Make local and global movement agree before applying velocity for the move_and_slide() function
 	if direction != Vector3.ZERO:
 		direction = (global_transform.basis * Vector3(direction.x, direction.y, 0)).normalized()
-	velocity = direction * player_speed * dash_bonus
-	
+#If no movement, set speed to 0 and skip move_and_slide
+	if direction.x == 0:
+		player_speed = 0
+	else:
+		player_speed += acceleration
+		if player_speed > player_speed_max:
+			player_speed = player_speed_max
 		
-	move_and_slide()
+		velocity = direction * player_speed * dash_bonus * delta * 60
+		
+		move_and_slide()
 
