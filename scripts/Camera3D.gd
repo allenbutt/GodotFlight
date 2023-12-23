@@ -2,7 +2,8 @@ extends Camera3D
 
 @export var lerp_speed = 1
 @export var target: Node3D
-@export var offset = Vector3(0,0.5,4)
+@export var offset = Vector3(0,0.5,-1)
+#4 on single external monitor, -1 on double normal monitor
 
 func _process(delta):
 	if !target:
