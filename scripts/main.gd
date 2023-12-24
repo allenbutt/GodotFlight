@@ -8,6 +8,7 @@ var offset = Vector3(0,0,0)
 var lerp_speed = 1.0
 
 var move_enemy_1 = false
+var move_enemy_2 = false
 
 @onready var player = $Window
 
@@ -30,4 +31,8 @@ func enemy_movement(delta):
 		$EnemyShip1Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $EnemyShip1Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_1 = true
+	if move_enemy_2 == false and $Path3D/PathFollow3D.progress > 260:
+		$EnemyShip2Path/PathFollow3D.progress += (0.12 * delta * 60)
+		if $EnemyShip2Path/PathFollow3D.progress_ratio >= 0.95:
+			move_enemy_2 = true
 		

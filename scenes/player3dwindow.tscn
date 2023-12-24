@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=9 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
+[ext_resource type="Script" path="res://scripts/FSM/FiniteStateMachine.gd" id="3_jv0lq"]
+[ext_resource type="Script" path="res://scripts/FSM/Normal.gd" id="4_64ccc"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_xpxp4"]
 inner_radius = 4.0
@@ -31,6 +33,16 @@ ignore_occlusion_culling = true
 texture_filter = 0
 render_priority = 1
 texture = ExtResource("1_7ave1")
+
+[node name="FSM" type="Node" parent="Player3D" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_jv0lq")
+initial_state = NodePath("Normal")
+
+[node name="Normal" type="Node" parent="Player3D/FSM" node_paths=PackedStringArray("character", "window", "player_rotation_node")]
+script = ExtResource("4_64ccc")
+character = NodePath("../..")
+window = NodePath("../../..")
+player_rotation_node = NodePath("../../Player_Rotation")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

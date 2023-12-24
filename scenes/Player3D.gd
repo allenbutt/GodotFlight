@@ -7,7 +7,8 @@ var max_normal_rotation = 0.9
 @onready var player_rotation_node = $Player_Rotation
 
 func _process(delta):
-	player_movement(delta)
+	pass
+	#player_movement(delta)
 
 func player_movement(delta):
 	var direction = Vector3.ZERO
