@@ -4,6 +4,7 @@ class_name Normal
 @export var character : CharacterBody3D
 @export var window : Node3D
 @export var player_rotation_node : Node3D
+@export var dash_cooldown_timer : Timer
 
 var player_speed = 0.0
 var player_speed_max = 6.0
@@ -18,16 +19,20 @@ func Exit():
 	pass
 
 func Update(delta):
-	player_movement(delta)
+	if Input.is_action_just_pressed("spacebar") and dash_cooldown_timer.get_time_left() == 0:
+		dash_cooldown_timer.start()
+		state_transition.emit(self,"Dash")
+	else:
+		player_movement(delta)
 
 func player_movement(delta):
 	var direction = Vector3.ZERO
-	var dash_bonus = 1
+	var shift_bonus = 1
 	
 	if Input.is_action_pressed("shift"):
-		dash_bonus = 1.5
+		shift_bonus = 0.85
 	else:
-		dash_bonus = 1
+		shift_bonus = 1
 
 	if Input.is_action_pressed("move_right"):
 		direction.x -= 1
@@ -59,6 +64,6 @@ func player_movement(delta):
 		if player_speed > player_speed_max:
 			player_speed = player_speed_max
 		
-		character.velocity = direction * player_speed * dash_bonus * delta * 60
+		character.velocity = direction * player_speed * shift_bonus * delta * 60
 		
 		character.move_and_slide()
