@@ -27,6 +27,7 @@ func _on_area_3d_area_entered(area):
 	print("emit")
 	if Global.player_health <= 0:
 		queue_free()
+	$Player_Rotation/Sprite3D.material_override.set_shader_parameter("active", true)
 
 
 func _on_area_3d_body_entered(body):

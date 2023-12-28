@@ -1,13 +1,22 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=16 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
+[ext_resource type="Shader" path="res://art/shaders/hit_effect.gdshader" id="2_4nydu"]
 [ext_resource type="Script" path="res://scripts/FSM/FiniteStateMachine.gd" id="3_jv0lq"]
 [ext_resource type="Script" path="res://scripts/FSM/Normal.gd" id="4_64ccc"]
 [ext_resource type="Script" path="res://scripts/FSM/Dash.gd" id="5_rr6ad"]
 [ext_resource type="Script" path="res://scripts/FSM/HitTerrain.gd" id="6_pedly"]
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
 [ext_resource type="Script" path="res://scripts/FSM/Death.gd" id="8_vfevf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avps4"]
+render_priority = 0
+shader = ExtResource("2_4nydu")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/y_billboard = false
+shader_parameter/tex = ExtResource("1_7ave1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_smemg"]
 size = Vector3(0.681, 0.168806, 0.1)
@@ -36,6 +45,7 @@ script = ExtResource("1_5m3tf")
 [node name="Player_Rotation" type="Node3D" parent="Player3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="Player3D/Player_Rotation"]
+material_override = SubResource("ShaderMaterial_avps4")
 ignore_occlusion_culling = true
 texture_filter = 0
 render_priority = 1
@@ -81,7 +91,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="Upward_Force_Time" type="Timer" parent="Player3D"]
-wait_time = 0.15
+wait_time = 0.2
 one_shot = true
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
