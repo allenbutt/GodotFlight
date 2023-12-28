@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=14 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" path="res://scripts/FSM/HitTerrain.gd" id="6_pedly"]
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
 [ext_resource type="Script" path="res://scripts/FSM/Death.gd" id="8_vfevf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_smemg"]
+size = Vector3(0.681, 0.168806, 0.1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_xpxp4"]
 inner_radius = 4.0
@@ -38,22 +41,30 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("1_7ave1")
 
+[node name="Area3D" type="Area3D" parent="Player3D/Player_Rotation"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/Player_Rotation/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0887642, 0)
+shape = SubResource("BoxShape3D_smemg")
+
 [node name="FSM" type="Node" parent="Player3D" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_jv0lq")
 initial_state = NodePath("Normal")
 
-[node name="Normal" type="Node" parent="Player3D/FSM" node_paths=PackedStringArray("character", "window", "player_rotation_node", "dash_cooldown_timer")]
+[node name="Normal" type="Node" parent="Player3D/FSM" node_paths=PackedStringArray("character", "window", "player_rotation_node", "dash_cooldown_timer", "Upward_Force_Timer")]
 script = ExtResource("4_64ccc")
 character = NodePath("../..")
 window = NodePath("../../..")
 player_rotation_node = NodePath("../../Player_Rotation")
 dash_cooldown_timer = NodePath("../../Dash_Cooldown")
+Upward_Force_Timer = NodePath("../../Upward_Force_Time")
 
-[node name="Dash" type="Node" parent="Player3D/FSM" node_paths=PackedStringArray("character", "window", "player_rotation_node")]
+[node name="Dash" type="Node" parent="Player3D/FSM" node_paths=PackedStringArray("character", "window", "player_rotation_node", "Upward_Force_Timer")]
 script = ExtResource("5_rr6ad")
 character = NodePath("../..")
 window = NodePath("../../..")
 player_rotation_node = NodePath("../../Player_Rotation")
+Upward_Force_Timer = NodePath("../../Upward_Force_Time")
 dash_duration = 0.25
 
 [node name="HitTerrain" type="Node" parent="Player3D/FSM"]
@@ -67,6 +78,10 @@ script = ExtResource("8_vfevf")
 
 [node name="Dash_Cooldown" type="Timer" parent="Player3D"]
 wait_time = 1.5
+one_shot = true
+
+[node name="Upward_Force_Time" type="Timer" parent="Player3D"]
+wait_time = 0.15
 one_shot = true
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
@@ -88,3 +103,7 @@ transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 visible = false
 mesh = SubResource("BoxMesh_nyyay")
 skeleton = NodePath("../Player3D")
+
+[connection signal="area_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Player3D/Upward_Force_Time" to="Player3D" method="_on_upward_force_time_timeout"]

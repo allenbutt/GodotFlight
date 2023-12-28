@@ -5,9 +5,10 @@ class_name Normal
 @export var window : Node3D
 @export var player_rotation_node : Node3D
 @export var dash_cooldown_timer : Timer
+@export var Upward_Force_Timer : Timer
 
 var player_speed = 0.0
-var player_speed_max = 6.0
+var player_speed_max = 5.0
 var acceleration = 0.75
 var rotation_speed = 0.167
 var max_normal_rotation = 0.9
@@ -38,10 +39,11 @@ func player_movement(delta):
 		direction.x -= 1
 	if Input.is_action_pressed("move_left"):
 		direction.x += 1
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("move_down") and character.upward_force == false:
 		direction.y -= 1
 	if Input.is_action_pressed("move_up"):
 		direction.y += 1
+		
 		
 #Angle the ship's model depending on moving left and right	
 	if direction.x > 0:
@@ -57,13 +59,16 @@ func player_movement(delta):
 	if direction != Vector3.ZERO:
 		direction = (character.global_transform.basis * Vector3(direction.x, direction.y, 0)).normalized()
 #If no movement, set speed to 0 and skip move_and_slide
-	if direction.x == 0:
+	if direction.x == 0 and character.upward_force == false:
 		player_speed = 0
 	else:
 		player_speed += acceleration
 		if player_speed > player_speed_max:
 			player_speed = player_speed_max
+	#If player hit ground, set direction to bounce upward
+	if character.upward_force:
+		direction.y = 3 * (Upward_Force_Timer.get_time_left() / Upward_Force_Timer.wait_time)
 		
-		character.velocity = direction * player_speed * shift_bonus * delta * 60
-		
-		character.move_and_slide()
+	character.velocity = direction * player_speed * shift_bonus * delta * 60
+	
+	character.move_and_slide()

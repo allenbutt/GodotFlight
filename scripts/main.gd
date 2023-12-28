@@ -11,11 +11,14 @@ var move_enemy_1 = false
 var move_enemy_2 = false
 
 @onready var player = $Window
+@onready var ui = $ui_canvas
+@onready var player3d = $Window/Player3D
 
 func _ready():
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
 	$Window.export_target = $Camera3D
+	player3d.take_hit.connect(player_take_hit)
 
 
 func _process(delta):
@@ -36,3 +39,5 @@ func enemy_movement(delta):
 		if $EnemyShip2Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_2 = true
 		
+func player_take_hit():
+	ui.set_healthbar_value(Global.player_health)

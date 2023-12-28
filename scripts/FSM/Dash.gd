@@ -4,9 +4,10 @@ class_name Dash
 @export var character : CharacterBody3D
 @export var window : Node3D
 @export var player_rotation_node : Node3D
+@export var Upward_Force_Timer : Timer
 
-var player_speed = 24.0
-var player_speed_max = 24.0
+var player_speed = 10.0
+var player_speed_max = 10.0
 var acceleration = 0.75
 var rotation_speed = ((360 + 60) * PI / 180) / 17
 var max_normal_rotation = 90
@@ -36,7 +37,7 @@ func player_movement(delta):
 		direction.x -= 1
 	if Input.is_action_pressed("move_left"):
 		direction.x += 1
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("move_down") and character.upward_force == false:
 		direction.y -= 1
 	if Input.is_action_pressed("move_up"):
 		direction.y += 1
@@ -52,7 +53,9 @@ func player_movement(delta):
 		direction = (character.global_transform.basis * Vector3(direction.x, direction.y, 0)).normalized()
 #No Acceleration on Dash
 	player_speed = player_speed_max
-		
+	#If player hit ground, set direction to bounce upward
+	if character.upward_force:
+		direction.y = 3 * (Upward_Force_Timer.get_time_left() / Upward_Force_Timer.wait_time)
 	character.velocity = direction * player_speed * shift_bonus * delta * 60
 		
 	character.move_and_slide()

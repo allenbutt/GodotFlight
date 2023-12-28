@@ -1,4 +1,7 @@
 extends CharacterBody3D
+
+var player_health_max = 100.0
+
 var player_speed = 0.0
 var player_speed_max = 6.0
 var acceleration = 0.75
@@ -6,50 +9,35 @@ var rotation_speed = 0.167
 var max_normal_rotation = 0.9
 @onready var player_rotation_node = $Player_Rotation
 
+var upward_force = false
+
+signal take_hit
+
+func _ready():
+	Global.player_health = player_health_max
+
 func _process(delta):
 	pass
-	#player_movement(delta)
 
-func player_movement(delta):
-	var direction = Vector3.ZERO
-	var dash_bonus = 1
-	
-	if Input.is_action_pressed("shift"):
-		dash_bonus = 1.5
-	else:
-		dash_bonus = 1
 
-	if Input.is_action_pressed("move_right"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_left"):
-		direction.x += 1
-	if Input.is_action_pressed("move_down"):
-		direction.y -= 1
-	if Input.is_action_pressed("move_up"):
-		direction.y += 1
-		
-#Angle the ship's model depending on moving left and right	
-	if direction.x > 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z - rotation_speed * delta * 60, max_normal_rotation * -1, max_normal_rotation)
-	if direction.x < 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z + rotation_speed * delta * 60, max_normal_rotation * -1, max_normal_rotation)
-	if direction.x == 0 and player_rotation_node.rotation.z < 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z + rotation_speed * delta * 60/1, max_normal_rotation * -1, 0)
-	if direction.x == 0 and player_rotation_node.rotation.z > 0:
-		player_rotation_node.rotation.z = clamp(player_rotation_node.rotation.z - rotation_speed * delta * 60/1, 0, max_normal_rotation)
 
-#Make local and global movement agree before applying velocity for the move_and_slide() function
-	if direction != Vector3.ZERO:
-		direction = (global_transform.basis * Vector3(direction.x, direction.y, 0)).normalized()
-#If no movement, set speed to 0 and skip move_and_slide
-	if direction.x == 0:
-		player_speed = 0
-	else:
-		player_speed += acceleration
-		if player_speed > player_speed_max:
-			player_speed = player_speed_max
-		
-		velocity = direction * player_speed * dash_bonus * delta * 60
-		
-		move_and_slide()
+func _on_area_3d_area_entered(area):
+	Global.player_health = Global.player_health - 20
+	take_hit.emit()
+	print("emit")
+	if Global.player_health <= 0:
+		queue_free()
 
+
+func _on_area_3d_body_entered(body):
+	if upward_force == false:
+		Global.player_health = Global.player_health - 10
+		take_hit.emit()
+		if Global.player_health <= 0:
+			queue_free()
+		$Upward_Force_Time.start()
+		upward_force = true
+
+
+func _on_upward_force_time_timeout():
+	upward_force = false
