@@ -41,3 +41,4 @@ func enemy_movement(delta):
 		
 func player_take_hit():
 	ui.set_healthbar_value(Global.player_health)
+	$Camera3D.screen_shake()

@@ -27,7 +27,7 @@ func _on_area_3d_area_entered(area):
 	print("emit")
 	if Global.player_health <= 0:
 		queue_free()
-	$Player_Rotation/Sprite3D.material_override.set_shader_parameter("active", true)
+	hit_flash($Player_Rotation/Sprite3D)
 
 
 func _on_area_3d_body_entered(body):
@@ -38,7 +38,18 @@ func _on_area_3d_body_entered(body):
 			queue_free()
 		$Upward_Force_Time.start()
 		upward_force = true
+		hit_flash($Player_Rotation/Sprite3D)
 
 
 func _on_upward_force_time_timeout():
 	upward_force = false
+
+func hit_flash(sprite):
+	var flash_duration = 0.025
+	sprite.material_override.set_shader_parameter("active", true)
+	for x in range(0,3):
+		sprite.material_override.set_shader_parameter("flash_color", Color(0.827, 0, 0.094))
+		await get_tree().create_timer(flash_duration*2).timeout
+		sprite.material_override.set_shader_parameter("flash_color", Color(1, 1, 1))
+		await get_tree().create_timer(flash_duration).timeout
+	sprite.material_override.set_shader_parameter("active", false)
