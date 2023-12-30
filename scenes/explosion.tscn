@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://h0m6qt4k3ial"]
+
+[ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="1_4qj3h"]
+
+[sub_resource type="Gradient" id="Gradient_x7ymf"]
+offsets = PackedFloat32Array(0, 0.370748, 1)
+colors = PackedColorArray(0.890196, 0.219608, 0, 1, 0.921569, 0.960784, 0, 1, 0.94902, 0.92549, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nu1d"]
+gradient = SubResource("Gradient_x7ymf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dvljx"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+angle_max = 273.1
+scale_max = 3.0
+color = Color(1, 0.305882, 0.196078, 1)
+color_ramp = SubResource("GradientTexture1D_6nu1d")
+hue_variation_min = -0.15
+hue_variation_max = 0.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5trrj"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bpkl0"]
+material = SubResource("StandardMaterial3D_5trrj")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="Gradient" id="Gradient_db0pr"]
+offsets = PackedFloat32Array(0, 0.214286)
+colors = PackedColorArray(0.847059, 0.0980392, 0, 1, 1, 0.745098, 0.317647, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7bc6i"]
+gradient = SubResource("Gradient_db0pr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i5ewk"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_7bc6i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vkwi"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.196078, 0.203922, 1)
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_bmsgf"]
+material = SubResource("StandardMaterial3D_4vkwi")
+shape = 0
+size = 0.05
+section_segments = 5
+
+[node name="Explosion" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 100
+lifetime = 3.0
+explosiveness = 1.0
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_dvljx")
+draw_pass_1 = SubResource("CapsuleMesh_bpkl0")
+
+[node name="pine_tree" parent="." instance=ExtResource("1_4qj3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.762248, 0, 5.8365)
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+amount = 20
+lifetime = 3.0
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_i5ewk")
+draw_pass_1 = SubResource("RibbonTrailMesh_bmsgf")

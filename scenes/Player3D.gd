@@ -24,7 +24,6 @@ func _process(delta):
 func _on_area_3d_area_entered(area):
 	Global.player_health = Global.player_health - 20
 	take_hit.emit()
-	print("emit")
 	if Global.player_health <= 0:
 		queue_free()
 	hit_flash($Player_Rotation/Sprite3D)

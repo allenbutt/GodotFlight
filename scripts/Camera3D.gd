@@ -29,10 +29,7 @@ func screen_shake():
 
 	while elapsed_time < period:
 		var offset = Vector3(
-			randf_range(-magnitude, magnitude),
-			randf_range(-magnitude, magnitude),
-			0.0
-		)
+			randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude), 0.0)
 
 		self.transform.origin = initial_transform.origin + offset
 		elapsed_time += get_process_delta_time()
@@ -41,11 +38,10 @@ func screen_shake():
 	self.transform = initial_transform
 
 func screen_shake_boost():
-	var boost_magnitude = 0.01
+	var boost_magnitude = 0.05
 	var initial_transform = self.transform 
 	var elapsed_time = 0.0
-	var offset = Vector3(randf_range(-boost_magnitude, boost_magnitude), randf_range(-boost_magnitude, boost_magnitude),0.0)
-	if randi_range(0,4) == 1:
-		self.transform.origin = initial_transform.origin + offset
-
-	#self.transform = initial_transform
+	var offset = Vector3(randf_range(-boost_magnitude, boost_magnitude), randf_range(-boost_magnitude, boost_magnitude), 0.0)
+	if randi_range(0,2) == 1:
+		offset = self.transform.translated_local(offset)
+		self.transform = self.transform.interpolate_with(offset, 0.2)
