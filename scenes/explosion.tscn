@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://h0m6qt4k3ial"]
+[gd_scene load_steps=24 format=3 uid="uid://h0m6qt4k3ial"]
 
 [ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="1_4qj3h"]
+[ext_resource type="Shader" path="res://art/shaders/explosion.gdshader" id="2_jlhuf"]
 
 [sub_resource type="Gradient" id="Gradient_x7ymf"]
 offsets = PackedFloat32Array(0, 0.370748, 1)
@@ -17,7 +18,8 @@ spread = 20.0
 initial_velocity_min = 10.0
 initial_velocity_max = 15.0
 angle_max = 273.1
-scale_max = 3.0
+scale_min = 0.33
+scale_max = 1.5
 color = Color(1, 0.305882, 0.196078, 1)
 color_ramp = SubResource("GradientTexture1D_6nu1d")
 hue_variation_min = -0.15
@@ -56,9 +58,59 @@ shape = 0
 size = 0.05
 section_segments = 5
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p37ea"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l517m"]
+noise = SubResource("FastNoiseLite_p37ea")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_je304"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qq7tt"]
+noise = SubResource("FastNoiseLite_je304")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5ai8x"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8hr6v"]
+noise = SubResource("FastNoiseLite_5ai8x")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubfsd"]
+render_priority = 0
+shader = ExtResource("2_jlhuf")
+shader_parameter/distortionView = 0.03
+shader_parameter/speedView = 0.5
+shader_parameter/tintColor = Color(0, 0, 0, 1)
+shader_parameter/fesnelAmount = 0.0
+shader_parameter/distortionVertex = 0.01
+shader_parameter/speedVertex = 0.1
+shader_parameter/noiseViewX = SubResource("NoiseTexture2D_qq7tt")
+shader_parameter/noiseViewY = SubResource("NoiseTexture2D_8hr6v")
+shader_parameter/noiseVertex = SubResource("NoiseTexture2D_l517m")
+
+[sub_resource type="Curve" id="Curve_pe2pc"]
+_data = [Vector2(0.00615385, 0.0421052), 0.0, 0.825771, 0, 0, Vector2(0.993846, 1), 0.991609, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m0ejs"]
+curve = SubResource("Curve_pe2pc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iqudh"]
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_min = 8.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_m0ejs")
+
+[sub_resource type="SphereMesh" id="SphereMesh_kberc"]
+
 [node name="Explosion" type="Node3D"]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="pine_tree" parent="." instance=ExtResource("1_4qj3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.762248, 0, 5.8365)
+
+[node name="GPU_Particles" type="GPUParticles3D" parent="."]
 amount = 100
 lifetime = 3.0
 explosiveness = 1.0
@@ -68,10 +120,7 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_dvljx")
 draw_pass_1 = SubResource("CapsuleMesh_bpkl0")
 
-[node name="pine_tree" parent="." instance=ExtResource("1_4qj3h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.762248, 0, 5.8365)
-
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+[node name="GPU_Trails" type="GPUParticles3D" parent="."]
 amount = 20
 lifetime = 3.0
 explosiveness = 1.0
@@ -79,3 +128,10 @@ trail_enabled = true
 trail_lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_i5ewk")
 draw_pass_1 = SubResource("RibbonTrailMesh_bmsgf")
+
+[node name="GPU_Shockwave" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_ubfsd")
+amount = 1
+lifetime = 0.25
+process_material = SubResource("ParticleProcessMaterial_iqudh")
+draw_pass_1 = SubResource("SphereMesh_kberc")
