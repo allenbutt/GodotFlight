@@ -19,6 +19,7 @@ func _ready():
 	$Camera3D.target = player
 	$Window.export_target = $Camera3D
 	player3d.take_hit.connect(player_take_hit)
+	
 
 
 func _process(delta):
