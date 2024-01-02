@@ -1,0 +1,15 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://kwyqhmxqyw7i"]
+
+[sub_resource type="VisualShaderNodeTexture3DParameter" id="VisualShaderNodeTexture3DParameter_1h0rq"]
+parameter_name = "Texture3DParameter"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+"
+graph_offset = Vector2(-161, 159)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture3DParameter_1h0rq")
+nodes/fragment/2/position = Vector2(20, 220)
