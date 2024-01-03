@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://h0m6qt4k3ial"]
+[gd_scene load_steps=52 format=3 uid="uid://h0m6qt4k3ial"]
 
 [ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="1_4qj3h"]
 [ext_resource type="Shader" path="res://art/shaders/explosion.gdshader" id="2_jlhuf"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dq77mm46vsy86" path="res://art/fire/Voronoi01.png" id="5_msdjo"]
 [ext_resource type="Texture2D" uid="uid://cpt8jfu1n5pmb" path="res://art/fire/Flame02.png" id="6_58avn"]
 [ext_resource type="Shader" uid="uid://bfmclu8p3y7y3" path="res://art/shaders/explosionparticles.tres" id="7_ehq77"]
-[ext_resource type="Shader" uid="uid://kwyqhmxqyw7i" path="res://scenes/explosionsphere.tres" id="8_j7wur"]
+[ext_resource type="Material" uid="uid://kk01spba4m5j" path="res://art/materials/explosion.tres" id="8_i4cer"]
 
 [sub_resource type="Gradient" id="Gradient_x7ymf"]
 offsets = PackedFloat32Array(0, 0.370748, 1)
@@ -106,8 +106,8 @@ spread = 0.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 5.0
 initial_velocity_max = 5.0
-scale_min = 12.0
-scale_max = 16.0
+scale_min = 10.0
+scale_max = 10.0
 scale_curve = SubResource("CurveTexture_m0ejs")
 
 [sub_resource type="SphereMesh" id="SphereMesh_kberc"]
@@ -202,12 +202,40 @@ hue_variation_max = 0.06
 
 [sub_resource type="QuadMesh" id="QuadMesh_k67tx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7w5e"]
-render_priority = 0
-shader = ExtResource("8_j7wur")
-
 [sub_resource type="SphereMesh" id="SphereMesh_y8sgf"]
-material = SubResource("ShaderMaterial_s7w5e")
+material = ExtResource("8_i4cer")
+
+[sub_resource type="Gradient" id="Gradient_hhjtj"]
+offsets = PackedFloat32Array(0.00340136, 0.0340136, 0.115646, 0.37415, 0.55102, 0.772109, 1)
+colors = PackedColorArray(1, 1, 0.921569, 1, 0.917647, 0.698039, 0.254902, 1, 0.779129, 0.35508, 0.0960761, 1, 0.827451, 0.184314, 0.0313726, 0.768627, 0.584825, 0.108707, 0.0265271, 0.551407, 0.501961, 0.0745098, 0.0470588, 0.411765, 0.419608, 0.0352941, 0.0705882, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_86imq"]
+gradient = SubResource("Gradient_hhjtj")
+
+[sub_resource type="Curve" id="Curve_5r4f4"]
+_data = [Vector2(0.00307692, 0), 0.0, 0.0, 0, 0, Vector2(0.126154, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lwc2n"]
+curve = SubResource("Curve_5r4f4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3gq3c"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_rotate_y = true
+gravity = Vector3(0, 1, 0)
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+damping_min = 1.0
+damping_max = 1.0
+angle_max = 360.0
+scale_min = 1.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_lwc2n")
+color_ramp = SubResource("GradientTexture1D_86imq")
+
+[sub_resource type="SphereMesh" id="SphereMesh_hkard"]
+material = ExtResource("8_i4cer")
 
 [node name="Explosion" type="Node3D"]
 
@@ -224,6 +252,7 @@ process_material = SubResource("ParticleProcessMaterial_dvljx")
 draw_pass_1 = SubResource("CapsuleMesh_bpkl0")
 
 [node name="GPU_Trails" type="GPUParticles3D" parent="."]
+visible = false
 amount = 50
 lifetime = 3.0
 explosiveness = 1.0
@@ -233,11 +262,11 @@ process_material = SubResource("ParticleProcessMaterial_i5ewk")
 draw_pass_1 = SubResource("RibbonTrailMesh_bmsgf")
 
 [node name="GPU_Shockwave" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11617, 0, 0)
-visible = false
 material_override = SubResource("ShaderMaterial_ubfsd")
+emitting = false
 amount = 1
 lifetime = 0.25
+one_shot = true
 process_material = SubResource("ParticleProcessMaterial_iqudh")
 draw_pass_1 = SubResource("SphereMesh_kberc")
 
@@ -252,6 +281,7 @@ draw_pass_1 = SubResource("QuadMesh_ah5k2")
 
 [node name="GPU_Flame" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.156, 0.375862, 0)
+visible = false
 material_override = SubResource("ShaderMaterial_y4jnd")
 amount = 5
 explosiveness = 1.0
@@ -270,6 +300,7 @@ draw_pass_1 = SubResource("QuadMesh_25cqt")
 
 [node name="GPU_Particles2" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.350939, 4.78936, -0.334764)
+visible = false
 material_override = SubResource("ShaderMaterial_fbjqn")
 amount = 100
 lifetime = 3.0
@@ -282,3 +313,10 @@ draw_pass_1 = SubResource("QuadMesh_k67tx")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
 mesh = SubResource("SphereMesh_y8sgf")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 20
+lifetime = 1.5
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_3gq3c")
+draw_pass_1 = SubResource("SphereMesh_hkard")

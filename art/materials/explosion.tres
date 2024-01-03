@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://kk01spba4m5j"]
+
+[ext_resource type="Shader" uid="uid://kwyqhmxqyw7i" path="res://scenes/explosionsphere.tres" id="1_ixto3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q1isi"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0fr2j"]
+seamless = true
+noise = SubResource("FastNoiseLite_q1isi")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxo5y"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uxyvq"]
+seamless = true
+noise = SubResource("FastNoiseLite_hxo5y")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2v0ua"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iquit"]
+seamless = true
+noise = SubResource("FastNoiseLite_2v0ua")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ixto3")
+shader_parameter/NormalStrength = 0.1
+shader_parameter/Displacement = 2.0
+shader_parameter/Emission_Strength = 1.0
+shader_parameter/Emission_Noise_Effect = 3.0
+shader_parameter/Displacement_Texture = SubResource("NoiseTexture2D_uxyvq")
+shader_parameter/Emission_Noise_Texture = SubResource("NoiseTexture2D_iquit")
+shader_parameter/Alpha_Mask = SubResource("NoiseTexture2D_0fr2j")
