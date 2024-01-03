@@ -9,6 +9,9 @@ var lerp_speed = 1.0
 
 var move_enemy_1 = false
 var move_enemy_2 = false
+var test_explode = false
+var test_explode2 = false
+var test_explode3 = false
 
 @onready var player = $Window
 @onready var ui = $ui_canvas
@@ -39,6 +42,27 @@ func enemy_movement(delta):
 		$EnemyShip2Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $EnemyShip2Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_2 = true
+	if test_explode == false and $Path3D/PathFollow3D.progress > 25.9:
+		test_explode = true
+		$Explosion/Node3D/GPU_Shockwave.emitting = true
+		$Explosion/Node3D/ParticlesExplosionCloud.emitting = true
+		$Explosion/Node3D/ParticlesExplosionCloud2.emitting = true
+		$Explosion/Node3D/ParticlesExplosionCloud3.emitting = true
+		$Explosion/Node3D/GPU_Particles.emitting = true
+	if test_explode2 == false and $Path3D/PathFollow3D.progress > 38.25:
+		test_explode2 = true
+		$Explosion2/Node3D/GPU_Shockwave.emitting = true
+		$Explosion2/Node3D/ParticlesExplosionCloud.emitting = true
+		$Explosion2/Node3D/ParticlesExplosionCloud2.emitting = true
+		$Explosion2/Node3D/ParticlesExplosionCloud3.emitting = true
+		$Explosion2/Node3D/GPU_Particles.emitting = true
+	if test_explode3 == false and $Path3D/PathFollow3D.progress > 40:
+		test_explode3 = true
+		$Explosion3/Node3D/GPU_Shockwave.emitting = true
+		$Explosion3/Node3D/ParticlesExplosionCloud.emitting = true
+		$Explosion3/Node3D/ParticlesExplosionCloud2.emitting = true
+		$Explosion3/Node3D/ParticlesExplosionCloud3.emitting = true
+		$Explosion3/Node3D/GPU_Particles.emitting = true
 		
 func player_take_hit():
 	ui.set_healthbar_value(Global.player_health)
