@@ -17,6 +17,9 @@ var test_explode3 = false
 @onready var ui = $ui_canvas
 @onready var player3d = $Window/Player3D
 
+var explosion = preload("res://scenes/explosion.tscn")
+var missile = preload("res://scenes/enemy_missile.tscn")
+
 func _ready():
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
@@ -32,6 +35,7 @@ func _process(delta):
 		Global.forward_speed = Global.forward_speed_base
 	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
 	enemy_movement(delta)
+	demo_explode()
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 80:
@@ -42,28 +46,18 @@ func enemy_movement(delta):
 		$EnemyShip2Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $EnemyShip2Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_2 = true
-	if test_explode == false and $Path3D/PathFollow3D.progress > 25.9:
-		test_explode = true
-		$Explosion/Node3D/GPU_Shockwave.emitting = true
-		$Explosion/Node3D/ParticlesExplosionCloud.emitting = true
-		$Explosion/Node3D/ParticlesExplosionCloud2.emitting = true
-		$Explosion/Node3D/ParticlesExplosionCloud3.emitting = true
-		$Explosion/Node3D/GPU_Particles.emitting = true
-	if test_explode2 == false and $Path3D/PathFollow3D.progress > 38.25:
-		test_explode2 = true
-		$Explosion2/Node3D/GPU_Shockwave.emitting = true
-		$Explosion2/Node3D/ParticlesExplosionCloud.emitting = true
-		$Explosion2/Node3D/ParticlesExplosionCloud2.emitting = true
-		$Explosion2/Node3D/ParticlesExplosionCloud3.emitting = true
-		$Explosion2/Node3D/GPU_Particles.emitting = true
-	if test_explode3 == false and $Path3D/PathFollow3D.progress > 40:
-		test_explode3 = true
-		$Explosion3/Node3D/GPU_Shockwave.emitting = true
-		$Explosion3/Node3D/ParticlesExplosionCloud.emitting = true
-		$Explosion3/Node3D/ParticlesExplosionCloud2.emitting = true
-		$Explosion3/Node3D/ParticlesExplosionCloud3.emitting = true
-		$Explosion3/Node3D/GPU_Particles.emitting = true
+
 		
 func player_take_hit():
 	ui.set_healthbar_value(Global.player_health)
 	$Camera3D.screen_shake()
+
+func demo_explode():
+	if randi_range(0,60) == 1:
+#		var explode = explosion.instantiate()
+#		explode.global_position = player.global_position + Vector3(randf_range(-20,20),0,8 + randf_range(0,12))
+#		add_child(explode)
+		var enemy_missile = missile.instantiate()
+		enemy_missile.global_position = player.global_position + Vector3(randf_range(-200,200),20,100 + randf_range(0,12))
+		enemy_missile.look_at(player.global_position)
+		add_child(enemy_missile)

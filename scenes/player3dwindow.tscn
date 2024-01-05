@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=20 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
@@ -38,8 +38,13 @@ size = Vector3(25, 0.1, 0.05)
 size = Vector3(0.1, 25, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y1mi4"]
+size = Vector3(10, 10, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_hi5nh"]
+size = Vector3(10, 10, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pbtfv"]
+size = Vector3(28, 10, 2)
 
 [node name="Window" type="Node3D"]
 
@@ -109,6 +114,7 @@ one_shot = true
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+visible = false
 mesh = SubResource("TorusMesh_xpxp4")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
@@ -127,16 +133,52 @@ visible = false
 mesh = SubResource("BoxMesh_nyyay")
 skeleton = NodePath("../Player3D")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.42621, 0, 0)
+[node name="Blockers" type="Node3D" parent="."]
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Blockers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D"]
 shape = SubResource("BoxShape3D_y1mi4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D/CollisionShape3D"]
 mesh = SubResource("BoxMesh_hi5nh")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Blockers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D2"]
+shape = SubResource("BoxShape3D_y1mi4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_hi5nh")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Blockers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D3"]
+shape = SubResource("BoxShape3D_y1mi4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D3/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pbtfv")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Blockers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D4"]
+shape = SubResource("BoxShape3D_y1mi4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D4/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pbtfv")
 
 [connection signal="area_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_body_entered"]

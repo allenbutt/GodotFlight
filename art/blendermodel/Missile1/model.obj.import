@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dukuu2plg2jqq"
+path="res://.godot/imported/model.obj-cea1f3ba201bcfcaf8256ee6d8218ec3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/model.obj-cea1f3ba201bcfcaf8256ee6d8218ec3.mesh"]
+
+source_file="res://art/blendermodel/Missile1/model.obj"
+dest_files=["res://.godot/imported/model.obj-cea1f3ba201bcfcaf8256ee6d8218ec3.mesh", "res://.godot/imported/model.obj-cea1f3ba201bcfcaf8256ee6d8218ec3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

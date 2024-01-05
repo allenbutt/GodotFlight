@@ -2,7 +2,7 @@ extends Camera3D
 
 @export var lerp_speed = 1
 @export var target: Node3D
-@export var offset = Vector3(0,0.5,-0)
+@export var offset = Vector3(0,0.5,-0.5)
 #For camera shake effect
 @export var period = 0.1
 @export var magnitude = 0.1

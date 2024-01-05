@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://br0jnlubltqc7"]
+[gd_resource type="VisualShader" load_steps=20 format=3 uid="uid://br0jnlubltqc7"]
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_gemy4"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, 0.5]
@@ -35,6 +35,9 @@ input_name = "uv"
 default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
 op_type = 0
 operator = 2
+
+[sub_resource type="VisualShaderNodeVec4Parameter" id="VisualShaderNodeVec4Parameter_o2ksw"]
+parameter_name = "EmissionVector"
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4g523"]
 parameter_name = "MainTex"
@@ -78,6 +81,7 @@ uniform vec2 DissolveTiling = vec2(1.000000, 1.000000);
 uniform vec2 DissolveSpeed = vec2(0.000000, 0.000000);
 uniform sampler2D DissolveTexture;
 uniform float DissolveAmount : hint_range(0, 1) = 0;
+uniform vec4 EmissionVector;
 
 
 
@@ -165,13 +169,19 @@ void fragment() {
 	float n_out4p3 = n_out6p0.w;
 
 
+// Vector4Parameter:19
+	vec4 n_out19p0 = EmissionVector;
+
+
 // Output:0
 	ALBEDO = vec3(n_out6p0.xyz);
 	ALPHA = n_out4p3;
+	EMISSION = vec3(n_out19p0.xyz);
 
 
 }
 "
+graph_offset = Vector2(113.425, -11.4259)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_2pr2w")
 nodes/vertex/2/position = Vector2(60, 180)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
@@ -210,4 +220,6 @@ nodes/fragment/17/node = SubResource("VisualShaderNodeInput_kpo2w")
 nodes/fragment/17/position = Vector2(-1020, 460)
 nodes/fragment/18/node = SubResource("VisualShaderNodeVectorOp_npqc2")
 nodes/fragment/18/position = Vector2(-640, 520)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 3, 0, 1, 5, 0, 6, 0, 6, 0, 0, 0, 6, 0, 4, 0, 7, 0, 8, 2, 8, 0, 9, 1, 3, 0, 9, 0, 3, 0, 10, 0, 9, 0, 10, 1, 10, 0, 6, 1, 11, 0, 10, 2, 12, 0, 8, 0, 14, 0, 15, 0, 13, 0, 15, 1, 15, 0, 12, 2, 17, 0, 18, 0, 16, 0, 18, 1, 18, 0, 12, 0)
+nodes/fragment/19/node = SubResource("VisualShaderNodeVec4Parameter_o2ksw")
+nodes/fragment/19/position = Vector2(500, 60)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 3, 0, 1, 5, 0, 6, 0, 6, 0, 0, 0, 6, 0, 4, 0, 7, 0, 8, 2, 8, 0, 9, 1, 3, 0, 9, 0, 3, 0, 10, 0, 9, 0, 10, 1, 10, 0, 6, 1, 11, 0, 10, 2, 12, 0, 8, 0, 14, 0, 15, 0, 13, 0, 15, 1, 15, 0, 12, 2, 17, 0, 18, 0, 16, 0, 18, 1, 18, 0, 12, 0, 19, 0, 0, 5)
