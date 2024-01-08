@@ -58,6 +58,7 @@ func demo_explode():
 #		explode.global_position = player.global_position + Vector3(randf_range(-20,20),0,8 + randf_range(0,12))
 #		add_child(explode)
 		var enemy_missile = missile.instantiate()
-		enemy_missile.global_position = player.global_position + Vector3(randf_range(-200,200),20,100 + randf_range(0,12))
-		enemy_missile.look_at(player.global_position)
 		add_child(enemy_missile)
+		enemy_missile.global_position = player3d.global_position + Vector3(randf_range(-10,10),6,2 + randf_range(0,12))
+		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
+		(player3d.global_transform.origin - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://ciovpu1wj715u"]
+[gd_scene load_steps=70 format=3 uid="uid://ciovpu1wj715u"]
 
 [ext_resource type="Script" path="res://scripts/enemy_missile.gd" id="1_0nqvm"]
 [ext_resource type="ArrayMesh" uid="uid://dukuu2plg2jqq" path="res://art/blendermodel/Missile1/model.obj" id="1_khi70"]
@@ -34,6 +34,11 @@ volumetric_fog_albedo = Color(1, 1, 0.654902, 1)
 adjustment_enabled = true
 adjustment_contrast = 1.1
 adjustment_saturation = 1.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2wi6m"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 20.0
 
 [sub_resource type="Gradient" id="Gradient_d1mtq"]
 offsets = PackedFloat32Array(0, 0.370748, 1)
@@ -487,8 +492,9 @@ shader_parameter/Alpha_Mask = SubResource("NoiseTexture2D_i5nt8")
 [sub_resource type="SphereMesh" id="SphereMesh_y1eqe"]
 material = SubResource("ShaderMaterial_xp2m1")
 
-[node name="Enemy_Missile" type="Node3D"]
+[node name="Enemy_Missile" type="Node3D" node_paths=PackedStringArray("missile")]
 script = ExtResource("1_0nqvm")
+missile = NodePath("Missile")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.00366513, 0, -0.999993, 0, 1, 0, 0.999993, 0, -0.00366513, -5.36846, 0, 2.73428)
@@ -498,6 +504,12 @@ visible = false
 environment = SubResource("Environment_xs7hv")
 
 [node name="Missile" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Missile"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 10.0974)
+visible = false
+mesh = SubResource("CylinderMesh_2wi6m")
+skeleton = NodePath("../..")
 
 [node name="Model" type="MeshInstance3D" parent="Missile"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -523,8 +535,8 @@ draw_pass_1 = SubResource("CapsuleMesh_t6keb")
 [node name="GPU_Flame" type="GPUParticles3D" parent="Missile"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.259503)
 material_override = SubResource("ShaderMaterial_r01e2")
-amount = 200
-lifetime = 0.4
+amount = 300
+lifetime = 1.25
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_7vcbh")
 draw_pass_1 = SubResource("QuadMesh_ovtwr")

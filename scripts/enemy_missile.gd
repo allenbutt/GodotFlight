@@ -1,6 +1,8 @@
 extends Node3D
 
+var speed = 0.3
 var velocity = Vector3.FORWARD
+@export var missile: Node3D
 
 func _ready():
 	pass
@@ -8,12 +10,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(get_global_transform().basis.z)
-	#transform.origin += transform.basis.z * delta
-#	var aim = global_transform.basis
-#	print(aim)
-#	#print($Missile.position.z)
-	$Missile.rotation.z += 0.1
-	global_position += 0.075 * velocity
-##	if $Missile.position.z > 20:
-##		$Missile.position.z = 0.0
+	velocity = missile.global_transform.basis.z
+	missile.global_position += speed * velocity * delta * 60

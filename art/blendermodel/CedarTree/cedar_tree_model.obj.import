@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cl50ypxva5mi4"
+path="res://.godot/imported/cedar_tree_model.obj-f7174f001ccde5960c451f681a5a15f6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cedar_tree_model.obj-f7174f001ccde5960c451f681a5a15f6.mesh"]
+
+source_file="res://art/blendermodel/CedarTree/cedar_tree_model.obj"
+dest_files=["res://.godot/imported/cedar_tree_model.obj-f7174f001ccde5960c451f681a5a15f6.mesh", "res://.godot/imported/cedar_tree_model.obj-f7174f001ccde5960c451f681a5a15f6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

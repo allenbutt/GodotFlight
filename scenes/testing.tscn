@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://caali75t7itdv"]
+
+[ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="1_m61b6"]
+[ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
+[ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g8u8n"]
+panorama = ExtResource("1_m61b6")
+
+[sub_resource type="Sky" id="Sky_bysvt"]
+sky_material = SubResource("PanoramaSkyMaterial_g8u8n")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_dw0ny"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_bysvt")
+sky_rotation = Vector3(0, -0.0837758, 0)
+ambient_light_source = 3
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_bounce_feedback = 1.75
+sdfgi_energy = 2.0
+glow_enabled = true
+glow_bloom = 0.07
+fog_density = 0.001
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0025
+volumetric_fog_albedo = Color(1, 1, 0.654902, 1)
+adjustment_enabled = true
+adjustment_contrast = 1.1
+adjustment_saturation = 1.1
+
+[node name="testing" type="Node3D"]
+script = ExtResource("1_xat0c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dw0ny")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.475993, 0, -0.879449, 0, 1, 0, 0.879449, 0, -0.475993, -8.60334, 0.0232986, -1.03401)
+
+[node name="Window" parent="." instance=ExtResource("2_xwvwu")]
+transform = Transform3D(0.539329, 0, 0.842095, 0, 1, 0, -0.842095, 0, 0.539329, -6.57723, 0, 0.011483)
