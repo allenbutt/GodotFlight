@@ -1,7 +1,8 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.5
+var start = 440.0
+#0.5 normal
 
 var target_xform
 var offset = Vector3(0,0,0)
