@@ -31,7 +31,7 @@ func player_movement(delta):
 	var shift_bonus = 1
 	
 	if Input.is_action_pressed("shift"):
-		shift_bonus = 0.85
+		shift_bonus = 0.67
 	else:
 		shift_bonus = 1
 

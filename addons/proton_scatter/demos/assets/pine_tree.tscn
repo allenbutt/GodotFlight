@@ -11,9 +11,15 @@ height = 4.0
 [node name="pine_tree" instance=ExtResource("1_hw1e5")]
 
 [node name="Trunk" parent="." index="0"]
+lod_bias = 0.5
+visibility_range_begin = 2.0
+visibility_range_end = 200.0
 surface_material_override/0 = ExtResource("2_cgtpc")
 
 [node name="Leaves" parent="." index="1"]
+lod_bias = 0.1
+visibility_range_begin = 2.0
+visibility_range_end = 200.0
 surface_material_override/0 = ExtResource("2_xnytt")
 
 [node name="Area3D" type="Area3D" parent="." index="2"]
