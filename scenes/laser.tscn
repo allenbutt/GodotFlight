@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1biuhqfwwtyj"]
+
+[ext_resource type="Script" path="res://scripts/laser.gd" id="1_40ukr"]
+[ext_resource type="PackedScene" uid="uid://bmk0qcddcuc60" path="res://scenes/laser_travel_particles.tscn" id="2_xgely"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bph2t"]
+flip_faces = true
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7pct3"]
+transparency = 1
+albedo_color = Color(0.627451, 1, 1, 1)
+emission_enabled = true
+emission = Color(0.121569, 0.992157, 1, 1)
+emission_energy_multiplier = 10.0
+
+[node name="Laser" type="RayCast3D"]
+target_position = Vector3(0, -50, 0)
+collide_with_areas = true
+script = ExtResource("1_40ukr")
+
+[node name="BeamMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_bph2t")
+surface_material_override/0 = SubResource("StandardMaterial3D_7pct3")
+
+[node name="LaserParticles" parent="." instance=ExtResource("2_xgely")]
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+size = Vector3(0.3, 0.3, 0.3)

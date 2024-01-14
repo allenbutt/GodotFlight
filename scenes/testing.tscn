@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://caali75t7itdv"]
+[gd_scene load_steps=12 format=3 uid="uid://caali75t7itdv"]
 
 [ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="1_m61b6"]
 [ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
 [ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
+[ext_resource type="Texture2D" path="res://art/Terrain/ground037_alb_ht.dds" id="4_hqlqw"]
+[ext_resource type="PackedScene" uid="uid://c1biuhqfwwtyj" path="res://scenes/laser.tscn" id="5_a6my7"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g8u8n"]
 panorama = ExtResource("1_m61b6")
@@ -31,6 +33,17 @@ adjustment_enabled = true
 adjustment_contrast = 1.1
 adjustment_saturation = 1.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rok6i"]
+albedo_color = Color(0.207843, 0.364706, 0.341176, 1)
+albedo_texture = ExtResource("4_hqlqw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_k8tmv"]
+material = SubResource("StandardMaterial3D_rok6i")
+size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_70msh"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
 [node name="testing" type="Node3D"]
 script = ExtResource("1_xat0c")
 
@@ -38,7 +51,21 @@ script = ExtResource("1_xat0c")
 environment = SubResource("Environment_dw0ny")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.475993, 0, -0.879449, 0, 1, 0, 0.879449, 0, -0.475993, -8.60334, 0.0232986, -1.03401)
+transform = Transform3D(-0.481754, 0.167207, -0.860206, 0, 0.981627, 0.190809, 0.876307, 0.0919229, -0.472902, -8.603, 1, -1.034)
 
 [node name="Window" parent="." instance=ExtResource("2_xwvwu")]
 transform = Transform3D(0.539329, 0, 0.842095, 0, 1, 0, -0.842095, 0, 0.539329, -6.57723, 0, 0.011483)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_k8tmv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_70msh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Laser" parent="." instance=ExtResource("5_a6my7")]
+transform = Transform3D(1, 0, 0, 0, 0.0195813, -0.999808, 0, 0.999808, 0.0195813, -6.17696, 0.652359, 4.32788)
