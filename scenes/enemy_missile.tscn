@@ -99,7 +99,6 @@ emission_box_extents = Vector3(0, 0, 0.1)
 direction = Vector3(0, 0, -1)
 spread = 0.0
 gravity = Vector3(0, 0, 0)
-initial_velocity_max = 1.0
 angle_max = 360.0
 scale_min = 0.2
 scale_max = 0.3
@@ -107,6 +106,7 @@ scale_curve = SubResource("CurveTexture_3wnp8")
 color = Color(4, 1.25, 0.6, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ovtwr"]
+size = Vector2(2, 2)
 
 [sub_resource type="Gradient" id="Gradient_wvn41"]
 offsets = PackedFloat32Array(0, 0.482993, 1)
@@ -494,15 +494,18 @@ material = SubResource("ShaderMaterial_xp2m1")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tkm36"]
 flip_faces = true
-top_radius = 0.006
+top_radius = 0.3
 bottom_radius = 0.006
 height = 100.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0cwu"]
-transparency = 1
+cull_mode = 2
 albedo_color = Color(0.956863, 0, 0.266667, 1)
+metallic_specular = 0.0
 emission = Color(0.121569, 0.992157, 1, 1)
 emission_energy_multiplier = 10.0
+backlight_enabled = true
+billboard_keep_scale = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f65gj"]
 size = Vector3(0.1, 0.1, 1)
@@ -570,6 +573,7 @@ draw_pass_1 = SubResource("SphereMesh_y1eqe")
 [node name="TargetLaser" type="MeshInstance3D" parent="Missile"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 50)
 cast_shadow = 0
+gi_mode = 0
 mesh = SubResource("CylinderMesh_tkm36")
 surface_material_override/0 = SubResource("StandardMaterial3D_n0cwu")
 

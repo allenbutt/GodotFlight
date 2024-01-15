@@ -51,7 +51,7 @@ script = ExtResource("1_xat0c")
 environment = SubResource("Environment_dw0ny")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.481754, 0.167207, -0.860206, 0, 0.981627, 0.190809, 0.876307, 0.0919229, -0.472902, -8.603, 1, -1.034)
+transform = Transform3D(-0.481754, 0.167207, -0.860206, 0, 0.981627, 0.190809, 0.876307, 0.0919229, -0.472903, -9.63028, 1.17865, -1.6959)
 
 [node name="Window" parent="." instance=ExtResource("2_xwvwu")]
 transform = Transform3D(0.539329, 0, 0.842095, 0, 1, 0, -0.842095, 0, 0.539329, -6.57723, 0.128157, 0.011483)

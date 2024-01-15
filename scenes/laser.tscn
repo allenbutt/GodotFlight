@@ -22,10 +22,12 @@ collide_with_areas = true
 script = ExtResource("1_40ukr")
 
 [node name="BeamMesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 mesh = SubResource("CylinderMesh_bph2t")
 surface_material_override/0 = SubResource("StandardMaterial3D_7pct3")
 
 [node name="LaserParticles" parent="." instance=ExtResource("2_xgely")]
+cast_shadow = 0
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
 size = Vector3(0.3, 0.3, 0.3)

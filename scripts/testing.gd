@@ -16,5 +16,5 @@ func missile_spawn():
 		add_child(enemy_missile)
 		enemy_missile.missile.global_position = player.global_position + Vector3(randf_range(10,15),randf_range(5,15),randf_range(-5,5))
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
-		(player.global_transform.origin - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+		(player.global_transform.origin + player.global_transform.basis.z * 10 - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 

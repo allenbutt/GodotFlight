@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.5
+var start = 888.0
 #0.5 start
 #440.0 downhill
 #888.0 sharp turn
@@ -56,12 +56,15 @@ func player_take_hit():
 	$Camera3D.screen_shake()
 
 func demo_explode():
-	if randi_range(0,60) == 1:
+	if randi_range(0,100) == 1:
+		var forward_offset = randf_range(14.0, 24.0) * Global.forward_speed * 8
 #		var explode = explosion.instantiate()
 #		explode.global_position = player.global_position + Vector3(randf_range(-20,20),0,8 + randf_range(0,12))
 #		add_child(explode)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
-		enemy_missile.global_position = player3d.global_position + Vector3(randf_range(-10,10),6,2 + randf_range(0,12))
+		enemy_missile.global_position = player3d.global_position + Vector3(randf_range(-10,10),randf_range(6,20),20 + randf_range(0,20))
+#		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
+#		(player3d.global_transform.origin - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
-		(player3d.global_transform.origin - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+		(player.global_transform.origin + player.global_transform.basis.z * forward_offset - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)

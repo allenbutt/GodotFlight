@@ -18,7 +18,8 @@ func _process(delta):
 
 func _on_area_3d_body_entered(body):
 	var explode = explosion.instantiate()
-	explode.global_position = missile.global_position
+	explode.position = missile.position
 	add_child(explode)
+	$Missile/TargetLaser.visible = false
 	await get_tree().create_timer(2.0).timeout
 	queue_free()
