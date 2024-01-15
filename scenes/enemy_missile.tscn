@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://ciovpu1wj715u"]
+[gd_scene load_steps=73 format=3 uid="uid://ciovpu1wj715u"]
 
 [ext_resource type="Script" path="res://scripts/enemy_missile.gd" id="1_0nqvm"]
 [ext_resource type="ArrayMesh" uid="uid://dukuu2plg2jqq" path="res://art/blendermodel/Missile1/model.obj" id="1_khi70"]
@@ -492,6 +492,21 @@ shader_parameter/Alpha_Mask = SubResource("NoiseTexture2D_i5nt8")
 [sub_resource type="SphereMesh" id="SphereMesh_y1eqe"]
 material = SubResource("ShaderMaterial_xp2m1")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_tkm36"]
+flip_faces = true
+top_radius = 0.006
+bottom_radius = 0.006
+height = 100.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0cwu"]
+transparency = 1
+albedo_color = Color(0.956863, 0, 0.266667, 1)
+emission = Color(0.121569, 0.992157, 1, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f65gj"]
+size = Vector3(0.1, 0.1, 1)
+
 [node name="Enemy_Missile" type="Node3D" node_paths=PackedStringArray("missile")]
 script = ExtResource("1_0nqvm")
 missile = NodePath("Missile")
@@ -535,6 +550,7 @@ draw_pass_1 = SubResource("CapsuleMesh_t6keb")
 [node name="GPU_Flame" type="GPUParticles3D" parent="Missile"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.259503)
 material_override = SubResource("ShaderMaterial_r01e2")
+cast_shadow = 0
 amount = 300
 lifetime = 1.25
 fixed_fps = 60
@@ -550,3 +566,18 @@ lifetime = 3.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_ol3ev")
 draw_pass_1 = SubResource("SphereMesh_y1eqe")
+
+[node name="TargetLaser" type="MeshInstance3D" parent="Missile"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 50)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_tkm36")
+surface_material_override/0 = SubResource("StandardMaterial3D_n0cwu")
+
+[node name="Area3D" type="Area3D" parent="Missile"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Missile/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.246591)
+shape = SubResource("BoxShape3D_f65gj")
+
+[connection signal="body_entered" from="Missile/Area3D" to="." method="_on_area_3d_body_entered"]
