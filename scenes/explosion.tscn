@@ -1,4 +1,4 @@
-[gd_scene load_steps=189 format=3 uid="uid://h0m6qt4k3ial"]
+[gd_scene load_steps=191 format=3 uid="uid://h0m6qt4k3ial"]
 
 [ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="1_4qj3h"]
 [ext_resource type="Script" path="res://scripts/explosion.gd" id="1_aaxac"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpt8jfu1n5pmb" path="res://art/fire/Flame02.png" id="6_58avn"]
 [ext_resource type="Shader" uid="uid://bfmclu8p3y7y3" path="res://art/shaders/explosionparticles.tres" id="7_ehq77"]
 [ext_resource type="Material" uid="uid://kk01spba4m5j" path="res://art/materials/explosion.tres" id="8_i4cer"]
+[ext_resource type="Script" path="res://scripts/explosionarea.gd" id="10_qb1io"]
 
 [sub_resource type="Gradient" id="Gradient_db0pr"]
 offsets = PackedFloat32Array(0, 0.214286)
@@ -1391,6 +1392,10 @@ material = SubResource("StandardMaterial3D_qx2ig")
 radius = 0.05
 height = 0.1
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cessa"]
+height = 3.0
+radius = 1.0
+
 [node name="Explosion" type="Node3D"]
 script = ExtResource("1_aaxac")
 
@@ -1486,7 +1491,6 @@ emitting = false
 amount = 3
 lifetime = 1.25
 one_shot = true
-explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_xaiye")
 draw_pass_1 = SubResource("SphereMesh_swv04")
 
@@ -1511,3 +1515,11 @@ randomness = 1.0
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_dvljx")
 draw_pass_1 = SubResource("CapsuleMesh_bpkl0")
+
+[node name="Area3D" type="Area3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00692, 0)
+collision_mask = 0
+script = ExtResource("10_qb1io")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3D"]
+shape = SubResource("CylinderShape3D_cessa")

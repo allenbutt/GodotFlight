@@ -20,15 +20,18 @@ func _process(delta):
 	pass
 
 
-
+#Interaction with hitboxes like trees and missiles
 func _on_area_3d_area_entered(area):
-	Global.player_health = Global.player_health - 20
+	if area.has_method("damage_value"):
+		Global.player_health = Global.player_health - area.damage_value()
+	else:
+		Global.player_health = Global.player_health - Global.damage_tree
 	take_hit.emit()
 	if Global.player_health <= 0:
 		queue_free()
 	hit_flash($Player_Rotation/Sprite3D)
 
-
+#Interaction with terrain
 func _on_area_3d_body_entered(body):
 	if upward_force == false:
 		Global.player_health = Global.player_health - 10

@@ -11,10 +11,10 @@ func _process(delta):
 	missile_spawn()
 
 func missile_spawn():
-	if randi_range(0,100) == 1:
+	if randi_range(0,150) == 1:
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
 		enemy_missile.missile.global_position = player.global_position + Vector3(randf_range(10,15),randf_range(5,15),randf_range(-5,5))
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
-		(player.global_transform.origin + player.global_transform.basis.z * 10 - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+		(player.global_transform.origin + player.global_transform.basis.z * 0 - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 
