@@ -8,7 +8,8 @@ func _ready():
 
 
 func _process(delta):
-	missile_spawn()
+	pass
+	#missile_spawn()
 
 func missile_spawn():
 	if randi_range(0,150) == 1:

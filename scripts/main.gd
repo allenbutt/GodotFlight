@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.5
+var start = 888.0
 #0.5 start
 #440.0 downhill
 #888.0 sharp turn
@@ -38,7 +38,7 @@ func _process(delta):
 		Global.forward_speed = Global.forward_speed_base
 	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
 	enemy_movement(delta)
-	demo_explode()
+	#demo_explode()
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 80:

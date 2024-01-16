@@ -7,6 +7,8 @@ var player_speed_max = 6.0
 var acceleration = 0.75
 var rotation_speed = 0.167
 var max_normal_rotation = 0.9
+var damage_cooldown = 0.75
+var taking_damage = false
 @onready var player_rotation_node = $Player_Rotation
 
 var upward_force = false
@@ -22,19 +24,22 @@ func _process(delta):
 
 #Interaction with hitboxes like trees and missiles
 func _on_area_3d_area_entered(area):
-	if area.has_method("damage_value"):
-		Global.player_health = Global.player_health - area.damage_value()
-	else:
-		Global.player_health = Global.player_health - Global.damage_tree
-	take_hit.emit()
-	if Global.player_health <= 0:
-		queue_free()
-	hit_flash($Player_Rotation/Sprite3D)
+	if taking_damage == false:
+		taking_damage = true
+		$Damage_Cooldown.start(damage_cooldown)
+		if area.has_method("damage_value"):
+			Global.player_health = Global.player_health - area.damage_value()
+		else:
+			Global.player_health = Global.player_health - Global.damage_tree
+		take_hit.emit()
+		if Global.player_health <= 0:
+			queue_free()
+		hit_flash($Player_Rotation/Sprite3D)
 
 #Interaction with terrain
 func _on_area_3d_body_entered(body):
 	if upward_force == false:
-		Global.player_health = Global.player_health - 10
+		Global.player_health = Global.player_health - Global.damage_terrain
 		take_hit.emit()
 		if Global.player_health <= 0:
 			queue_free()
@@ -55,3 +60,7 @@ func hit_flash(sprite):
 		sprite.material_override.set_shader_parameter("flash_color", Color(1, 1, 1))
 		await get_tree().create_timer(flash_duration).timeout
 	sprite.material_override.set_shader_parameter("active", false)
+
+
+func _on_damage_cooldown_timeout():
+	taking_damage = false

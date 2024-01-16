@@ -3,6 +3,7 @@ extends RayCast3D
 @onready var beam_mesh = $BeamMesh
 @onready var beam_particles = $LaserParticles
 @onready var beam_particle_blocker = $GPUParticlesCollisionBox3D
+@onready var beam_collision = $Area3D/CollisionShape3D
 
 func _ready():
 	pass
