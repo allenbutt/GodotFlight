@@ -5,19 +5,19 @@ extends Camera3D
 @export var offset = Vector3(0,0.5,-0.0)
 #For camera shake effect
 @export var period = 0.1
-@export var magnitude = 0.1
+@export var magnitude = 0.5
 
 func _process(delta):
-	if !target:
-		return
-	lerp_speed = Global.forward_speed * 20
-	if Input.is_action_pressed("shift"):
-		lerp_speed = lerp_speed * 0.75
-	var target_xform = target.global_transform.translated_local(offset)
-	global_transform = global_transform.interpolate_with(target_xform, lerp_speed * delta)
-
-	if global_transform.origin.is_equal_approx(target.transform.basis.y) == false:
-		look_at(target.global_transform.origin, target.transform.basis.y)
+#	if !target:
+#		return
+#	lerp_speed = Global.forward_speed * 20
+#	if Input.is_action_pressed("shift"):
+#		lerp_speed = lerp_speed * 0.75
+#	var target_xform = target.global_transform.translated_local(offset)
+#	global_transform = global_transform.interpolate_with(target_xform, lerp_speed * delta)
+#
+#	if global_transform.origin.is_equal_approx(target.transform.basis.y) == false:
+#		look_at(target.global_transform.origin, target.transform.basis.y)
 	if Input.is_action_pressed("shift"):
 		screen_shake_boost()
 

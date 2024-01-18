@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=21 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/FSM/HitTerrain.gd" id="6_pedly"]
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
 [ext_resource type="Script" path="res://scripts/FSM/Death.gd" id="8_vfevf"]
+[ext_resource type="Script" path="res://scripts/Camera3D.gd" id="10_et4hb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1dtde"]
 size = Vector3(0.681, 0.169, 0.1)
@@ -115,6 +116,12 @@ one_shot = true
 [node name="Damage_Cooldown" type="Timer" parent="Player3D"]
 one_shot = true
 
+[node name="CameraMount" type="Node3D" parent="Player3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -4)
+
+[node name="PlayerCamera" type="Camera3D" parent="Player3D/CameraMount"]
+script = ExtResource("10_et4hb")
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 visible = false
@@ -137,7 +144,6 @@ mesh = SubResource("BoxMesh_nyyay")
 skeleton = NodePath("../Player3D")
 
 [node name="Blockers" type="Node3D" parent="."]
-visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)

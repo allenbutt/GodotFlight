@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 888.0
+var start = 0.5
 #0.5 start
 #440.0 downhill
 #888.0 sharp turn
@@ -19,6 +19,7 @@ var test_explode3 = false
 @onready var player = $Window
 @onready var ui = $ui_canvas
 @onready var player3d = $Window/Player3D
+@onready var playercam = $Window/Player3D/CameraMount/PlayerCamera
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
@@ -38,7 +39,7 @@ func _process(delta):
 		Global.forward_speed = Global.forward_speed_base
 	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
 	enemy_movement(delta)
-	#demo_explode()
+	demo_explode()
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 80:
@@ -53,7 +54,7 @@ func enemy_movement(delta):
 		
 func player_take_hit():
 	ui.set_healthbar_value(Global.player_health)
-	$Camera3D.screen_shake()
+	playercam.screen_shake()
 
 func demo_explode():
 	if randi_range(0,100) == 1:
