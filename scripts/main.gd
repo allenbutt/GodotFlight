@@ -6,6 +6,8 @@ var start = 0.5
 #440.0 downhill
 #888.0 sharp turn
 
+var go_forward = false
+
 var target_xform
 var offset = Vector3(0,0,0)
 var lerp_speed = 1.0
@@ -29,7 +31,11 @@ func _ready():
 	$Camera3D.target = player
 	$Window.export_target = $Camera3D
 	player3d.take_hit.connect(player_take_hit)
+	$Path3D/PathFollow3D.progress = start
 	
+	await get_tree().create_timer(2.0).timeout
+	
+	go_forward = true
 
 
 func _process(delta):
@@ -37,9 +43,10 @@ func _process(delta):
 		Global.forward_speed = Global.forward_speed_base * 1.5
 	else:
 		Global.forward_speed = Global.forward_speed_base
-	$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
+	if go_forward:
+		$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
 	enemy_movement(delta)
-	demo_explode()
+	#demo_explode()
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 80:

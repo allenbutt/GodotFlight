@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var player_health_max = 100.0
+var player_health_max = 500.0
 
 var player_speed = 0.0
 var player_speed_max = 6.0

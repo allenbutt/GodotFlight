@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=22 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
 [ext_resource type="Script" path="res://scripts/FSM/Death.gd" id="8_vfevf"]
 [ext_resource type="Script" path="res://scripts/Camera3D.gd" id="10_et4hb"]
+[ext_resource type="Texture2D" uid="uid://cw1rg0euwong1" path="res://art/Boundaries.png" id="11_iqk1w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1dtde"]
 size = Vector3(0.681, 0.169, 0.1)
@@ -66,6 +67,7 @@ shape = SubResource("BoxShape3D_1dtde")
 [node name="Sprite3D" type="Sprite3D" parent="Player3D/Player_Rotation"]
 material_override = SubResource("ShaderMaterial_avps4")
 ignore_occlusion_culling = true
+shaded = true
 texture_filter = 0
 render_priority = 1
 texture = ExtResource("1_7ave1")
@@ -119,8 +121,9 @@ one_shot = true
 [node name="CameraMount" type="Node3D" parent="Player3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -4)
 
-[node name="PlayerCamera" type="Camera3D" parent="Player3D/CameraMount"]
+[node name="PlayerCamera" type="Camera3D" parent="Player3D/CameraMount" node_paths=PackedStringArray("boundaries")]
 script = ExtResource("10_et4hb")
+boundaries = NodePath("../../../Sprite3D")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -144,6 +147,7 @@ mesh = SubResource("BoxMesh_nyyay")
 skeleton = NodePath("../Player3D")
 
 [node name="Blockers" type="Node3D" parent="."]
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
@@ -188,6 +192,31 @@ shape = SubResource("BoxShape3D_y1mi4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D4/CollisionShape3D"]
 mesh = SubResource("BoxMesh_pbtfv")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="Blockers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D5"]
+shape = SubResource("BoxShape3D_y1mi4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D5/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pbtfv")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="Blockers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D6"]
+shape = SubResource("BoxShape3D_y1mi4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D6/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pbtfv")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("11_iqk1w")
 
 [connection signal="area_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_body_entered"]

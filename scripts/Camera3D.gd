@@ -6,6 +6,10 @@ extends Camera3D
 #For camera shake effect
 @export var period = 0.1
 @export var magnitude = 0.5
+@export var boundaries : Sprite3D
+
+var boost_shaking = false
+
 
 func _process(delta):
 #	if !target:
@@ -18,7 +22,7 @@ func _process(delta):
 #
 #	if global_transform.origin.is_equal_approx(target.transform.basis.y) == false:
 #		look_at(target.global_transform.origin, target.transform.basis.y)
-	if Input.is_action_pressed("shift"):
+	if Input.is_action_pressed("shift") and boost_shaking == false and randf_range(0,1) < 0.25:
 		screen_shake_boost()
 
 
@@ -38,10 +42,25 @@ func screen_shake():
 	self.transform = initial_transform
 
 func screen_shake_boost():
-	var boost_magnitude = 0.05
+	boost_shaking = true
 	var initial_transform = self.transform 
 	var elapsed_time = 0.0
-	var offset = Vector3(randf_range(-boost_magnitude, boost_magnitude), randf_range(-boost_magnitude, boost_magnitude), 0.0)
-	if randi_range(0,2) == 1:
-		offset = self.transform.translated_local(offset)
-		self.transform = self.transform.interpolate_with(offset, 0.2)
+	var denominator = 20.0
+
+	while elapsed_time < 0.1:
+		var offset = Vector3(
+			randf_range(-magnitude/denominator, magnitude/denominator), randf_range(-magnitude/denominator, magnitude/denominator), 0.0)
+
+		self.transform.origin = initial_transform.origin + offset
+		elapsed_time += get_process_delta_time()
+		await get_tree().process_frame
+
+	self.transform = initial_transform
+	boost_shaking = false
+#	var boost_magnitude = 0.25
+#	var initial_transform = self.transform 
+#	var elapsed_time = 0.0
+#	var offset = Vector3(randf_range(-boost_magnitude, boost_magnitude), randf_range(-boost_magnitude, boost_magnitude), 0.0)
+#	if randi_range(0,2) == 1:
+#		offset = self.transform.translated_local(offset)
+#		self.transform = self.transform.interpolate_with(offset, 0.2)
