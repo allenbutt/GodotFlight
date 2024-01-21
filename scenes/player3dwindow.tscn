@@ -52,8 +52,8 @@ size = Vector3(28, 10, 2)
 
 [node name="Player3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 10
+collision_mask = 10
 motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_5m3tf")
@@ -73,6 +73,7 @@ render_priority = 1
 texture = ExtResource("1_7ave1")
 
 [node name="Area3D" type="Area3D" parent="Player3D/Player_Rotation"]
+collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/Player_Rotation/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0887642, 0)
@@ -151,8 +152,8 @@ visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D"]
 shape = SubResource("BoxShape3D_y1mi4")
@@ -162,8 +163,8 @@ mesh = SubResource("BoxMesh_hi5nh")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D2"]
 shape = SubResource("BoxShape3D_y1mi4")
@@ -173,8 +174,8 @@ mesh = SubResource("BoxMesh_hi5nh")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D3"]
 shape = SubResource("BoxShape3D_y1mi4")
@@ -184,8 +185,8 @@ mesh = SubResource("BoxMesh_pbtfv")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D4"]
 shape = SubResource("BoxShape3D_y1mi4")
@@ -195,8 +196,8 @@ mesh = SubResource("BoxMesh_pbtfv")
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D5"]
 shape = SubResource("BoxShape3D_y1mi4")
@@ -206,8 +207,8 @@ mesh = SubResource("BoxMesh_pbtfv")
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="Blockers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blockers/StaticBody3D6"]
 shape = SubResource("BoxShape3D_y1mi4")

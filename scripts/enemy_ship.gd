@@ -1,6 +1,7 @@
 extends Node3D
 
 var rotation_speed = 0.0075
+
 func _ready():
 	pass
 

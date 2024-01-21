@@ -495,8 +495,8 @@ material = SubResource("ShaderMaterial_xp2m1")
 [sub_resource type="CylinderMesh" id="CylinderMesh_tkm36"]
 flip_faces = true
 top_radius = 0.3
-bottom_radius = 0.006
-height = 100.0
+bottom_radius = 0.001
+height = 150.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0cwu"]
 cull_mode = 2
