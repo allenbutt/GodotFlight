@@ -15,5 +15,5 @@ func _process(delta):
 		return
 	lerp_speed = Global.forward_speed * 20
 	var target_xform = target.global_transform.translated_local(offset)
-	global_transform = global_transform.interpolate_with(target_xform, lerp_speed * delta)
+	global_transform = global_transform.interpolate_with(target_xform, lerp_speed / 60)
 	#look_at(export_target.global_transform.origin, export_target.transform.basis.y)

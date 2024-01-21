@@ -49,11 +49,11 @@ func _process(delta):
 	#demo_explode()
 
 func enemy_movement(delta):
-	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 80:
+	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 125:
 		$EnemyShip1Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $EnemyShip1Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_1 = true
-	if move_enemy_2 == false and $Path3D/PathFollow3D.progress > 260:
+	if move_enemy_2 == false and $Path3D/PathFollow3D.progress > 230:
 		$EnemyShip2Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $EnemyShip2Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_2 = true

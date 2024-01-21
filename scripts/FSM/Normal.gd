@@ -69,6 +69,7 @@ func player_movement(delta):
 	if character.upward_force:
 		direction.y = 3 * (Upward_Force_Timer.get_time_left() / Upward_Force_Timer.wait_time)
 		
-	character.velocity = direction * player_speed * shift_bonus * delta * 60
-	
+	character.velocity = direction * player_speed * shift_bonus
 	character.move_and_slide()
+#	character.velocity = direction * player_speed * shift_bonus * delta
+#	character.move_and_collide(character.velocity)
