@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 200.0
+var start = 0.5
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -17,12 +17,14 @@ var go_faster_amount = 0.06
 
 var move_enemy_1 = false
 var move_enemy_2 = false
+var move_enemy_3 = false
 var test_explode = false
 var test_explode2 = false
 var test_explode3 = false
 
 var enemy2_attack_start = false
 var enemy2_attack_start2 = false
+var enemy3_attack_start = false
 
 @onready var player = $Window
 @onready var ui = $ui_canvas
@@ -70,6 +72,12 @@ func enemy_movement(delta):
 			move_enemy_2 = true
 	if $Path3D/PathFollow3D.progress >= 355.0 and enemy2_attack_start2 == false:
 		enemy2_attack2()
+	if move_enemy_3 == false and $Path3D/PathFollow3D.progress > 815:
+		$EnemyShip3Path/PathFollow3D.progress += (0.18 * delta * 60)
+		if $EnemyShip3Path/PathFollow3D.progress_ratio >= 0.95:
+			move_enemy_3 = true
+	if $Path3D/PathFollow3D.progress >= 836.0 and enemy3_attack_start == false:
+		enemy3_attack()
 
 
 		
@@ -95,7 +103,6 @@ func enact_go_faster():
 	var starting_base_speed = Global.forward_speed_base
 	while(Global.forward_speed_base < starting_base_speed + go_faster_amount):
 		Global.forward_speed_base = clamp(0, Global.forward_speed_base+.001, starting_base_speed + go_faster_amount)
-		print(Global.forward_speed_base)
 		await get_tree().create_timer(0.04).timeout
 
 func enemy2_attack():
@@ -130,3 +137,34 @@ func enemy2_attack2():
 		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 		await get_tree().create_timer(0.33).timeout
+
+func enemy3_attack():
+	enemy3_attack_start = true
+	var enemy = $EnemyShip3Path/PathFollow3D/EnemyShip
+	for count in range(0,14):
+		var forward_offset = randf_range(5.0, 10.0) * Global.forward_speed * 8
+		var other_offset = Vector3(randf_range(-12.0,12.0),randf_range(-12.0,12.0),0)
+		var enemy_missile = missile.instantiate()
+		add_child(enemy_missile)
+		enemy_missile.remove_targeting()
+		enemy_missile.speed_multiplier = 2.0
+		enemy_missile.global_position = enemy.global_position
+		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
+		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+		await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(2.0).timeout
+	for count in range(0,35):
+		var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
+		var forward_offset = randf_range(15.0, 25.0) * Global.forward_speed * 8 + distance_between * 0.2
+		var other_offset = Vector3(randf_range(-6.0,6.0),randf_range(-6.0,6.0),0)
+		var enemy_missile = missile.instantiate()
+		add_child(enemy_missile)
+		enemy_missile.speed_multiplier = 2.0
+		enemy_missile.global_position = enemy.global_position
+		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
+		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+		await get_tree().create_timer(randf_range(0.3,0.5)).timeout

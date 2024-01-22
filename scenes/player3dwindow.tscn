@@ -217,6 +217,7 @@ shape = SubResource("BoxShape3D_y1mi4")
 mesh = SubResource("BoxMesh_pbtfv")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
+modulate = Color(1, 1, 1, 0.160784)
 texture = ExtResource("11_iqk1w")
 
 [connection signal="area_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_area_entered"]

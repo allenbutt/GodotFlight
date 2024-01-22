@@ -499,12 +499,10 @@ bottom_radius = 0.001
 height = 150.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0cwu"]
+transparency = 1
 cull_mode = 2
-albedo_color = Color(0.956863, 0, 0.266667, 1)
-metallic_specular = 0.0
-emission = Color(0.121569, 0.992157, 1, 1)
-emission_energy_multiplier = 10.0
-backlight_enabled = true
+shading_mode = 0
+albedo_color = Color(0.494118, 0, 0.121569, 0.45098)
 billboard_keep_scale = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f65gj"]
@@ -571,7 +569,7 @@ process_material = SubResource("ParticleProcessMaterial_ol3ev")
 draw_pass_1 = SubResource("SphereMesh_y1eqe")
 
 [node name="TargetLaser" type="MeshInstance3D" parent="Missile"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 50)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 75)
 cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("CylinderMesh_tkm36")
