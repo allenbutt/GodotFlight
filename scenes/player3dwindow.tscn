@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=25 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
 [ext_resource type="Script" path="res://scripts/FSM/Death.gd" id="8_vfevf"]
 [ext_resource type="Script" path="res://scripts/Camera3D.gd" id="10_et4hb"]
+[ext_resource type="Shader" path="res://art/shaders/environment.gdshader" id="11_1k1r0"]
 [ext_resource type="Texture2D" uid="uid://cw1rg0euwong1" path="res://art/Boundaries.png" id="11_iqk1w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1dtde"]
@@ -25,6 +26,27 @@ shader_parameter/tex = ExtResource("1_7ave1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_smemg"]
 size = Vector3(0.681, 0.168806, 0.1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ntm7"]
+render_priority = 0
+shader = ExtResource("11_1k1r0")
+shader_parameter/outlineColor = Color(0, 0, 0, 1)
+shader_parameter/depth_threshold = 0.025
+shader_parameter/normal_threshold = 0.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 0.05
+shader_parameter/min_thickness = 0.5
+shader_parameter/max_distance = 200.0
+shader_parameter/min_distance = 2.0
+shader_parameter/grazing_fresnel_power = 5.0
+shader_parameter/grazing_angle_mask_power = 1.0
+shader_parameter/grazing_angle_modulation_factor = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_kpxns"]
+lightmap_size_hint = Vector2i(12, 12)
+material = SubResource("ShaderMaterial_6ntm7")
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="TorusMesh" id="TorusMesh_xpxp4"]
 inner_radius = 4.0
@@ -125,6 +147,13 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5
 [node name="PlayerCamera" type="Camera3D" parent="Player3D/CameraMount" node_paths=PackedStringArray("boundaries")]
 script = ExtResource("10_et4hb")
 boundaries = NodePath("../../../Sprite3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player3D/CameraMount/PlayerCamera"]
+transform = Transform3D(-1, 2.22045e-16, 8.74228e-08, 2.13593e-09, 0.999701, 0.0244322, -8.73966e-08, 0.0244322, -0.999701, 7.34669e-08, 0.0205319, -0.840113)
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_kpxns")
+skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

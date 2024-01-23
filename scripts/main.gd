@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.5
+var start = 170.0
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -22,6 +22,7 @@ var test_explode = false
 var test_explode2 = false
 var test_explode3 = false
 
+var enemy1_attack_start = false
 var enemy2_attack_start = false
 var enemy2_attack_start2 = false
 var enemy3_attack_start = false
@@ -33,8 +34,10 @@ var enemy3_attack_start = false
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
+var laser = preload("res://scenes/laser.tscn")
 
 func _ready():
+	$Camera3D.current = true
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
 	$Window.export_target = $Camera3D
@@ -64,6 +67,8 @@ func enemy_movement(delta):
 		$EnemyShip1Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $EnemyShip1Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_1 = true
+	if $Path3D/PathFollow3D.progress >= 195.0 and enemy1_attack_start == false:
+		enemy1_attack()
 	if move_enemy_2 == false and $Path3D/PathFollow3D.progress > 235:
 		$EnemyShip2Path/PathFollow3D.progress += (0.12 * delta * 60)
 		if $Path3D/PathFollow3D.progress > 285.0 and enemy2_attack_start == false:
@@ -104,6 +109,22 @@ func enact_go_faster():
 	while(Global.forward_speed_base < starting_base_speed + go_faster_amount):
 		Global.forward_speed_base = clamp(0, Global.forward_speed_base+.001, starting_base_speed + go_faster_amount)
 		await get_tree().create_timer(0.04).timeout
+
+func enemy1_attack():
+	print("a")
+	enemy1_attack_start = true
+	var enemy = $EnemyShip1Path/PathFollow3D/EnemyShip
+	for count in range(0,9):
+		var forward_offset = randf_range(20, 30)
+		var other_offset = Vector3(randf_range(-5.0,5.0),randf_range(-5.0,5.0),0)
+		var enemy_laser = laser.instantiate()
+		add_child(enemy_laser)
+		#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+		enemy_laser.global_transform = enemy_laser.global_transform.looking_at(enemy_laser.global_transform.origin - \
+		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+		enemy_laser.global_transform.origin).normalized(), Vector3.FORWARD)
+		await get_tree().create_timer(0.20).timeout
 
 func enemy2_attack():
 	enemy2_attack_start = true

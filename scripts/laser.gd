@@ -13,7 +13,7 @@ func _process(delta):
 	#pass
 	var cast_point
 	force_raycast_update()
-	cast_point = transform * (Vector3.FORWARD * 150) *-1
+	cast_point = transform * (Vector3.FORWARD * 1000) *-1
 #	if is_colliding():
 #		cast_point = to_local(get_collision_point())
 #	else:

@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://caali75t7itdv"]
+
+[ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="1_m61b6"]
+[ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
+[ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
+[ext_resource type="Texture2D" path="res://art/Terrain/ground037_alb_ht.dds" id="4_hqlqw"]
+[ext_resource type="PackedScene" uid="uid://c1biuhqfwwtyj" path="res://scenes/laser.tscn" id="5_a6my7"]
+[ext_resource type="PackedScene" uid="uid://dkmfwlcjl184w" path="res://scenes/enemy_ship.tscn" id="6_00wkm"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g8u8n"]
+panorama = ExtResource("1_m61b6")
+
+[sub_resource type="Sky" id="Sky_bysvt"]
+sky_material = SubResource("PanoramaSkyMaterial_g8u8n")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_dw0ny"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_bysvt")
+sky_rotation = Vector3(0, -0.0837758, 0)
+ambient_light_source = 3
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_bounce_feedback = 1.75
+sdfgi_energy = 2.0
+glow_enabled = true
+glow_bloom = 0.07
+fog_density = 0.001
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0025
+volumetric_fog_albedo = Color(1, 1, 0.654902, 1)
+adjustment_enabled = true
+adjustment_contrast = 1.1
+adjustment_saturation = 1.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rok6i"]
+albedo_color = Color(0.207843, 0.364706, 0.341176, 1)
+albedo_texture = ExtResource("4_hqlqw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_k8tmv"]
+material = SubResource("StandardMaterial3D_rok6i")
+size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_70msh"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[node name="testing" type="Node3D"]
+script = ExtResource("1_xat0c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dw0ny")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.481754, 0.167207, -0.860206, 0, 0.981627, 0.190809, 0.876307, 0.0919229, -0.472903, -9.63028, 1.17865, -1.6959)
+
+[node name="Window" parent="." instance=ExtResource("2_xwvwu")]
+transform = Transform3D(0.539329, 0, 0.842095, 0, 1, 0, -0.842095, 0, 0.539329, -6.57723, 0.128157, 0.011483)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41437, -1.97785, -0.420552)
+mesh = SubResource("PlaneMesh_k8tmv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_70msh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Laser" parent="." instance=ExtResource("5_a6my7")]
+transform = Transform3D(0.764084, 0.645033, 0.0103862, 0.0454233, -0.037733, -0.998255, -0.643516, 0.763222, -0.0581307, -4.28419, 0.652359, 4.32788)
+visible = false
+
+[node name="EnemyShip" parent="." instance=ExtResource("6_00wkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3553, 0.870401, -1.95889)
