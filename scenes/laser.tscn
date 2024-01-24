@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1biuhqfwwtyj"]
+[gd_scene load_steps=9 format=3 uid="uid://c1biuhqfwwtyj"]
 
 [ext_resource type="Script" path="res://scripts/laser.gd" id="1_40ukr"]
 [ext_resource type="PackedScene" uid="uid://bmk0qcddcuc60" path="res://scenes/laser_travel_particles.tscn" id="2_xgely"]
@@ -21,7 +21,13 @@ emission_energy_multiplier = 10.0
 height = 150.0
 radius = 0.05
 
+[sub_resource type="BoxMesh" id="BoxMesh_n1ow6"]
+size = Vector3(0.1, 0.1, 100)
+
+[sub_resource type="SphereMesh" id="SphereMesh_b2wl7"]
+
 [node name="Laser" type="RayCast3D"]
+visible = false
 target_position = Vector3(0, -50, 0)
 collide_with_areas = true
 script = ExtResource("1_40ukr")
@@ -44,3 +50,10 @@ script = ExtResource("3_sfo4v")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -74.9303, 0)
 shape = SubResource("CylinderShape3D_qbwwl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+mesh = SubResource("BoxMesh_n1ow6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_b2wl7")

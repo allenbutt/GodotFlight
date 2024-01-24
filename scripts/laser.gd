@@ -13,13 +13,15 @@ func _process(delta):
 	#pass
 	var cast_point
 	force_raycast_update()
-	cast_point = transform * (Vector3.FORWARD * 1000) *-1
+	cast_point = transform * ((target_position - position) * 100) *1
+	#cast_point = transform * (Vector3.FORWARD * 100) *-1
 #	if is_colliding():
 #		cast_point = to_local(get_collision_point())
 #	else:
 #		cast_point = transform * (Vector3.FORWARD * 50)
 	beam_mesh.mesh.height = cast_point.y
-	beam_mesh.position.y = cast_point.y/2
+	beam_mesh.position = (target_position + position) / 2
+	#beam_mesh.transform = beam_mesh.transform.looking_at(target_position - position, Vector3.UP)
 	beam_particle_blocker.position.y = cast_point.y
 	
 	beam_particles.position.y = cast_point.y/2

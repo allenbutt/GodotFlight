@@ -1,45 +1,67 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckgrgk44cx5yb"]
+[gd_scene load_steps=12 format=3 uid="uid://dwuatdftwan2d"]
 
-[ext_resource type="PackedScene" uid="uid://c1biuhqfwwtyj" path="res://scenes/laser.tscn" id="1_ie1y1"]
-[ext_resource type="PackedScene" uid="uid://bmk0qcddcuc60" path="res://scenes/laser_travel_particles.tscn" id="2_btxl1"]
-[ext_resource type="Script" path="res://scripts/laserarea.gd" id="3_66liv"]
+[ext_resource type="Script" path="res://scenes/laser_root.gd" id="1_vw1qx"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_er4py"]
-flip_faces = true
+[sub_resource type="CylinderMesh" id="CylinderMesh_03lp8"]
 top_radius = 0.05
 bottom_radius = 0.05
-height = 0.01
+height = 50.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bud7u"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yohgd"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fpdw"]
+noise = SubResource("FastNoiseLite_yohgd")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ta86"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ksj7w"]
+seamless = true
+noise = SubResource("FastNoiseLite_3ta86")
+
+[sub_resource type="Gradient" id="Gradient_sg47a"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.168627, 0.364706, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f22jj"]
+frequency = 0.8645
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gjbyq"]
+seamless = true
+color_ramp = SubResource("Gradient_sg47a")
+noise = SubResource("FastNoiseLite_f22jj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5irh"]
 transparency = 1
-albedo_color = Color(0.627451, 1, 1, 1)
+albedo_color = Color(1, 0, 0.0156863, 1)
 emission_enabled = true
-emission = Color(0.121569, 0.992157, 1, 1)
+emission = Color(0.819608, 0.533333, 0.0392157, 1)
 emission_energy_multiplier = 10.0
+emission_texture = SubResource("NoiseTexture2D_gjbyq")
+detail_enabled = true
+detail_mask = SubResource("NoiseTexture2D_ksj7w")
+detail_albedo = SubResource("NoiseTexture2D_2fpdw")
+disable_receive_shadows = true
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_o5ldt"]
-height = 150.0
-radius = 0.05
+[sub_resource type="SphereMesh" id="SphereMesh_y6ox2"]
+radius = 0.3
+height = 0.6
 
-[node name="LaserRoot" type="Node3D"]
+[node name="LaserRoot" type="Node3D" node_paths=PackedStringArray("laser_beam")]
+script = ExtResource("1_vw1qx")
+laser_beam = NodePath("LaserParent")
 
-[node name="Laser" parent="." instance=ExtResource("1_ie1y1")]
+[node name="LaserParent" type="Node3D" parent="."]
 
-[node name="BeamMesh2" type="MeshInstance3D" parent="Laser"]
-cast_shadow = 0
-mesh = SubResource("CylinderMesh_er4py")
-surface_material_override/0 = SubResource("StandardMaterial3D_bud7u")
+[node name="LaserMesh" type="MeshInstance3D" parent="LaserParent"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 0, 25)
+mesh = SubResource("CylinderMesh_03lp8")
+skeleton = NodePath("../LaserCast")
+surface_material_override/0 = SubResource("StandardMaterial3D_b5irh")
 
-[node name="LaserParticles2" parent="Laser" instance=ExtResource("2_btxl1")]
-cast_shadow = 0
+[node name="LaserCast" type="RayCast3D" parent="LaserParent"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 0, 0)
+target_position = Vector3(0, -50, 0)
 
-[node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="Laser"]
-size = Vector3(0.3, 0.3, 0.3)
-
-[node name="Area3D2" type="Area3D" parent="Laser"]
-collision_mask = 0
-script = ExtResource("3_66liv")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Laser/Area3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -74.9303, 0)
-shape = SubResource("CylinderShape3D_o5ldt")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaserParent"]
+visible = false
+mesh = SubResource("SphereMesh_y6ox2")
+skeleton = NodePath("../..")
