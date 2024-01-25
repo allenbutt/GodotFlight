@@ -32,7 +32,7 @@ func laserstart():
 		laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
 		(player.global_transform.origin + player.global_transform.basis.z * 0 - laser_child.global_transform.origin).normalized(), Vector3.UP)
 #		enemy_laser.set_target_position(player.global_transform.origin)
-#		while(true):
-#			enemy_laser.global_rotation.x += 0.01
-#			await get_tree().create_timer(0.01).timeout
+		while(true):
+			enemy_laser.global_rotation.x += 0.01
+			await get_tree().create_timer(0.01).timeout
 		
