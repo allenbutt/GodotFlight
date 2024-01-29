@@ -28,18 +28,19 @@ func _process(delta):
 
 #Code copied from reddit
 func screen_shake():
-	var initial_transform = self.transform 
-	var elapsed_time = 0.0
-
-	while elapsed_time < period:
-		var offset = Vector3(
-			randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude), 0.0)
-
-		self.transform.origin = initial_transform.origin + offset
-		elapsed_time += get_process_delta_time()
-		await get_tree().process_frame
-
-	self.transform = initial_transform
+	pass
+#	var initial_transform = self.transform 
+#	var elapsed_time = 0.0
+#
+#	while elapsed_time < period:
+#		var offset = Vector3(
+#			randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude), 0.0)
+#
+#		self.transform.origin = initial_transform.origin + offset
+#		elapsed_time += get_process_delta_time()
+#		await get_tree().process_frame
+#
+#	self.transform = initial_transform
 
 func screen_shake_boost():
 	boost_shaking = true

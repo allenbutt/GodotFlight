@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 120.0
+var start = 1130.0
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -18,6 +18,7 @@ var go_faster_amount = 0.06
 var move_enemy_1 = false
 var move_enemy_2 = false
 var move_enemy_3 = false
+var move_enemy_4 = false
 var test_explode = false
 var test_explode2 = false
 var test_explode3 = false
@@ -25,7 +26,8 @@ var test_explode3 = false
 var enemy1_attack_start = false
 var enemy2_attack_start = false
 var enemy2_attack_start2 = false
-var enemy3_attack_start = false
+var enemy3_attack_start = true
+var enemy4_attack_start = false
 
 @onready var player = $Window
 @onready var ui = $ui_canvas
@@ -43,6 +45,7 @@ func _ready():
 	$Window.export_target = $Camera3D
 	player3d.take_hit.connect(player_take_hit)
 	$Path3D/PathFollow3D.progress = start
+	$EnemyShip4Path/PathFollow3D/EnemyShip4.rotation_speed = 0.015
 	
 	await get_tree().create_timer(2.0).timeout
 	
@@ -83,6 +86,12 @@ func enemy_movement(delta):
 			move_enemy_3 = true
 	if $Path3D/PathFollow3D.progress >= 836.0 and enemy3_attack_start == false:
 		enemy3_attack()
+	if move_enemy_4 == false and $Path3D/PathFollow3D.progress > 1170.0:
+		$EnemyShip4Path/PathFollow3D.progress += (0.10 * delta * 60)
+		if $EnemyShip4Path/PathFollow3D.progress_ratio >= 0.95:
+			move_enemy_4 = true
+	if $Path3D/PathFollow3D.progress >= 1250.0 and enemy4_attack_start == false:
+		enemy4_attack()
 
 
 		
@@ -111,7 +120,6 @@ func enact_go_faster():
 		await get_tree().create_timer(0.04).timeout
 
 func enemy1_attack():
-	print("a")
 	enemy1_attack_start = true
 	var enemy = $EnemyShip1Path/PathFollow3D/EnemyShip
 	for count in range(0,24):
@@ -191,3 +199,20 @@ func enemy3_attack():
 		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 		await get_tree().create_timer(randf_range(0.3,0.5)).timeout
+func enemy4_attack():
+	print("a")
+	enemy4_attack_start = true
+	var enemy = $EnemyShip4Path/PathFollow3D/EnemyShip4
+	for count in range(0,59):
+		var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
+		var other_offset = Vector3(0,randf_range(-7.0,8.0) - count/10,0)
+		var enemy_laser = laser.instantiate()
+		add_child(enemy_laser)
+		var laser_child = enemy_laser.laser_beam
+		laser_child.global_position = enemy.global_position
+		#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+		laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
+		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+		laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
+		await get_tree().create_timer(randf_range(0.125,0.20)).timeout
