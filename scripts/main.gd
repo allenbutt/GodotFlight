@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 1130.0
+var start = 0.5
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -14,6 +14,8 @@ var offset = Vector3(0,0,0)
 var lerp_speed = 1.0
 var go_faster = false
 var go_faster_amount = 0.06
+var go_faster2 = false
+var go_faster_amount2 = 0.06
 
 var move_enemy_1 = false
 var move_enemy_2 = false
@@ -26,7 +28,7 @@ var test_explode3 = false
 var enemy1_attack_start = false
 var enemy2_attack_start = false
 var enemy2_attack_start2 = false
-var enemy3_attack_start = true
+var enemy3_attack_start = false
 var enemy4_attack_start = false
 
 @onready var player = $Window
@@ -62,6 +64,9 @@ func _process(delta):
 	enemy_movement(delta)
 	if go_faster == false and $Path3D/PathFollow3D.progress > 450.0:
 		go_faster = true
+		enact_go_faster()
+	if go_faster2 == false and $Path3D/PathFollow3D.progress > 1640.0:
+		go_faster2 = true
 		enact_go_faster()
 	#demo_explode()
 
