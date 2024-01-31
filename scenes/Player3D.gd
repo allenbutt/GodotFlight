@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var player_health_max = 500.0
+var player_health_max = 400.0
 
 var player_speed = 0.0
 var player_speed_max = 6.0
@@ -24,12 +24,14 @@ func _process(delta):
 
 #Interaction with hitboxes like trees and missiles
 func _on_area_3d_area_entered(area):
+	#print("tree")
 	if taking_damage == false:
 		taking_damage = true
 		$Damage_Cooldown.start(damage_cooldown)
 		if area.has_method("damage_value"):
 			Global.player_health = Global.player_health - area.damage_value()
 		else:
+			print("tree")
 			Global.player_health = Global.player_health - Global.damage_tree
 		take_hit.emit()
 		if Global.player_health <= 0:

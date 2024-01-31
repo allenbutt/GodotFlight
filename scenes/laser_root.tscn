@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scenes/laser_collision.gd" id="2_eumq7"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_03lp8"]
-top_radius = 0.1
-bottom_radius = 0.1
+top_radius = 0.075
+bottom_radius = 0.075
 height = 500.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yohgd"]
@@ -48,7 +48,7 @@ height = 0.6
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_uq5nc"]
 height = 500.0
-radius = 0.1
+radius = 0.075
 
 [node name="LaserRoot" type="Node3D" node_paths=PackedStringArray("laser_beam")]
 script = ExtResource("1_vw1qx")
@@ -79,3 +79,8 @@ script = ExtResource("2_eumq7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LaserParent/Area3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 250)
 shape = SubResource("CylinderShape3D_uq5nc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

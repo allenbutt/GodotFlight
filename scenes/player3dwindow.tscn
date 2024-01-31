@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=26 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
@@ -23,6 +23,9 @@ shader_parameter/active = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/y_billboard = false
 shader_parameter/tex = ExtResource("1_7ave1")
+
+[sub_resource type="BoxMesh" id="BoxMesh_jghw5"]
+size = Vector3(0.681, 0.169, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_smemg"]
 size = Vector3(0.681, 0.168806, 0.1)
@@ -96,6 +99,11 @@ texture = ExtResource("1_7ave1")
 
 [node name="Area3D" type="Area3D" parent="Player3D/Player_Rotation"]
 collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player3D/Player_Rotation/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.089, 0)
+visible = false
+mesh = SubResource("BoxMesh_jghw5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/Player_Rotation/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0887642, 0)
