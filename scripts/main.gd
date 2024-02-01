@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 2200.0
+var start = 0.5
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -27,15 +27,15 @@ var test_explode = false
 var test_explode2 = false
 var test_explode3 = false
 
-var enemy1_attack_start = true
-var enemy2_attack_start = true
-var enemy2_attack_start2 = true
-var enemy3_attack_start = true
-var enemy3_attack_start2 = true
-var enemy4_attack_start = true
-var enemy4_attack_start2 = true
-var enemy5_attack_start = true
-var enemy6_attack_start = true
+var enemy1_attack_start = false
+var enemy2_attack_start = false
+var enemy2_attack_start2 = false
+var enemy3_attack_start = false
+var enemy3_attack_start2 = false
+var enemy4_attack_start = false
+var enemy4_attack_start2 = false
+var enemy5_attack_start = false
+var enemy6_attack_start = false
 var final_attack_start = false
 
 @onready var player = $Window
@@ -53,6 +53,7 @@ func _ready():
 	$Camera3D.target = player
 	$Window.export_target = $Camera3D
 	player3d.take_hit.connect(player_take_hit)
+	player3d.set_shield.connect(player_set_shield)
 	$Path3D/PathFollow3D.progress = start
 	$EnemyShip4Path/PathFollow3D/EnemyShip4.rotation_speed = 0.015
 	
@@ -86,7 +87,7 @@ func enemy_movement(delta):
 		enemy1_attack()
 	if move_enemy_2 == false and $Path3D/PathFollow3D.progress > 235:
 		$EnemyShip2Path/PathFollow3D.progress += (0.12 * delta * 60)
-		if $Path3D/PathFollow3D.progress > 285.0 and enemy2_attack_start == false:
+		if $Path3D/PathFollow3D.progress > 295.0 and enemy2_attack_start == false:
 			enemy2_attack()
 		if $EnemyShip2Path/PathFollow3D.progress_ratio >= 0.95:
 			move_enemy_2 = true
@@ -132,7 +133,10 @@ func enemy_movement(delta):
 		
 func player_take_hit():
 	ui.set_healthbar_value(Global.player_health)
+	ui.set_shieldbar_value(Global.player_shield)
 	playercam.screen_shake()
+func player_set_shield():
+	ui.set_shieldbar_value(Global.player_shield)
 
 func demo_explode():
 	if randi_range(0,100) == 1:
@@ -285,7 +289,7 @@ func enemy3_attack2():
 func enemy5_attack():
 	var enemy = $EnemyShip5Path/PathFollow3D/EnemyShip5
 	enemy5_attack_start = true
-	for count in range(0,24):
+	for count in range(0,29):
 		var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
 		var forward_offset = 74 * Global.forward_speed + distance_between * 0.2
 		var other_offset = Vector3(randf_range(-6.0,6.0),randf_range(-6.0,6.0),0)
@@ -297,19 +301,33 @@ func enemy5_attack():
 		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
 		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
-		await get_tree().create_timer(randf_range(0.5,0.65)).timeout
+		await get_tree().create_timer(randf_range(0.45,0.6)).timeout
 func final_attack(enemyship):
 	var enemy = enemyship
 	for count in range(0,27):
-		var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
-		var forward_offset = 20 * Global.forward_speed + distance_between * 0.2
-		var other_offset = Vector3(randf_range(-10.0,10.0),randf_range(-6.0,6.0),0)
-		var enemy_missile = missile.instantiate()
-		add_child(enemy_missile)
-		enemy_missile.speed_multiplier = 4.0
-		enemy_missile.global_position = enemy.global_position
-		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
-		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
-		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
-		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
-		await get_tree().create_timer(randf_range(0.4,0.8)).timeout
+		if randf_range(0,1) < 0.8:
+			var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
+			var forward_offset = 20 * Global.forward_speed + distance_between * 0.2
+			var other_offset = Vector3(randf_range(-10.0,10.0),randf_range(-6.0,6.0),0)
+			var enemy_missile = missile.instantiate()
+			add_child(enemy_missile)
+			enemy_missile.speed_multiplier = 4.0
+			enemy_missile.global_position = enemy.global_position
+			enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
+			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+			enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+			await get_tree().create_timer(randf_range(0.4,0.8)).timeout
+		else:
+			var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
+			var other_offset = Vector3(0,randf_range(-4,6.0) - count/5 * 0,0)
+			var enemy_laser = laser.instantiate()
+			add_child(enemy_laser)
+			var laser_child = enemy_laser.laser_beam
+			laser_child.global_position = enemy.global_position
+			#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+			laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
+			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+			laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
+			await get_tree().create_timer(randf_range(0.125,0.20)).timeout

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bygp650he3afl"]
+[gd_scene load_steps=6 format=3 uid="uid://bygp650he3afl"]
 
 [ext_resource type="Theme" uid="uid://brfmqbd8rnj5d" path="res://ui_theme.tres" id="1_riqct"]
 [ext_resource type="Script" path="res://scripts/ui_canvas.gd" id="1_yed0k"]
@@ -12,7 +12,15 @@ border_width_bottom = 2
 border_color = Color(0.254902, 0.172549, 0.94902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tk1f"]
-bg_color = Color(0.0980392, 0.705882, 0.705882, 1)
+bg_color = Color(0.14902, 0.709804, 0.0980392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8ls8"]
+bg_color = Color(0.458824, 0.568627, 1, 0.643137)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -37,3 +45,20 @@ theme = ExtResource("1_riqct")
 theme_override_styles/background = SubResource("StyleBoxFlat_v132y")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1tk1f")
 value = 100.0
+
+[node name="Shieldbar" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.5
+offset_top = -31.0
+offset_right = 180.5
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_riqct")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u8ls8")
+max_value = 20.0
+value = 20.0
+show_percentage = false
