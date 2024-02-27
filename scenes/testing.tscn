@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://caali75t7itdv"]
+[gd_scene load_steps=14 format=3 uid="uid://caali75t7itdv"]
 
 [ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="1_m61b6"]
 [ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
 [ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
 [ext_resource type="Texture2D" path="res://art/Terrain/ground037_alb_ht.dds" id="4_hqlqw"]
 [ext_resource type="PackedScene" uid="uid://dkmfwlcjl184w" path="res://scenes/enemy_ship.tscn" id="6_00wkm"]
+[ext_resource type="ArrayMesh" uid="uid://vgxgtyo1awdx" path="res://art/blendermodel/NewTree/tree1.obj" id="6_k70fv"]
+[ext_resource type="PackedScene" uid="uid://bieth1mmq3rv4" path="res://art/blendermodel/NewTree/treetest.glb" id="7_crf03"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g8u8n"]
 panorama = ExtResource("1_m61b6")
@@ -71,3 +73,21 @@ visible = false
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5697, 0, -13.2728)
+
+[node name="Tree1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.68195, 0.675027, -2.15736)
+mesh = ExtResource("6_k70fv")
+
+[node name="treetest" parent="." instance=ExtResource("7_crf03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35004, 2.67737, -4.23697)
+
+[node name="treetest2" parent="." instance=ExtResource("7_crf03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28782, 3.89521, -6.39312)
+
+[node name="Tree2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.11227, 4.85837, -3.06627)
+mesh = ExtResource("6_k70fv")
+
+[node name="Tree3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6078, 5.12816, -4.59937)
+mesh = ExtResource("6_k70fv")
