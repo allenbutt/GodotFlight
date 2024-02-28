@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://caali75t7itdv"]
+[gd_scene load_steps=20 format=3 uid="uid://caali75t7itdv"]
 
 [ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="1_m61b6"]
 [ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
@@ -7,6 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://dkmfwlcjl184w" path="res://scenes/enemy_ship.tscn" id="6_00wkm"]
 [ext_resource type="ArrayMesh" uid="uid://vgxgtyo1awdx" path="res://art/blendermodel/NewTree/tree1.obj" id="6_k70fv"]
 [ext_resource type="PackedScene" uid="uid://bieth1mmq3rv4" path="res://art/blendermodel/NewTree/treetest.glb" id="7_crf03"]
+[ext_resource type="ArrayMesh" uid="uid://cl50ypxva5mi4" path="res://art/blendermodel/CedarTree/cedar_tree_model.obj" id="8_6dyky"]
+[ext_resource type="ArrayMesh" uid="uid://c3laaroxqwp3b" path="res://art/blendermodel/NewTree/treetest.obj" id="9_nfb8e"]
+[ext_resource type="ArrayMesh" uid="uid://bepf4sht01qvs" path="res://art/blendermodel/NewTree/treetest2.obj" id="10_w2m78"]
+[ext_resource type="ArrayMesh" uid="uid://b721wkh53u3c8" path="res://art/blendermodel/NewTree/new_array_mesh.tres" id="11_0bc1l"]
+[ext_resource type="Material" uid="uid://d28lq2qtgdyie" path="res://addons/proton_scatter/demos/assets/materials/m_pine_leaves.tres" id="12_7pt0b"]
+[ext_resource type="ArrayMesh" uid="uid://eel8bcvs2830" path="res://art/blendermodel/PineTreeCopy/PineTreeNew.tres" id="13_xr74v"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g8u8n"]
 panorama = ExtResource("1_m61b6")
@@ -91,3 +97,41 @@ mesh = ExtResource("6_k70fv")
 [node name="Tree3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6078, 5.12816, -4.59937)
 mesh = ExtResource("6_k70fv")
+
+[node name="Tree4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0577, -1.97785, -18.4554)
+mesh = ExtResource("6_k70fv")
+
+[node name="CedarTreeModel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.1752, -1.97785, -17.4464)
+mesh = ExtResource("8_6dyky")
+
+[node name="Treetest" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.4736, -1.97785, -33.9761)
+mesh = ExtResource("9_nfb8e")
+
+[node name="Treetest2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7594, -1.97785, -32.7876)
+mesh = ExtResource("9_nfb8e")
+
+[node name="treetest3" parent="." instance=ExtResource("7_crf03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4488, -1.97785, -28.5044)
+
+[node name="Treetest3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.625, -1.97785, -13.2816)
+mesh = ExtResource("10_w2m78")
+
+[node name="Treetest4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.863, -1.97785, -12.1368)
+mesh = ExtResource("11_0bc1l")
+surface_material_override/2 = ExtResource("12_7pt0b")
+
+[node name="NewArrayMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0899, -1.97785, -11.1496)
+mesh = ExtResource("11_0bc1l")
+
+[node name="PineTreeNew" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8998, -1.97785, -8.01582)
+mesh = ExtResource("13_xr74v")
+
+[editable path="treetest3"]

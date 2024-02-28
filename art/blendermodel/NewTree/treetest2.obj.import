@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bepf4sht01qvs"
+path="res://.godot/imported/treetest2.obj-17d93248b8506ded767a1c0b99476e55.mesh"
+
+[deps]
+
+files=["res://.godot/imported/treetest2.obj-17d93248b8506ded767a1c0b99476e55.mesh"]
+
+source_file="res://art/blendermodel/NewTree/treetest2.obj"
+dest_files=["res://.godot/imported/treetest2.obj-17d93248b8506ded767a1c0b99476e55.mesh", "res://.godot/imported/treetest2.obj-17d93248b8506ded767a1c0b99476e55.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
