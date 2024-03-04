@@ -15,4 +15,4 @@ billboard_mode = 1
 [resource]
 lightmap_size_hint = Vector2i(9, 18)
 material = SubResource("StandardMaterial3D_np68l")
-size = Vector2(1.44, 3.25)
+size = Vector2(5, 10)

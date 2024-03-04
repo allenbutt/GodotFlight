@@ -162,17 +162,18 @@ func enemy1_attack():
 	enemy1_attack_start = true
 	var enemy = $EnemyShip1Path/PathFollow3D/EnemyShip
 	for count in range(0,24):
-		var forward_offset = count * 1 + 20
-		var other_offset = Vector3(randf_range(-12,12),randf_range(-5.0,5.0),0)
-		var enemy_laser = laser.instantiate()
-		add_child(enemy_laser)
-		var laser_child = enemy_laser.laser_beam
-		laser_child.global_position = enemy.global_position
-		#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
-		laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
-		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
-		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
-		laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
+		for count2 in range(0,2):
+			var forward_offset = count * 1 + 20
+			var other_offset = Vector3(randf_range(-12,12),randf_range(-5.0,5.0),0)
+			var enemy_laser = laser.instantiate()
+			add_child(enemy_laser)
+			var laser_child = enemy_laser.laser_beam
+			laser_child.global_position = enemy.global_position
+			#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+			laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
+			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+			laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
 		await get_tree().create_timer(randf_range(0.075,0.15)).timeout
 
 func enemy2_attack():
@@ -242,17 +243,18 @@ func enemy4_attack():
 	enemy4_attack_start = true
 	var enemy = $EnemyShip4Path/PathFollow3D/EnemyShip4
 	for count in range(0,59):
-		var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
-		var other_offset = Vector3(0,randf_range(-1,8.0) - count/5,0)
-		var enemy_laser = laser.instantiate()
-		add_child(enemy_laser)
-		var laser_child = enemy_laser.laser_beam
-		laser_child.global_position = enemy.global_position
-		#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
-		laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
-		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
-		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
-		laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
+		for count2 in range(0,2):
+			var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
+			var other_offset = Vector3(0,randf_range(-1,8.0) - count/5,0)
+			var enemy_laser = laser.instantiate()
+			add_child(enemy_laser)
+			var laser_child = enemy_laser.laser_beam
+			laser_child.global_position = enemy.global_position
+			#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+			laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
+			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+			laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
 		await get_tree().create_timer(randf_range(0.125,0.20)).timeout
 func enemy4_attack2():
 	var enemy = $EnemyShip4Path/PathFollow3D/EnemyShip4
@@ -274,24 +276,25 @@ func enemy3_attack2():
 	enemy3_attack_start2 = true
 	var enemy = $EnemyShip3Path/PathFollow3D/EnemyShip
 	for count in range(0,33):
-		var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
-		var other_offset = Vector3(0,randf_range(-4,6.0) - count/5 * 0,0)
-		var enemy_laser = laser.instantiate()
-		add_child(enemy_laser)
-		var laser_child = enemy_laser.laser_beam
-		laser_child.global_position = enemy.global_position
-		#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
-		laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
-		(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
-		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
-		laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
+		for count2 in range(0,2):
+			var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
+			var other_offset = Vector3(0,randf_range(-4,6.0) - count/5 * 0,0)
+			var enemy_laser = laser.instantiate()
+			add_child(enemy_laser)
+			var laser_child = enemy_laser.laser_beam
+			laser_child.global_position = enemy.global_position
+			#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+			laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
+			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+			laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
 		await get_tree().create_timer(randf_range(0.125,0.20)).timeout
 func enemy5_attack():
 	var enemy = $EnemyShip5Path/PathFollow3D/EnemyShip5
 	enemy5_attack_start = true
 	for count in range(0,29):
 		var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
-		var forward_offset = 74 * Global.forward_speed + distance_between * 0.2
+		var forward_offset = 74 * Global.forward_speed + distance_between * 0.25
 		var other_offset = Vector3(randf_range(-6.0,6.0),randf_range(-6.0,6.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
@@ -304,8 +307,8 @@ func enemy5_attack():
 		await get_tree().create_timer(randf_range(0.45,0.6)).timeout
 func final_attack(enemyship):
 	var enemy = enemyship
-	for count in range(0,27):
-		if randf_range(0,1) < 0.8:
+	for count in range(0,37):
+		if randf_range(1,1) < 0.8:
 			var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
 			var forward_offset = 20 * Global.forward_speed + distance_between * 0.2
 			var other_offset = Vector3(randf_range(-10.0,10.0),randf_range(-6.0,6.0),0)
@@ -319,15 +322,16 @@ func final_attack(enemyship):
 			enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 			await get_tree().create_timer(randf_range(0.4,0.8)).timeout
 		else:
-			var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
-			var other_offset = Vector3(0,randf_range(-4,6.0) - count/5 * 0,0)
-			var enemy_laser = laser.instantiate()
-			add_child(enemy_laser)
-			var laser_child = enemy_laser.laser_beam
-			laser_child.global_position = enemy.global_position
-			#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
-			laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
-			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
-			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
-			laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
-			await get_tree().create_timer(randf_range(0.125,0.20)).timeout
+			for count2 in range(0,randi_range(1,2)):
+				var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
+				var other_offset = Vector3(0,randf_range(-4,6.0) - count/5 * 0,0)
+				var enemy_laser = laser.instantiate()
+				add_child(enemy_laser)
+				var laser_child = enemy_laser.laser_beam
+				laser_child.global_position = enemy.global_position
+				#enemy_laser.global_position = enemy.global_position + enemy.global_transform.looking_at(enemy.global_transform.origin - player.global_transform.origin, ) * 0.8
+				laser_child.global_transform = laser_child.global_transform.looking_at(laser_child.global_transform.origin - \
+				(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+				player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+				laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
+			await get_tree().create_timer(randf_range(0.1,0.125)).timeout

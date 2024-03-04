@@ -1,6 +1,5 @@
-[gd_scene load_steps=25 format=3 uid="uid://caali75t7itdv"]
+[gd_scene load_steps=24 format=3 uid="uid://caali75t7itdv"]
 
-[ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="1_m61b6"]
 [ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
 [ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
 [ext_resource type="Texture2D" path="res://art/Terrain/ground037_alb_ht.dds" id="4_hqlqw"]
@@ -17,17 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="15_051yd"]
 [ext_resource type="QuadMesh" uid="uid://hwmlg608yi3i" path="res://art/tree_billboard.tres" id="16_1gk8d"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g8u8n"]
-panorama = ExtResource("1_m61b6")
-
-[sub_resource type="Sky" id="Sky_bysvt"]
-sky_material = SubResource("PanoramaSkyMaterial_g8u8n")
-radiance_size = 0
-
-[sub_resource type="Environment" id="Environment_dw0ny"]
+[sub_resource type="Environment" id="Environment_rqgf4"]
 background_mode = 2
-background_energy_multiplier = 0.5
-sky = SubResource("Sky_bysvt")
+background_energy_multiplier = 0.0
 sky_rotation = Vector3(0, -0.0837758, 0)
 ambient_light_source = 3
 tonemap_mode = 3
@@ -55,7 +46,17 @@ size = Vector2(100, 100)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_70msh"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_db1cq"]
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fniwl"]
+material = SubResource("StandardMaterial3D_db1cq")
+size = Vector2(80, 80)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w0wv5"]
+metallic_specular = 0.0
+roughness = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_74fgf"]
 material = SubResource("StandardMaterial3D_w0wv5")
@@ -65,7 +66,7 @@ size = Vector2(50, 50)
 script = ExtResource("1_xat0c")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_dw0ny")
+environment = SubResource("Environment_rqgf4")
 
 [node name="Window" parent="." instance=ExtResource("2_xwvwu")]
 transform = Transform3D(0.539329, 0, 0.842095, 0, 1, 0, -0.842095, 0, 0.539329, -6.57723, 0.128157, 0.011483)
@@ -81,6 +82,8 @@ shape = SubResource("ConcavePolygonShape3D_70msh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+light_color = Color(0.780392, 1, 0.756863, 1)
+light_energy = 0.765
 
 [node name="EnemyShip" parent="." instance=ExtResource("6_00wkm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.64473, 0.870401, 5.04111)
@@ -149,6 +152,10 @@ mesh = ExtResource("14_kcrfh")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.815, 0, 0)
+mesh = SubResource("PlaneMesh_fniwl")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.815, 7.74418, 0)
 mesh = SubResource("PlaneMesh_74fgf")
 
 [node name="pine_tree" parent="." instance=ExtResource("15_051yd")]
