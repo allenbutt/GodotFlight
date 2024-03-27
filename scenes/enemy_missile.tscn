@@ -44,7 +44,7 @@ height = 20.0
 offsets = PackedFloat32Array(0, 0.370748, 1)
 colors = PackedColorArray(0.890196, 0.219608, 0, 1, 0.921569, 0.960784, 0, 1, 0.999998, 0.999518, 0.720512, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nu1d"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0ma6y"]
 gradient = SubResource("Gradient_d1mtq")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fc5ar"]
@@ -57,14 +57,14 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.2
 scale_max = 0.4
 color = Color(1, 0.305882, 0.196078, 1)
-color_ramp = SubResource("GradientTexture1D_6nu1d")
+color_ramp = SubResource("GradientTexture1D_0ma6y")
 hue_variation_min = -0.15
 hue_variation_max = 0.06
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j8dix"]
 load_path = "res://.godot/imported/Flare00.PNG-1381d186b1457be7c5a14826219b2568.s3tc.ctex"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_er8yi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlap5"]
 vertex_color_use_as_albedo = true
 albedo_texture = SubResource("CompressedTexture2D_j8dix")
 emission_enabled = true
@@ -72,7 +72,7 @@ emission = Color(1, 0.376471, 0.211765, 1)
 emission_energy_multiplier = 5.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_t6keb"]
-material = SubResource("StandardMaterial3D_er8yi")
+material = SubResource("StandardMaterial3D_qlap5")
 radius = 0.05
 height = 0.1
 

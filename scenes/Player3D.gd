@@ -11,6 +11,7 @@ var rotation_speed = 0.167
 var max_normal_rotation = 0.9
 var damage_cooldown = 0.75
 var taking_damage = false
+var hit_slowdown = false
 var shield_cooldown = 0.0
 
 @onready var player_rotation_node = $Player_Rotation
@@ -24,9 +25,9 @@ func _ready():
 	Global.player_health = player_health_max
 
 func _process(delta):
-	shield_cooldown = clamp(shield_cooldown - 1, 0, 1000)
+	shield_cooldown = clamp(shield_cooldown - 1 * delta * 60, 0, 1000)
 	if shield_cooldown <= 0 and Global.player_shield < player_shield_max:
-		Global.player_shield = clamp(Global.player_shield + .05, 0, player_shield_max)
+		Global.player_shield = clamp(Global.player_shield + .05 * delta * 60, 0, player_shield_max)
 		set_shield.emit()
 
 

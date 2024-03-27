@@ -11,11 +11,14 @@ var player_speed_max = 10.0
 var acceleration = 0.75
 var rotation_speed = ((360 + 60) * PI / 180) / 17
 var max_normal_rotation = 90
+var dashing = false
 
 @export var dash_duration = 0.75
 
 func Enter():
+	dashing = true
 	await get_tree().create_timer(dash_duration).timeout
+	dashing = false
 	state_transition.emit(self,"Normal")
 
 func Exit():

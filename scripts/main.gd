@@ -67,6 +67,8 @@ func _process(delta):
 		Global.forward_speed = Global.forward_speed_base * 1.33
 	else:
 		Global.forward_speed = Global.forward_speed_base
+	if player3d.taking_damage:
+		Global.forward_speed = Global.forward_speed * 0.75
 	if go_forward:
 		$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
 	enemy_movement(delta)
