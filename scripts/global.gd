@@ -9,3 +9,4 @@ var damage_terrain = 10.0
 var damage_tree = 15.0
 var damage_explode = 20.0
 var damage_laser = 10.0
+var moving = false

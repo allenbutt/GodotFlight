@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var player_health_max = 100.0
+var player_health_max = 300.0
 var player_shield_max = 20.0
 var shield_cooldown_set = 180.0
 
@@ -42,7 +42,6 @@ func _on_area_3d_area_entered(area):
 			damage = area.damage_value()
 			#Global.player_health = Global.player_health - area.damage_value()
 		else:
-			print("tree")
 			damage = Global.damage_tree
 			#Global.player_health = Global.player_health - Global.damage_tree
 		player_hit(damage)

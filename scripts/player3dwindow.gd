@@ -21,9 +21,10 @@ func _ready():
 func _process(delta):
 	if !target:
 		return
-	lerp_speed = Global.forward_speed * 20 * lerp_multiplier * delta
-	var target_xform = target.global_transform.translated_local(offset)
-	global_transform = global_transform.interpolate_with(target_xform, lerp_speed / 60)
+	if Global.moving:
+		lerp_speed = Global.forward_speed * 20 * lerp_multiplier * delta
+		var target_xform = target.global_transform.translated_local(offset)
+		global_transform = global_transform.interpolate_with(target_xform, lerp_speed / 60)
 	#look_at(export_target.global_transform.origin, export_target.transform.basis.y)
 	if Input.is_action_pressed("shift"):
 		#camera.fov = clamp(camera.fov + 1.0 * delta * 60.0, 75.0, 85.0)

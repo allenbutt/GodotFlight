@@ -59,7 +59,7 @@ func player_movement(delta):
 	if direction != Vector3.ZERO:
 		direction = (character.global_transform.basis * Vector3(direction.x, direction.y, 0)).normalized()
 #If no movement, set speed to 0 and skip move_and_slide
-	if direction.x == 0 and character.upward_force == false:
+	if direction.x == 0 and direction.y == 0 and character.upward_force == false:
 		player_speed = 0
 	else:
 		player_speed += acceleration

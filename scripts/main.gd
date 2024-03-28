@@ -57,9 +57,10 @@ func _ready():
 	$Path3D/PathFollow3D.progress = start
 	$EnemyShip4Path/PathFollow3D/EnemyShip4.rotation_speed = 0.015
 	
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(10.0).timeout
 	
 	go_forward = true
+	Global.moving = true
 
 
 func _process(delta):
