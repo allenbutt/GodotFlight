@@ -15,6 +15,8 @@ var hit_slowdown = false
 var shield_cooldown = 0.0
 
 @onready var player_rotation_node = $Player_Rotation
+@onready var blackout = $Blackout
+@onready var blackout_animation_player = $Blackout/AnimationPlayer
 
 var upward_force = false
 
@@ -23,6 +25,7 @@ signal set_shield
 
 func _ready():
 	Global.player_health = player_health_max
+	blackout_animation_player.play("fade_in")
 
 func _process(delta):
 	shield_cooldown = clamp(shield_cooldown - 1 * delta * 60, 0, 1000)
@@ -96,3 +99,9 @@ func hit_flash(sprite):
 
 func _on_damage_cooldown_timeout():
 	taking_damage = false
+
+func fade_blackout():
+	blackout_animation_player.play("fade_out")
+
+func destroy_blackout():
+	blackout.queue_free()
