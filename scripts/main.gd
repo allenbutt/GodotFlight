@@ -57,12 +57,19 @@ func _ready():
 	$Path3D/PathFollow3D.progress = start
 	$EnemyShip4Path/PathFollow3D/EnemyShip4.rotation_speed = 0.015
 	
-	await get_tree().create_timer(3.0).timeout
+	$Window/Boundaries.visible = false
+	$ui_canvas.visible = false
 	
+	await get_tree().create_timer(15.0).timeout
+
+	$Menu.visible = false
+	await get_tree().create_timer(0.5).timeout
 	go_forward = true
 	Global.moving = true
 	
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.5).timeout
+	$Window/Boundaries.visible = true
+	$ui_canvas.visible = true
 	
 	player3d.fade_blackout()
 

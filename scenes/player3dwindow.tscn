@@ -332,7 +332,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5
 
 [node name="PlayerCamera" type="Camera3D" parent="Player3D/CameraMount" node_paths=PackedStringArray("boundaries")]
 script = ExtResource("10_et4hb")
-boundaries = NodePath("../../../Sprite3D")
+boundaries = NodePath("../../../Boundaries")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player3D/CameraMount/PlayerCamera"]
 transform = Transform3D(-1, 2.22045e-16, 8.74228e-08, 2.13593e-09, 0.999701, 0.0244322, -8.73966e-08, 0.0244322, -0.999701, 7.34669e-08, 0.0205319, -0.840113)
@@ -440,7 +440,7 @@ shape = SubResource("BoxShape3D_y1mi4")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Blockers/StaticBody3D6/CollisionShape3D"]
 mesh = SubResource("BoxMesh_pbtfv")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Boundaries" type="Sprite3D" parent="."]
 modulate = Color(1, 1, 1, 0.160784)
 render_priority = 1
 texture = ExtResource("11_iqk1w")

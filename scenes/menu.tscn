@@ -1,14 +1,59 @@
-[gd_scene format=3 uid="uid://bxanl27yyxd7n"]
+[gd_scene load_steps=6 format=3 uid="uid://bxanl27yyxd7n"]
+
+[ext_resource type="Texture2D" uid="uid://bkocuscifh8wy" path="res://art/ButtonBorderSquare.png" id="1_jqfqt"]
+[ext_resource type="Texture2D" uid="uid://fdc7x4y8bfx8" path="res://art/ButtonBorderRectangle.png" id="2_fh232"]
+[ext_resource type="Texture2D" uid="uid://tuqlup17iqak" path="res://art/ButtonBorderHalfRect.png" id="2_tppt2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_061ie"]
+
+[sub_resource type="FontFile" id="FontFile_qneuk"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/35/0 = Vector2(0, 0)
+cache/0/2/0/ascent = 0.0
+cache/0/2/0/descent = 0.0
+cache/0/2/0/underline_position = 0.0
+cache/0/2/0/underline_thickness = 0.0
+cache/0/2/0/scale = 1.0
+cache/0/2/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/35/0 = Vector2(0, 0)
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/40/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/35/0 = Vector2(0, 0)
+cache/0/35/0/ascent = 0.0
+cache/0/35/0/descent = 0.0
+cache/0/35/0/underline_position = 0.0
+cache/0/35/0/underline_thickness = 0.0
+cache/0/35/0/scale = 1.0
+cache/0/35/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/35/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/35/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/35/0/kerning_overrides/35/0 = Vector2(0, 0)
 
 [node name="Menu" type="Control"]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="TitleContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -18,7 +63,233 @@ offset_right = 53.0
 offset_bottom = 40.0
 grow_horizontal = 2
 
-[node name="Label" type="Label" parent="CenterContainer"]
+[node name="TitleLabel" type="Label" parent="TitleContainer"]
 layout_mode = 2
-text = "FLYING GAME"
+text = "FLIGHT GAME"
 horizontal_alignment = 1
+
+[node name="ControlsContainerMargin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="ControlsContainer" type="VBoxContainer" parent="ControlsContainerMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+text = "CONTROLS"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Label" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_jqfqt")
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer/TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer/TextureRect/Label"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 108.0
+offset_top = -7.0
+offset_right = 204.0
+offset_bottom = 16.0
+grow_vertical = 0
+text = "Movement"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer/AspectRatioContainer2"]
+layout_mode = 2
+texture = ExtResource("1_jqfqt")
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer/AspectRatioContainer2/TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer/AspectRatioContainer3"]
+layout_mode = 2
+texture = ExtResource("1_jqfqt")
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer/AspectRatioContainer3/TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 41.0
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer/AspectRatioContainer4"]
+layout_mode = 2
+texture = ExtResource("1_jqfqt")
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/HBoxContainer/AspectRatioContainer4/TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 41.0
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Label" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer2"]
+layout_mode = 2
+texture = ExtResource("2_tppt2")
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer2/TextureRect"]
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 40.0
+text = "Shift"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer2/TextureRect/Label"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = -30.0
+offset_right = 186.0
+offset_bottom = -6.99997
+grow_vertical = 0
+text = "Boost"
+
+[node name="Spacer3" type="Label" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="ControlsContainerMargin/ControlsContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer3"]
+layout_mode = 2
+texture = ExtResource("2_fh232")
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer3/TextureRect"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 40.0
+text = "Spacebar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="ControlsContainerMargin/ControlsContainer/AspectRatioContainer3/TextureRect/Label"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = -30.0
+offset_right = 216.0
+offset_bottom = -6.99997
+grow_vertical = 0
+text = "Dash"
+
+[node name="OptionsContainerMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -188.5
+offset_bottom = 188.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+
+[node name="OptionsContainer" type="VBoxContainer" parent="OptionsContainerMargin"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label2" type="Label" parent="OptionsContainerMargin/OptionsContainer"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="OptionsContainerMargin/OptionsContainer"]
+layout_mode = 2
+text = "Toggle Particles"
+
+[node name="Button3" type="Button" parent="OptionsContainerMargin/OptionsContainer"]
+layout_mode = 2
+text = "Toggle Screenshake"
+
+[node name="Button4" type="Button" parent="OptionsContainerMargin/OptionsContainer"]
+layout_mode = 2
+text = "Normal Graphics"
+
+[node name="TimerContainerMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -117.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="TimeContainer" type="PanelContainer" parent="TimerContainerMargin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_061ie")
+
+[node name="Label" type="Label" parent="TimerContainerMargin/TimeContainer"]
+layout_mode = 2
+text = "Best Time: 5:00"
+
+[node name="StartGameMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="StartGameMargin"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontFile_qneuk")
+theme_override_font_sizes/font_size = 35
+text = "  Begin Game  "
