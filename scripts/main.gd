@@ -60,7 +60,7 @@ func _ready():
 	$Window/Boundaries.visible = false
 	$ui_canvas.visible = false
 	
-	await get_tree().create_timer(15.0).timeout
+	await get_tree().create_timer(60.0).timeout
 
 	$Menu.visible = false
 	await get_tree().create_timer(0.5).timeout
