@@ -10,3 +10,9 @@ var damage_tree = 15.0
 var damage_explode = 20.0
 var damage_laser = 10.0
 var moving = false
+
+var options_particles = true
+var options_screenshake = true
+var options_graphics = true
+var options_sound = true
+var options_music = true

@@ -42,12 +42,14 @@ var final_attack_start = false
 @onready var ui = $ui_canvas
 @onready var player3d = $Window/Player3D
 @onready var playercam = $Window/Player3D/CameraMount/PlayerCamera
+@onready var menu = $Menu
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
 var laser = preload("res://scenes/laser_root.tscn")
 
 func _ready():
+	menu.BeginGame.connect(_start_game)
 	#$Camera3D.current = true
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
@@ -59,17 +61,21 @@ func _ready():
 	
 	$Window/Boundaries.visible = false
 	$ui_canvas.visible = false
-	
-	await get_tree().create_timer(60.0).timeout
 
+func _start_game():
+	print("startgame")
 	$Menu.visible = false
-	await get_tree().create_timer(0.5).timeout
+	$ui_canvas.visible = true
+	await get_tree().create_timer(1.0).timeout
+	#$Window/Boundaries.visible = true
 	go_forward = true
 	Global.moving = true
+	$ui_canvas.visible = true
+	#player3d.position = Vector3(0.0,0.0,0.0)
 	
 	await get_tree().create_timer(0.5).timeout
 	$Window/Boundaries.visible = true
-	$ui_canvas.visible = true
+	#$ui_canvas.visible = true
 	
 	player3d.fade_blackout()
 

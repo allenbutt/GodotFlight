@@ -872,14 +872,14 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -150.0
-offset_right = 310.0
+offset_right = 270.0
 offset_bottom = 150.0
 grow_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
 [node name="Panel2" type="Panel" parent="AspectRatioContainer/Panel/ControlsContainerMargin"]
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ecl2t")
 
@@ -986,14 +986,21 @@ vertical_alignment = 1
 [node name="Spacer2" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer"]
 layout_mode = 2
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/AspectRatioContainer2"]
+[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer3/AspectRatioContainer2"]
 layout_mode = 2
 texture = ExtResource("2_tppt2")
 
-[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/AspectRatioContainer2/TextureRect"]
+[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer3/AspectRatioContainer2/TextureRect"]
 layout_mode = 0
 offset_right = 70.0
 offset_bottom = 40.0
@@ -1001,7 +1008,7 @@ text = "Shift"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/AspectRatioContainer2/TextureRect/Label"]
+[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer3/AspectRatioContainer2/TextureRect/Label"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1016,14 +1023,17 @@ text = "Boost"
 [node name="Spacer3" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer"]
 layout_mode = 2
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/AspectRatioContainer3"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer4/AspectRatioContainer3"]
 layout_mode = 2
 texture = ExtResource("2_fh232")
 
-[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/AspectRatioContainer3/TextureRect"]
+[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer4/AspectRatioContainer3/TextureRect"]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 40.0
@@ -1031,7 +1041,7 @@ text = "Spacebar"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/AspectRatioContainer3/TextureRect/Label"]
+[node name="Label" type="Label" parent="AspectRatioContainer/Panel/ControlsContainerMargin/MarginContainer/ControlsContainer/HBoxContainer4/AspectRatioContainer3/TextureRect/Label"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1075,17 +1085,25 @@ layout_mode = 2
 text = "Options"
 horizontal_alignment = 1
 
-[node name="Button2" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
+[node name="ButtonParticles" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
 text = "Toggle Particles"
 
-[node name="Button3" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
+[node name="ButtonScreenshake" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
 text = "Toggle Screenshake"
 
-[node name="Button4" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
+[node name="ButtonGraphics" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
 text = "Normal Graphics"
+
+[node name="ButtonSound" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
+layout_mode = 2
+text = "Toggle Sound"
+
+[node name="ButtonMusic" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
+layout_mode = 2
+text = "Toggle Music"
 
 [node name="Panel2" type="Panel" parent="AspectRatioContainer/Panel/OptionsContainerMargin"]
 custom_minimum_size = Vector2(150, 60)
@@ -1138,7 +1156,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="Button" type="Button" parent="AspectRatioContainer/Panel/StartGameMargin"]
+[node name="ButtonStart" type="Button" parent="AspectRatioContainer/Panel/StartGameMargin"]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_qneuk")
 theme_override_font_sizes/font_size = 35
@@ -1177,7 +1195,7 @@ default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D13" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
 position = Vector2(10, 581)
-points = PackedVector2Array(148, 27, 451, 27)
+points = PackedVector2Array(133, 27, 451, 27)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
@@ -1207,13 +1225,13 @@ width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D11" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
-position = Vector2(-42, 0)
+position = Vector2(-46, 0)
 points = PackedVector2Array(148, 31, 148, 185)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D12" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
-position = Vector2(10, 444)
+position = Vector2(-4, 443)
 points = PackedVector2Array(148, 31, 148, 165)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
@@ -1226,14 +1244,19 @@ default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D6" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
 position = Vector2(908, 160)
-points = PackedVector2Array(148, -92, 148, 66)
+points = PackedVector2Array(148, -92, 148, 32)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D8" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
 position = Vector2(908, 160)
-points = PackedVector2Array(148, 203, 148, 449)
+points = PackedVector2Array(148, 237, 148, 449)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
-[connection signal="button_down" from="AspectRatioContainer/Panel/StartGameMargin/Button" to="." method="_on_button_button_down"]
+[connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonParticles" to="." method="_on_button_particles_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonScreenshake" to="." method="_on_button_screenshake_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonGraphics" to="." method="_on_button_graphics_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonSound" to="." method="_on_button_sound_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonMusic" to="." method="_on_button_music_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Panel/StartGameMargin/ButtonStart" to="." method="_on_button_start_pressed"]
