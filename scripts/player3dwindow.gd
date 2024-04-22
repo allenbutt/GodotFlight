@@ -29,14 +29,15 @@ func _process(delta):
 	if Input.is_action_pressed("shift"):
 		#camera.fov = clamp(camera.fov + 1.0 * delta * 60.0, 75.0, 85.0)
 		camera.fov = lerp(camera.fov, 95.0, 2 * delta)
-		thrustersleft.emitting = true
-		thrustersright.emitting = true
+		if Global.options_particles:
+			thrustersleft.emitting = true
+			thrustersright.emitting = true
 	else:
 		camera.fov = lerp(camera.fov, 70.0, 4 * delta)
 		thrustersleft.emitting = false
 		thrustersright.emitting = false
 		#camera.fov = clamp(camera.fov - 1.0 * delta * 60.0, 75.0, 85.0)
-	if state_dashing.dashing:
+	if state_dashing.dashing and Global.options_particles:
 		thrustersleftspin.emitting = true
 		thrustersrightspin.emitting = true
 	else:

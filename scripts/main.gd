@@ -43,6 +43,8 @@ var final_attack_start = false
 @onready var player3d = $Window/Player3D
 @onready var playercam = $Window/Player3D/CameraMount/PlayerCamera
 @onready var menu = $Menu
+@onready var multimeshes = $MultiMeshes
+@onready var environment = $WorldEnvironment
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
@@ -50,6 +52,8 @@ var laser = preload("res://scenes/laser_root.tscn")
 
 func _ready():
 	menu.BeginGame.connect(_start_game)
+	menu.ToggleParticles.connect(_toggle_particles)
+	menu.ToggleGraphics.connect(_toggle_graphics)
 	#$Camera3D.current = true
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
@@ -354,3 +358,22 @@ func final_attack(enemyship):
 				player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 				laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
 			await get_tree().create_timer(randf_range(0.1,0.125)).timeout
+
+func _toggle_particles():
+	if Global.options_particles:
+		player.thrustersmain.emitting = true
+
+	else:
+		player.thrustersmain.emitting = false
+		player.thrustersleft.emitting = false
+		player.thrustersright.emitting = false
+
+func _toggle_graphics():
+	if Global.options_graphics:
+		environment.environment.sdfgi_enabled = true
+		for meshes in multimeshes.get_children():
+			meshes.visible = true
+	else:
+		environment.environment.sdfgi_enabled = false
+		for meshes in multimeshes.get_children():
+			meshes.visible = false

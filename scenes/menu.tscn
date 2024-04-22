@@ -1087,22 +1087,27 @@ horizontal_alignment = 1
 
 [node name="ButtonParticles" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Toggle Particles"
 
 [node name="ButtonScreenshake" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Toggle Screenshake"
 
 [node name="ButtonGraphics" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Normal Graphics"
 
 [node name="ButtonSound" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Toggle Sound"
 
 [node name="ButtonMusic" type="Button" parent="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Toggle Music"
 
 [node name="Panel2" type="Panel" parent="AspectRatioContainer/Panel/OptionsContainerMargin"]
@@ -1158,6 +1163,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="ButtonStart" type="Button" parent="AspectRatioContainer/Panel/StartGameMargin"]
 layout_mode = 2
+focus_mode = 0
 theme_override_fonts/font = SubResource("FontFile_qneuk")
 theme_override_font_sizes/font_size = 35
 text = "  Begin Game  "

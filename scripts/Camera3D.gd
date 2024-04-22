@@ -14,21 +14,22 @@ var boost_shaking = false
 
 
 func _process(delta):
-	if Input.is_action_pressed("shift") and boost_shaking == false and randf_range(0,1) < 0.15:
+	if Input.is_action_pressed("shift") and boost_shaking == false and randf_range(0,1) < 0.15 and Global.options_screenshake:
 		screen_shake_boost()
 
 
 #Code copied from reddit
 func screen_shake():
-	var elapsed_time = 0.0
+	if Global.options_screenshake:
+		var elapsed_time = 0.0
+		
+		while elapsed_time < period:
+			var offset = Vector3(
+				randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude), 0.0)
 
-	while elapsed_time < period:
-		var offset = Vector3(
-			randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude), 0.0)
-
-		self.transform.origin = camera_transform_base.origin + offset
-		elapsed_time += get_process_delta_time()
-		await get_tree().process_frame
+			self.transform.origin = camera_transform_base.origin + offset
+			elapsed_time += get_process_delta_time()
+			await get_tree().process_frame
 
 	self.transform = camera_transform_base
 
