@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.5
+var start = 1400
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -27,14 +27,14 @@ var test_explode = false
 var test_explode2 = false
 var test_explode3 = false
 
-var enemy1_attack_start = false
-var enemy2_attack_start = false
-var enemy2_attack_start2 = false
-var enemy3_attack_start = false
+var enemy1_attack_start = true
+var enemy2_attack_start = true
+var enemy2_attack_start2 = true
+var enemy3_attack_start = true
 var enemy3_attack_start2 = false
-var enemy4_attack_start = false
+var enemy4_attack_start = true
 var enemy4_attack_start2 = false
-var enemy5_attack_start = false
+var enemy5_attack_start = true
 var enemy6_attack_start = false
 var final_attack_start = false
 
@@ -67,7 +67,6 @@ func _ready():
 	$ui_canvas.visible = false
 
 func _start_game():
-	print("startgame")
 	$Menu.visible = false
 	$ui_canvas.visible = true
 	await get_tree().create_timer(1.0).timeout
@@ -99,7 +98,6 @@ func _process(delta):
 	if go_faster2 == false and $Path3D/PathFollow3D.progress > 1640.0:
 		go_faster2 = true
 		enact_go_faster()
-	#demo_explode()
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 125:
@@ -145,6 +143,8 @@ func enemy_movement(delta):
 		enemy3_attack2()
 	if $Path3D/PathFollow3D.progress >= 2010.0 and enemy5_attack_start == false:
 		enemy5_attack()
+	if $Path3D/PathFollow3D.progress >= 1652.0 and enemy6_attack_start == false:
+		enemy6_attack()
 	if $Path3D/PathFollow3D.progress >= 2280.0 and final_attack_start == false:
 		final_attack_start = true
 		final_attack($EnemyShip)
@@ -161,6 +161,7 @@ func player_take_hit():
 func player_set_shield():
 	ui.set_shieldbar_value(Global.player_shield)
 
+#For debugging/testing
 func demo_explode():
 	if randi_range(0,100) == 1:
 		var forward_offset = randf_range(14.0, 24.0) * Global.forward_speed * 8
@@ -198,7 +199,6 @@ func enemy1_attack():
 			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 			laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
 		await get_tree().create_timer(randf_range(0.075,0.15)).timeout
-
 func enemy2_attack():
 	enemy2_attack_start = true
 	var enemy = $EnemyShip2Path/PathFollow3D/EnemyShip2
@@ -215,7 +215,6 @@ func enemy2_attack():
 		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 		await get_tree().create_timer(0.20).timeout
-
 func enemy2_attack2():
 	enemy2_attack_start2 = true
 	var enemy = $EnemyShip2Path/PathFollow3D/EnemyShip2
@@ -231,7 +230,6 @@ func enemy2_attack2():
 		player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 		enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 		await get_tree().create_timer(0.33).timeout
-
 func enemy3_attack():
 	enemy3_attack_start = true
 	var enemy = $EnemyShip3Path/PathFollow3D/EnemyShip
@@ -358,7 +356,23 @@ func final_attack(enemyship):
 				player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
 				laser_child.global_transform.origin).normalized(), Vector3.FORWARD)
 			await get_tree().create_timer(randf_range(0.1,0.125)).timeout
-
+func enemy6_attack():
+	var enemy = $EnemyShip5
+	enemy6_attack_start = true
+	for count in range(0,19):
+		var distance_between = enemy.global_transform.origin.distance_to(player.global_transform.origin)
+		for count2 in range(0,2):
+			var forward_offset = 25 * Global.forward_speed + distance_between * 0.25
+			var other_offset = Vector3(randf_range(-10.0,10.0),randf_range(-10.0,10.0),0)
+			var enemy_missile = missile.instantiate()
+			add_child(enemy_missile)
+			enemy_missile.speed_multiplier = 3.0
+			enemy_missile.global_position = enemy.global_position
+			enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
+			(player.global_transform.origin + player.global_transform.basis.z * forward_offset + \
+			player.global_transform.basis.x * other_offset.x + player.global_transform.basis.y * other_offset.y - \
+			enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
+		await get_tree().create_timer(randf_range(0.3,0.45)).timeout
 func _toggle_particles():
 	if Global.options_particles:
 		player.thrustersmain.emitting = true

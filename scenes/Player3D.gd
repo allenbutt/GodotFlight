@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 var player_health_max = 300.0
 var player_shield_max = 20.0
-var shield_cooldown_set = 180.0
+var shield_cooldown_set = 300.0
 
 var player_speed = 0.0
 var player_speed_max = 6.0
