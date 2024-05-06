@@ -1,8 +1,8 @@
 [gd_scene load_steps=39 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
-[ext_resource type="Texture2D" uid="uid://dal8s0d7cj8v4" path="res://art/Glider2.png" id="1_7ave1"]
 [ext_resource type="Shader" path="res://art/shaders/hit_effect.gdshader" id="2_4nydu"]
+[ext_resource type="Texture2D" uid="uid://doucwypg2vdvd" path="res://art/gliderpieces/Glider2update.png" id="3_jbir3"]
 [ext_resource type="Script" path="res://scripts/FSM/FiniteStateMachine.gd" id="3_jv0lq"]
 [ext_resource type="Script" path="res://scripts/FSM/Normal.gd" id="4_64ccc"]
 [ext_resource type="Script" path="res://scripts/FSM/Dash.gd" id="5_rr6ad"]
@@ -22,7 +22,7 @@ shader = ExtResource("2_4nydu")
 shader_parameter/active = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/y_billboard = false
-shader_parameter/tex = ExtResource("1_7ave1")
+shader_parameter/tex = ExtResource("3_jbir3")
 
 [sub_resource type="BoxMesh" id="BoxMesh_jghw5"]
 size = Vector3(0.681, 0.169, 0.1)
@@ -219,7 +219,7 @@ material_override = SubResource("ShaderMaterial_avps4")
 ignore_occlusion_culling = true
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("1_7ave1")
+texture = ExtResource("3_jbir3")
 
 [node name="Area3D" type="Area3D" parent="Player3D/Player_Rotation"]
 collision_mask = 5
@@ -235,6 +235,7 @@ shape = SubResource("BoxShape3D_smemg")
 
 [node name="GPU_Particles" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.081, 0)
+visible = false
 cast_shadow = 0
 amount = 10
 lifetime = 0.5
@@ -245,6 +246,7 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles2" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.48, 0.105, 0)
+visible = false
 cast_shadow = 0
 amount = 10
 lifetime = 0.5
@@ -255,6 +257,7 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles3" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.48, 0.105, 0)
+visible = false
 cast_shadow = 0
 amount = 10
 lifetime = 0.5
@@ -265,6 +268,7 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles4" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.48, 0.105, 0)
+visible = false
 cast_shadow = 0
 emitting = false
 amount = 60
@@ -277,6 +281,7 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles5" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.48, 0.105, 0)
+visible = false
 cast_shadow = 0
 emitting = false
 amount = 60

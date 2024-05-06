@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 100
+var start = 400
 #0.5 start
 #222.0 first_lake
 #440.0 downhill

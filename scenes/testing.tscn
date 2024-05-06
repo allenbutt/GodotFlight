@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://caali75t7itdv"]
+[gd_scene load_steps=28 format=3 uid="uid://caali75t7itdv"]
 
 [ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
+[ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="2_nd216"]
 [ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
 [ext_resource type="Texture2D" path="res://art/Terrain/ground037_alb_ht.dds" id="4_hqlqw"]
 [ext_resource type="PackedScene" uid="uid://dkmfwlcjl184w" path="res://scenes/enemy_ship.tscn" id="6_00wkm"]
@@ -15,12 +16,21 @@
 [ext_resource type="ArrayMesh" uid="uid://bpo1766xxblmx" path="res://art/blendermodel/PineTreeCopy/PineTreeNewLowPoly.tres" id="14_kcrfh"]
 [ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="15_051yd"]
 [ext_resource type="QuadMesh" uid="uid://hwmlg608yi3i" path="res://art/tree_billboard.tres" id="16_1gk8d"]
+[ext_resource type="PackedScene" uid="uid://cynvhe8t8n18o" path="res://scenes/death_animation.tscn" id="16_apqht"]
 
-[sub_resource type="Environment" id="Environment_rqgf4"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qlcty"]
+panorama = ExtResource("2_nd216")
+
+[sub_resource type="Sky" id="Sky_5kgb1"]
+sky_material = SubResource("PanoramaSkyMaterial_qlcty")
+
+[sub_resource type="Environment" id="Environment_fe15q"]
 background_mode = 2
-background_energy_multiplier = 0.0
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_5kgb1")
 sky_rotation = Vector3(0, -0.0837758, 0)
 ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
 tonemap_mode = 3
 sdfgi_enabled = true
 sdfgi_bounce_feedback = 1.75
@@ -66,13 +76,13 @@ size = Vector2(50, 50)
 script = ExtResource("1_xat0c")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_rqgf4")
+environment = SubResource("Environment_fe15q")
 
 [node name="Window" parent="." instance=ExtResource("2_xwvwu")]
 transform = Transform3D(0.539329, 0, 0.842095, 0, 1, 0, -0.842095, 0, 0.539329, -6.57723, 0.128157, 0.011483)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41437, -1.97785, -0.420552)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41437, -2.88182, -0.420552)
 mesh = SubResource("PlaneMesh_k8tmv")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -162,7 +172,11 @@ mesh = SubResource("PlaneMesh_74fgf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.291, 0, -0.940245)
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95112, -0.528338, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95112, 1.1924, 0)
 mesh = ExtResource("16_1gk8d")
 
+[node name="DeathAnimation" parent="." instance=ExtResource("16_apqht")]
+transform = Transform3D(0.636872, 0, 0.770969, 0, 1, 0, -0.770969, 0, 0.636872, -6.28621, 2.68309, 0.614418)
+
+[editable path="Window"]
 [editable path="treetest3"]

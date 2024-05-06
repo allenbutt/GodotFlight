@@ -3,9 +3,11 @@ extends Node3D
 var missile = preload("res://scenes/enemy_missile.tscn")
 var laser = preload("res://scenes/laser_root.tscn")
 @onready var player = $Window/Player3D
+@onready var blackout = $Window/Player3D/Blackout
 
 func _ready():
-	laserstart()
+	#laserstart()
+	blackout.queue_free()
 
 
 func _process(delta):

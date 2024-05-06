@@ -1,0 +1,183 @@
+[gd_scene load_steps=19 format=3 uid="uid://cynvhe8t8n18o"]
+
+[ext_resource type="Texture2D" uid="uid://2rhnafix5q4a" path="res://art/gliderpieces/GliderCenterThruster.png" id="1_3mq6f"]
+[ext_resource type="Texture2D" uid="uid://dqdardofv78hb" path="res://art/gliderpieces/GliderLeftTop.png" id="2_dhnjf"]
+[ext_resource type="Texture2D" uid="uid://dr20xnxkmyy1q" path="res://art/gliderpieces/GliderLeftWing.png" id="3_fmwng"]
+[ext_resource type="Texture2D" uid="uid://bnwupg7aom8eu" path="res://art/gliderpieces/GliderLeftWingBottom.png" id="4_dl4jd"]
+[ext_resource type="Texture2D" uid="uid://pk2qxxcqjc8t" path="res://art/gliderpieces/GliderRightBottom.png" id="5_g64tv"]
+[ext_resource type="Texture2D" uid="uid://tcffpiiavlnt" path="res://art/gliderpieces/GliderRightThruster.png" id="6_a3ljl"]
+[ext_resource type="Texture2D" uid="uid://c2epos1nuurqp" path="res://art/gliderpieces/GliderRightTopFin.png" id="7_yu5ej"]
+[ext_resource type="Texture2D" uid="uid://bk5aebtco3qyc" path="res://art/gliderpieces/GliderRightWingSide.png" id="8_omph1"]
+[ext_resource type="Texture2D" uid="uid://chkqijlsotmb3" path="res://art/gliderpieces/GliderRightWingTop.png" id="9_haol7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6rehp"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xc1d7"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qpb0q"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6xs8w"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_81wrp"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xr2i"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lt600"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fekx4"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15uv4"]
+size = Vector3(0.2, 0.15, 0.1)
+
+[node name="DeathAnimation" type="Node3D"]
+
+[node name="GliderPieceCenterThruster" type="RigidBody3D" parent="."]
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceCenterThruster"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("1_3mq6f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceCenterThruster"]
+shape = SubResource("BoxShape3D_6rehp")
+
+[node name="GliderPieceLeftTop" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.179137, 0.0728449, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceLeftTop"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("2_dhnjf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftTop"]
+shape = SubResource("BoxShape3D_xc1d7")
+
+[node name="GliderPieceLeftWing" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.427035, 0.0356042, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceLeftWing"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("3_fmwng")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftWing"]
+shape = SubResource("BoxShape3D_qpb0q")
+
+[node name="GliderPieceLeftWingBottom" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.180536, -0.00170393, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceLeftWingBottom"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("4_dl4jd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftWingBottom"]
+shape = SubResource("BoxShape3D_6xs8w")
+
+[node name="GliderPieceRightBottom" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186155, -0.00170393, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightBottom"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("5_g64tv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightBottom"]
+shape = SubResource("BoxShape3D_81wrp")
+
+[node name="GliderPieceRightThruster" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.318023, 0.012608, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightThruster"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_a3ljl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightThruster"]
+shape = SubResource("BoxShape3D_5xr2i")
+
+[node name="GliderPieceRightTopFin" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814341, 0.0952374, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightTopFin"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("7_yu5ej")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightTopFin"]
+shape = SubResource("BoxShape3D_lt600")
+
+[node name="GliderPieceRightWingSide" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395244, 0.0439284, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightWingSide"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("8_omph1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightWingSide"]
+shape = SubResource("BoxShape3D_fekx4")
+
+[node name="GliderPieceRightWingTop" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196656, 0.0402151, 0)
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightWingTop"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+ignore_occlusion_culling = true
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_haol7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightWingTop"]
+shape = SubResource("BoxShape3D_15uv4")
