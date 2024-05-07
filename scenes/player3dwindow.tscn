@@ -235,7 +235,6 @@ shape = SubResource("BoxShape3D_smemg")
 
 [node name="GPU_Particles" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.081, 0)
-visible = false
 cast_shadow = 0
 amount = 10
 lifetime = 0.5
@@ -246,7 +245,6 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles2" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.48, 0.105, 0)
-visible = false
 cast_shadow = 0
 amount = 10
 lifetime = 0.5
@@ -257,7 +255,6 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles3" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.48, 0.105, 0)
-visible = false
 cast_shadow = 0
 amount = 10
 lifetime = 0.5
@@ -268,7 +265,6 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles4" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.48, 0.105, 0)
-visible = false
 cast_shadow = 0
 emitting = false
 amount = 60
@@ -281,7 +277,6 @@ draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
 [node name="GPU_Particles5" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.48, 0.105, 0)
-visible = false
 cast_shadow = 0
 emitting = false
 amount = 60

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var player_health_max = 300.0
+var player_health_max = 1.0
 var player_shield_max = 20.0
 var shield_cooldown_set = 300.0
 
@@ -22,6 +22,7 @@ var upward_force = false
 
 signal take_hit
 signal set_shield
+signal player_death
 
 func _ready():
 	Global.player_health = player_health_max
@@ -38,7 +39,7 @@ func _process(delta):
 func _on_area_3d_area_entered(area):
 	var damage = 0.0
 	#print("tree")
-	if taking_damage == false:
+	if taking_damage == false and Global.alive:
 		taking_damage = true
 		$Damage_Cooldown.start(damage_cooldown)
 		if area.has_method("damage_value"):
@@ -58,7 +59,7 @@ func _on_area_3d_area_entered(area):
 #Interaction with terrain
 func _on_area_3d_body_entered(body):
 	var damage = Global.damage_terrain
-	if upward_force == false:
+	if upward_force == false and Global.alive:
 #		Global.player_health = Global.player_health - Global.damage_terrain
 #		take_hit.emit()
 #		if Global.player_health <= 0:
@@ -77,7 +78,9 @@ func player_hit(damage):
 	Global.player_health -= (remaining_damage - damage_applied)
 	take_hit.emit()
 	if Global.player_health <= 0:
-		queue_free()
+		$Player_Rotation/Sprite3D.visible = false
+		Global.alive = false
+		player_death.emit()
 	else:
 		hit_flash($Player_Rotation/Sprite3D)
 		shield_cooldown = shield_cooldown_set

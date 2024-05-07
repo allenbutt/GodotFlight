@@ -1,5 +1,6 @@
 extends Node
 
+var alive = true
 var forward_speed = 0.115
 var forward_speed_base = 0.115
 #standard 0.125

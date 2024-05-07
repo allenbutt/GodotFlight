@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 400
+var start = 0.5
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -42,6 +42,7 @@ var final_attack_start = false
 @onready var ui = $ui_canvas
 @onready var player3d = $Window/Player3D
 @onready var playercam = $Window/Player3D/CameraMount/PlayerCamera
+@onready var playersprite = $Window/Player3D/Player_Rotation/Sprite3D
 @onready var menu = $Menu
 @onready var multimeshes = $MultiMeshes
 @onready var environment = $WorldEnvironment
@@ -49,6 +50,7 @@ var final_attack_start = false
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
 var laser = preload("res://scenes/laser_root.tscn")
+var death_animation = preload("res://scenes/death_animation.tscn")
 
 func _ready():
 	menu.BeginGame.connect(_start_game)
@@ -60,6 +62,7 @@ func _ready():
 	$Window.export_target = $Camera3D
 	player3d.take_hit.connect(player_take_hit)
 	player3d.set_shield.connect(player_set_shield)
+	player3d.player_death.connect(player_killed)
 	$Path3D/PathFollow3D.progress = start
 	$EnemyShip4Path/PathFollow3D/EnemyShip4.rotation_speed = 0.015
 	
@@ -160,6 +163,12 @@ func player_take_hit():
 	playercam.screen_shake()
 func player_set_shield():
 	ui.set_shieldbar_value(Global.player_shield)
+func player_killed():
+	Global.moving = false
+	var death_anim = death_animation.instantiate()
+	add_child(death_anim)
+	death_anim.global_position = playersprite.global_position
+	death_anim.global_transform = playersprite.global_transform
 
 #For debugging/testing
 func demo_explode():
