@@ -27,14 +27,14 @@ var test_explode = false
 var test_explode2 = false
 var test_explode3 = false
 
-var enemy1_attack_start = true
-var enemy2_attack_start = true
-var enemy2_attack_start2 = true
-var enemy3_attack_start = true
+var enemy1_attack_start = false
+var enemy2_attack_start = false
+var enemy2_attack_start2 = false
+var enemy3_attack_start = false
 var enemy3_attack_start2 = false
-var enemy4_attack_start = true
+var enemy4_attack_start = false
 var enemy4_attack_start2 = false
-var enemy5_attack_start = true
+var enemy5_attack_start = false
 var enemy6_attack_start = false
 var final_attack_start = false
 
@@ -165,10 +165,14 @@ func player_set_shield():
 	ui.set_shieldbar_value(Global.player_shield)
 func player_killed():
 	Global.moving = false
+	$ui_canvas.visible = false
+	player.remove_thrusters_on_death()
 	var death_anim = death_animation.instantiate()
 	add_child(death_anim)
 	death_anim.global_position = playersprite.global_position
 	death_anim.global_transform = playersprite.global_transform
+	
+	
 
 #For debugging/testing
 func demo_explode():

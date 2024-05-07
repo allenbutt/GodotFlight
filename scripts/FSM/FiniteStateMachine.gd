@@ -16,7 +16,7 @@ func _ready():
 		current_state = initial_state
 
 func _physics_process(delta):
-	if current_state:
+	if current_state and Global.alive:
 		current_state.Update(delta)
 
 func change_state(source_state : State, new_state_name : String):

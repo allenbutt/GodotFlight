@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cynvhe8t8n18o"]
+[gd_scene load_steps=26 format=3 uid="uid://cynvhe8t8n18o"]
 
 [ext_resource type="Texture2D" uid="uid://2rhnafix5q4a" path="res://art/gliderpieces/GliderCenterThruster.png" id="1_3mq6f"]
 [ext_resource type="Script" path="res://scripts/death_animation.gd" id="1_xgb51"]
@@ -13,6 +13,40 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6rehp"]
 size = Vector3(0.2, 0.15, 0.1)
+
+[sub_resource type="Gradient" id="Gradient_b5iq8"]
+offsets = PackedFloat32Array(0, 0.543478, 1)
+colors = PackedColorArray(0.890196, 0.219608, 0, 1, 0.921569, 0.960784, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qcxnx"]
+gradient = SubResource("Gradient_b5iq8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t5tqh"]
+spread = 180.0
+initial_velocity_min = 0.1
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.3
+color = Color(1, 0.305882, 0.196078, 1)
+color_ramp = SubResource("GradientTexture1D_qcxnx")
+hue_variation_min = -0.15
+hue_variation_max = 0.06
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w43b4"]
+load_path = "res://.godot/imported/Flare00.PNG-1381d186b1457be7c5a14826219b2568.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03mef"]
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_w43b4")
+emission_enabled = true
+emission = Color(0.6, 0.392157, 0.0666667, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yv2mg"]
+material = SubResource("StandardMaterial3D_03mef")
+radius = 0.025
+height = 0.05
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xc1d7"]
 size = Vector3(0.2, 0.15, 0.1)
@@ -56,6 +90,15 @@ texture = ExtResource("1_3mq6f")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceCenterThruster"]
 shape = SubResource("BoxShape3D_6rehp")
 
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceCenterThruster"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
+
 [node name="GliderPieceLeftTop" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.179137, 0.0728449, 0)
 mass = 0.1
@@ -71,6 +114,15 @@ texture = ExtResource("2_dhnjf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftTop"]
 shape = SubResource("BoxShape3D_xc1d7")
+
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceLeftTop"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
 [node name="GliderPieceLeftWing" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.427035, 0.0356042, 0)
@@ -88,6 +140,15 @@ texture = ExtResource("3_fmwng")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftWing"]
 shape = SubResource("BoxShape3D_qpb0q")
 
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceLeftWing"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
+
 [node name="GliderPieceLeftWingBottom" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.180536, -0.00170393, 0)
 mass = 0.1
@@ -103,6 +164,15 @@ texture = ExtResource("4_dl4jd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftWingBottom"]
 shape = SubResource("BoxShape3D_6xs8w")
+
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceLeftWingBottom"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
 [node name="GliderPieceRightBottom" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186155, -0.00170393, 0)
@@ -120,6 +190,15 @@ texture = ExtResource("5_g64tv")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightBottom"]
 shape = SubResource("BoxShape3D_81wrp")
 
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightBottom"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
+
 [node name="GliderPieceRightThruster" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.318023, 0.012608, 0)
 mass = 0.1
@@ -135,6 +214,15 @@ texture = ExtResource("6_a3ljl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightThruster"]
 shape = SubResource("BoxShape3D_5xr2i")
+
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightThruster"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
 [node name="GliderPieceRightTopFin" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814341, 0.0952374, 0)
@@ -152,6 +240,15 @@ texture = ExtResource("7_yu5ej")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightTopFin"]
 shape = SubResource("BoxShape3D_lt600")
 
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightTopFin"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
+
 [node name="GliderPieceRightWingSide" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395244, 0.0439284, 0)
 mass = 0.1
@@ -168,6 +265,15 @@ texture = ExtResource("8_omph1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightWingSide"]
 shape = SubResource("BoxShape3D_fekx4")
 
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightWingSide"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
+
 [node name="GliderPieceRightWingTop" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196656, 0.0402151, 0)
 mass = 0.1
@@ -183,3 +289,12 @@ texture = ExtResource("9_haol7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightWingTop"]
 shape = SubResource("BoxShape3D_15uv4")
+
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightWingTop"]
+cast_shadow = 0
+amount = 20
+lifetime = 0.5
+randomness = 1.0
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_t5tqh")
+draw_pass_1 = SubResource("CapsuleMesh_yv2mg")

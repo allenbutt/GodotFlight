@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=41 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Shader" path="res://art/shaders/hit_effect.gdshader" id="2_4nydu"]
@@ -34,7 +34,7 @@ size = Vector3(0.681, 0.168806, 0.1)
 offsets = PackedFloat32Array(0, 0.370748, 1)
 colors = PackedColorArray(0.890196, 0.219608, 0, 1, 0.921569, 0.960784, 0, 1, 0.999998, 0.999518, 0.720512, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nu1d"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b624d"]
 gradient = SubResource("Gradient_yxe5y")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g0u7g"]
@@ -47,14 +47,14 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.2
 scale_max = 0.4
 color = Color(1, 0.305882, 0.196078, 1)
-color_ramp = SubResource("GradientTexture1D_6nu1d")
+color_ramp = SubResource("GradientTexture1D_b624d")
 hue_variation_min = -0.15
 hue_variation_max = 0.06
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_euygp"]
 load_path = "res://.godot/imported/Flare00.PNG-1381d186b1457be7c5a14826219b2568.s3tc.ctex"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_er8yi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7dut"]
 vertex_color_use_as_albedo = true
 albedo_texture = SubResource("CompressedTexture2D_euygp")
 emission_enabled = true
@@ -62,9 +62,16 @@ emission = Color(1, 0.376471, 0.211765, 1)
 emission_energy_multiplier = 5.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lcgbw"]
-material = SubResource("StandardMaterial3D_er8yi")
+material = SubResource("StandardMaterial3D_m7dut")
 radius = 0.05
 height = 0.1
+
+[sub_resource type="Gradient" id="Gradient_4t65t"]
+offsets = PackedFloat32Array(0, 0.370748, 1)
+colors = PackedColorArray(0.890196, 0.219608, 0, 1, 0.921569, 0.960784, 0, 1, 0.999998, 0.999518, 0.720512, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nu1d"]
+gradient = SubResource("Gradient_4t65t")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nr6qm"]
 direction = Vector3(0, 0, 0)
