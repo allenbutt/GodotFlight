@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-var player_health_max = 1.0
-var player_shield_max = 20.0
+var player_health_max = 100.0
+var player_shield_max = 50.0
 var shield_cooldown_set = 300.0
 
 var player_speed = 0.0
@@ -48,27 +48,17 @@ func _on_area_3d_area_entered(area):
 		else:
 			damage = Global.damage_tree
 			#Global.player_health = Global.player_health - Global.damage_tree
+		damage = damage * randf_range(0.8,1.2)
 		player_hit(damage)
-#		take_hit.emit()
-#		if Global.player_health <= 0:
-#			queue_free()
-#		hit_flash($Player_Rotation/Sprite3D)
-#		shield_cooldown = shield_cooldown_set
-		
 
 #Interaction with terrain
 func _on_area_3d_body_entered(body):
 	var damage = Global.damage_terrain
 	if upward_force == false and Global.alive:
-#		Global.player_health = Global.player_health - Global.damage_terrain
-#		take_hit.emit()
-#		if Global.player_health <= 0:
-#			queue_free()
 		$Upward_Force_Time.start()
 		upward_force = true
+		damage = damage * randf_range(0.8,1.2)
 		player_hit(damage)
-#		hit_flash($Player_Rotation/Sprite3D)
-#		shield_cooldown = shield_cooldown_set
 
 func player_hit(damage):
 	var remaining_damage = damage
@@ -107,4 +97,4 @@ func fade_blackout():
 	blackout_animation_player.play("fade_out")
 
 func destroy_blackout():
-	blackout.queue_free()
+	blackout.visible = false

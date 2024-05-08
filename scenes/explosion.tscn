@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=3 uid="uid://h0m6qt4k3ial"]
+[gd_scene load_steps=165 format=3 uid="uid://h0m6qt4k3ial"]
 
 [ext_resource type="Script" path="res://scripts/explosion.gd" id="1_aaxac"]
 [ext_resource type="Shader" path="res://art/shaders/explosion.gdshader" id="2_jlhuf"]
@@ -9,14 +9,14 @@
 offsets = PackedFloat32Array(0.00340136, 0.0340136, 0.20068, 0.414966, 0.663265, 0.85034, 1)
 colors = PackedColorArray(1, 1, 0.921569, 1, 0.917647, 0.698039, 0.254902, 1, 0.779129, 0.35508, 0.0960761, 1, 0.827451, 0.184314, 0.0313726, 0.768627, 0.584825, 0.108707, 0.0265271, 0.551407, 0.501961, 0.0745098, 0.0470588, 0.411765, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_86imq"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8xoiw"]
 gradient = SubResource("Gradient_hhjtj")
 
 [sub_resource type="Curve" id="Curve_5r4f4"]
 _data = [Vector2(0.00307692, 0.0526315), 0.0, 0.0, 0, 0, Vector2(0.249231, 0.336842), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_lwc2n"]
+[sub_resource type="CurveTexture" id="CurveTexture_ffwgo"]
 curve = SubResource("Curve_5r4f4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1hbb8"]
@@ -32,8 +32,8 @@ damping_min = 5.0
 damping_max = 5.0
 scale_min = 0.25
 scale_max = 0.5
-scale_curve = SubResource("CurveTexture_lwc2n")
-color_ramp = SubResource("GradientTexture1D_86imq")
+scale_curve = SubResource("CurveTexture_ffwgo")
+color_ramp = SubResource("GradientTexture1D_8xoiw")
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_acne6"]
 parameter_name = "Emission_Strength"
@@ -358,26 +358,26 @@ nodes/fragment/21/node = SubResource("VisualShaderNodeInput_dapc6")
 nodes/fragment/21/position = Vector2(-1040, 1060)
 nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 2, 0, 6, 0, 6, 0, 4, 0, 7, 0, 6, 1, 9, 0, 0, 5, 4, 0, 0, 1, 12, 4, 7, 0, 10, 0, 13, 1, 12, 4, 14, 0, 14, 0, 15, 0, 15, 0, 13, 0, 17, 0, 16, 2, 13, 0, 9, 0, 18, 0, 9, 1, 20, 0, 19, 1, 16, 0, 19, 0, 19, 0, 18, 1, 9, 0, 0, 0, 21, 0, 18, 0)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_q1isi"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tt48u"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0fr2j"]
 seamless = true
-noise = SubResource("FastNoiseLite_q1isi")
+noise = SubResource("FastNoiseLite_tt48u")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxo5y"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_10jbx"]
 noise_type = 5
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uxyvq"]
 seamless = true
-noise = SubResource("FastNoiseLite_hxo5y")
+noise = SubResource("FastNoiseLite_10jbx")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2v0ua"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c555v"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iquit"]
 seamless = true
-noise = SubResource("FastNoiseLite_2v0ua")
+noise = SubResource("FastNoiseLite_c555v")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6spmg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qeti"]
 render_priority = 0
 shader = SubResource("VisualShader_iog2s")
 shader_parameter/NormalStrength = 0.15
@@ -389,7 +389,7 @@ shader_parameter/Emission_Noise_Texture = SubResource("NoiseTexture2D_iquit")
 shader_parameter/Alpha_Mask = SubResource("NoiseTexture2D_0fr2j")
 
 [sub_resource type="SphereMesh" id="SphereMesh_hkard"]
-material = SubResource("ShaderMaterial_6spmg")
+material = SubResource("ShaderMaterial_4qeti")
 
 [sub_resource type="Gradient" id="Gradient_q8lrn"]
 offsets = PackedFloat32Array(0.00340136, 0.0340136, 0.20068, 0.414966, 0.85034, 1)
@@ -397,6 +397,13 @@ colors = PackedColorArray(1, 1, 0.921569, 1, 0.917647, 0.698039, 0.254902, 1, 0.
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ubxd2"]
 gradient = SubResource("Gradient_q8lrn")
+
+[sub_resource type="Curve" id="Curve_jbu1j"]
+_data = [Vector2(0.00307692, 0.0526315), 0.0, 0.0, 0, 0, Vector2(0.249231, 0.336842), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lwc2n"]
+curve = SubResource("Curve_jbu1j")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_646og"]
 particle_flag_rotate_y = true

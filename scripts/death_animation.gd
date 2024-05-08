@@ -1,11 +1,14 @@
 extends Node3D
 
-var random_velocity_max = 1
-var random_sideways_max = 2.0
+var random_velocity_max = 0.5
+var random_sideways_max = 1.25
+
+@onready var glider_pieces = $GliderPieces
 
 func _ready():
-	Engine.time_scale = 0.25
 	await get_tree().create_timer(0.05).timeout
-	for pieces in self.get_children():
-		var velocity = pieces.global_transform.basis.z.normalized() + pieces.global_transform.basis.x * randf_range(random_sideways_max*-1,random_sideways_max)
+	$ParticlesExplosionCloud.emitting = true
+	for pieces in glider_pieces.get_children():
+		var velocity = pieces.global_transform.basis.z.normalized() + pieces.global_transform.basis.x * randf_range(random_sideways_max*-1,random_sideways_max) + \
+		pieces.global_transform.basis.y * randf_range(0,random_sideways_max)
 		pieces.apply_central_impulse(velocity * random_velocity_max)

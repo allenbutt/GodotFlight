@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.5
+var start = 0.05
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -56,6 +56,7 @@ func _ready():
 	menu.BeginGame.connect(_start_game)
 	menu.ToggleParticles.connect(_toggle_particles)
 	menu.ToggleGraphics.connect(_toggle_graphics)
+	$WorldEnvironment/AnimationPlayer.play("RESET")
 	#$Camera3D.current = true
 	$Path3D/PathFollow3D.progress = start
 	$Camera3D.target = player
@@ -155,8 +156,6 @@ func enemy_movement(delta):
 		final_attack($EnemyShip3)
 		final_attack($EnemyShip4)
 
-
-		
 func player_take_hit():
 	ui.set_healthbar_value(Global.player_health)
 	ui.set_shieldbar_value(Global.player_shield)
@@ -164,6 +163,7 @@ func player_take_hit():
 func player_set_shield():
 	ui.set_shieldbar_value(Global.player_shield)
 func player_killed():
+	Engine.time_scale = 0.25
 	Global.moving = false
 	$ui_canvas.visible = false
 	player.remove_thrusters_on_death()
@@ -171,6 +171,12 @@ func player_killed():
 	add_child(death_anim)
 	death_anim.global_position = playersprite.global_position
 	death_anim.global_transform = playersprite.global_transform
+	await get_tree().create_timer(0.5).timeout
+	$WorldEnvironment/AnimationPlayer.play("death_fade")
+	await get_tree().create_timer(1.0).timeout
+	Engine.time_scale = 1.0
+	Global.reset_global_variables()
+	get_tree().reload_current_scene()
 	
 	
 

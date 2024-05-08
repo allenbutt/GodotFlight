@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cynvhe8t8n18o"]
+[gd_scene load_steps=73 format=3 uid="uid://cynvhe8t8n18o"]
 
 [ext_resource type="Texture2D" uid="uid://2rhnafix5q4a" path="res://art/gliderpieces/GliderCenterThruster.png" id="1_3mq6f"]
 [ext_resource type="Script" path="res://scripts/death_animation.gd" id="1_xgb51"]
@@ -10,6 +10,389 @@
 [ext_resource type="Texture2D" uid="uid://c2epos1nuurqp" path="res://art/gliderpieces/GliderRightTopFin.png" id="7_yu5ej"]
 [ext_resource type="Texture2D" uid="uid://bk5aebtco3qyc" path="res://art/gliderpieces/GliderRightWingSide.png" id="8_omph1"]
 [ext_resource type="Texture2D" uid="uid://chkqijlsotmb3" path="res://art/gliderpieces/GliderRightWingTop.png" id="9_haol7"]
+
+[sub_resource type="Gradient" id="Gradient_pc8io"]
+offsets = PackedFloat32Array(0.00340136, 0.0340136, 0.20068, 0.619565, 0.766304, 0.918478, 1)
+colors = PackedColorArray(1, 1, 0.921569, 1, 0.917647, 0.698039, 0.254902, 1, 0.779129, 0.35508, 0.0960761, 1, 0.827451, 0.184314, 0.0313726, 0.768627, 0.584825, 0.108707, 0.0265271, 0.551407, 0.501961, 0.0745098, 0.0470588, 0.411765, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dffp3"]
+gradient = SubResource("Gradient_pc8io")
+
+[sub_resource type="Curve" id="Curve_15voh"]
+_data = [Vector2(0.00307692, 0.0526315), 0.0, 0.0, 0, 0, Vector2(0.249231, 0.336842), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_o08bt"]
+curve = SubResource("Curve_15voh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mpvmc"]
+angle_max = 360.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_o08bt")
+color_ramp = SubResource("GradientTexture1D_dffp3")
+hue_variation_max = 0.05
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_32ygn"]
+parameter_name = "Emission_Strength"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_m687r"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_tdl8g"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_5lvff"]
+default_input_values = [0, 0.0, 1, 0.5]
+operator = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_aisg8"]
+operator = 6
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_4cxft"]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_8swuu"]
+parameter_name = "Emission_Noise_Texture"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_uqdlx"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_exnio"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0fhm2"]
+source = 5
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_rqund"]
+parameter_name = "Emission_Noise_Effect"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_0h0sw"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_ddic5"]
+parameter_name = "Alpha_Mask"
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_3316f"]
+function = 15
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_wx7ln"]
+parameter_name = "alpha"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_f5jo8"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_q6pij"]
+default_input_values = [0, 0.0, 1, 0.5]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_ydw4s"]
+parameter_name = "emission_color"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_gias0"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_1p6ns"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ecrfp"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_3eq0y"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_2g7fk"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0, -0.2, 0)]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_bqvm2"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_p0et2"]
+parameter_name = "NormalStrength"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_c13h5"]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_oq8v7"]
+parameter_name = "Displacement_Texture"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_k3oss"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_eiagq"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_b2nb1"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5ablf"]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_2701c"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_42tlc"]
+parameter_name = "Displacement"
+
+[sub_resource type="VisualShader" id="VisualShader_2os3l"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+
+uniform sampler2D Displacement_Texture;
+uniform float NormalStrength;
+uniform float Displacement;
+uniform float Emission_Strength;
+uniform sampler2D Emission_Noise_Texture;
+uniform float Emission_Noise_Effect;
+uniform sampler2D Alpha_Mask;
+
+
+
+void vertex() {
+// Input:10
+	vec2 n_out10p0 = UV;
+
+
+// Input:11
+	float n_out11p0 = TIME;
+
+
+// VectorOp:13
+	vec3 n_in13p1 = vec3(0.00000, -0.20000, 0.00000);
+	vec3 n_out13p0 = vec3(n_out11p0) * n_in13p1;
+
+
+// VectorOp:12
+	vec3 n_out12p0 = vec3(n_out10p0, 0.0) + n_out13p0;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Displacement_Texture, vec2(n_out12p0.xy));
+
+
+// Input:7
+	vec3 n_out7p0 = NORMAL;
+
+
+// FloatParameter:15
+	float n_out15p0 = NormalStrength;
+
+
+// VectorOp:14
+	vec3 n_out14p0 = n_out7p0 * vec3(n_out15p0);
+
+
+// VectorOp:6
+	vec3 n_out6p0 = vec3(n_out2p0.xyz) * n_out14p0;
+
+
+// FloatParameter:9
+	float n_out9p0 = Displacement;
+
+
+// VectorOp:8
+	vec3 n_out8p0 = n_out6p0 * vec3(n_out9p0);
+
+
+// Input:4
+	vec3 n_out4p0 = VERTEX;
+
+
+// VectorOp:5
+	vec3 n_out5p0 = n_out8p0 + n_out4p0;
+
+
+// Output:0
+	VERTEX = n_out5p0;
+
+
+}
+
+void fragment() {
+// Input:12
+	vec4 n_out12p0 = COLOR;
+	float n_out12p4 = n_out12p0.a;
+
+
+// FloatOp:14
+	float n_in14p1 = 0.50000;
+	float n_out14p0 = n_out12p4 - n_in14p1;
+
+
+// FloatOp:15
+	float n_in15p1 = 0.00000;
+	float n_out15p0 = max(n_out14p0, n_in15p1);
+
+
+// FloatParameter:10
+	float n_out10p0 = Emission_Strength;
+
+
+// VectorOp:13
+	vec3 n_out13p0 = vec3(n_out15p0) * vec3(n_out10p0);
+
+
+// Input:21
+	vec4 n_out21p0 = COLOR;
+
+
+	vec4 n_out16p0;
+// Texture2D:16
+	n_out16p0 = texture(Emission_Noise_Texture, UV);
+
+
+// FloatParameter:20
+	float n_out20p0 = Emission_Noise_Effect;
+
+
+// VectorOp:19
+	vec3 n_out19p0 = vec3(n_out16p0.xyz) * vec3(n_out20p0);
+
+
+// VectorOp:18
+	vec3 n_out18p0 = vec3(n_out21p0.xyz) * n_out19p0;
+
+
+// VectorOp:9
+	vec3 n_out9p0 = n_out13p0 * n_out18p0;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Alpha_Mask, UV);
+
+
+// FloatOp:7
+	float n_in7p1 = 0.50000;
+	float n_out7p0 = n_out12p4 + n_in7p1;
+
+
+// FloatOp:6
+	float n_out6p0 = n_out2p0.x * n_out7p0;
+
+
+// FloatFunc:4
+	float n_out4p0 = round(n_out6p0);
+
+
+// Output:0
+	ALBEDO = n_out9p0;
+	ALPHA = n_out4p0;
+	EMISSION = n_out9p0;
+
+
+}
+"
+graph_offset = Vector2(-486.221, 363.411)
+modes/cull = 2
+flags/depth_prepass_alpha = true
+nodes/vertex/0/position = Vector2(560, 220)
+nodes/vertex/2/node = SubResource("VisualShaderNodeTexture_c13h5")
+nodes/vertex/2/position = Vector2(-220, -100)
+nodes/vertex/3/node = SubResource("VisualShaderNodeTexture2DParameter_oq8v7")
+nodes/vertex/3/position = Vector2(-620, -40)
+nodes/vertex/4/node = SubResource("VisualShaderNodeInput_k3oss")
+nodes/vertex/4/position = Vector2(-200, 480)
+nodes/vertex/5/node = SubResource("VisualShaderNodeVectorOp_eiagq")
+nodes/vertex/5/position = Vector2(400, 180)
+nodes/vertex/6/node = SubResource("VisualShaderNodeVectorOp_b2nb1")
+nodes/vertex/6/position = Vector2(40, -20)
+nodes/vertex/7/node = SubResource("VisualShaderNodeInput_5ablf")
+nodes/vertex/7/position = Vector2(-580, 300)
+nodes/vertex/8/node = SubResource("VisualShaderNodeVectorOp_2701c")
+nodes/vertex/8/position = Vector2(240, 0)
+nodes/vertex/9/node = SubResource("VisualShaderNodeFloatParameter_42tlc")
+nodes/vertex/9/position = Vector2(-60, 260)
+nodes/vertex/10/node = SubResource("VisualShaderNodeInput_1p6ns")
+nodes/vertex/10/position = Vector2(-1120, -240)
+nodes/vertex/11/node = SubResource("VisualShaderNodeInput_ecrfp")
+nodes/vertex/11/position = Vector2(-1260, -100)
+nodes/vertex/12/node = SubResource("VisualShaderNodeVectorOp_3eq0y")
+nodes/vertex/12/position = Vector2(-600, -220)
+nodes/vertex/13/node = SubResource("VisualShaderNodeVectorOp_2g7fk")
+nodes/vertex/13/position = Vector2(-960, -140)
+nodes/vertex/14/node = SubResource("VisualShaderNodeVectorOp_bqvm2")
+nodes/vertex/14/position = Vector2(-200, 80)
+nodes/vertex/15/node = SubResource("VisualShaderNodeFloatParameter_p0et2")
+nodes/vertex/15/position = Vector2(-540, 400)
+nodes/vertex/connections = PackedInt32Array(3, 0, 2, 2, 5, 0, 0, 0, 2, 0, 6, 0, 6, 0, 8, 0, 9, 0, 8, 1, 8, 0, 5, 0, 4, 0, 5, 1, 10, 0, 12, 0, 11, 0, 13, 0, 13, 0, 12, 1, 7, 0, 14, 0, 14, 0, 6, 1, 15, 0, 14, 1, 12, 0, 2, 0)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_0fhm2")
+nodes/fragment/2/position = Vector2(-300, 240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_ddic5")
+nodes/fragment/3/position = Vector2(-640, 160)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatFunc_3316f")
+nodes/fragment/4/position = Vector2(180, 260)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_wx7ln")
+nodes/fragment/5/position = Vector2(-920, 660)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_f5jo8")
+nodes/fragment/6/position = Vector2(-20, 260)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_q6pij")
+nodes/fragment/7/position = Vector2(-200, 400)
+nodes/fragment/8/node = SubResource("VisualShaderNodeColorParameter_ydw4s")
+nodes/fragment/8/position = Vector2(-420, 940)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorOp_gias0")
+nodes/fragment/9/position = Vector2(160, 480)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatParameter_32ygn")
+nodes/fragment/10/position = Vector2(-680, 840)
+nodes/fragment/12/node = SubResource("VisualShaderNodeInput_m687r")
+nodes/fragment/12/position = Vector2(-620, 480)
+nodes/fragment/13/node = SubResource("VisualShaderNodeVectorOp_tdl8g")
+nodes/fragment/13/position = Vector2(-280, 740)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFloatOp_5lvff")
+nodes/fragment/14/position = Vector2(-600, 660)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatOp_aisg8")
+nodes/fragment/15/position = Vector2(-440, 680)
+nodes/fragment/16/node = SubResource("VisualShaderNodeTexture_4cxft")
+nodes/fragment/16/position = Vector2(-460, 1140)
+nodes/fragment/17/node = SubResource("VisualShaderNodeTexture2DParameter_8swuu")
+nodes/fragment/17/position = Vector2(-820, 1140)
+nodes/fragment/18/node = SubResource("VisualShaderNodeVectorOp_uqdlx")
+nodes/fragment/18/position = Vector2(40, 1000)
+nodes/fragment/19/node = SubResource("VisualShaderNodeVectorOp_exnio")
+nodes/fragment/19/position = Vector2(-140, 1180)
+nodes/fragment/20/node = SubResource("VisualShaderNodeFloatParameter_rqund")
+nodes/fragment/20/position = Vector2(-460, 1360)
+nodes/fragment/21/node = SubResource("VisualShaderNodeInput_0h0sw")
+nodes/fragment/21/position = Vector2(-1040, 1060)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 2, 0, 6, 0, 6, 0, 4, 0, 7, 0, 6, 1, 9, 0, 0, 5, 4, 0, 0, 1, 12, 4, 7, 0, 10, 0, 13, 1, 12, 4, 14, 0, 14, 0, 15, 0, 15, 0, 13, 0, 17, 0, 16, 2, 13, 0, 9, 0, 18, 0, 9, 1, 20, 0, 19, 1, 16, 0, 19, 0, 19, 0, 18, 1, 9, 0, 0, 0, 21, 0, 18, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q1isi"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8no0y"]
+seamless = true
+noise = SubResource("FastNoiseLite_q1isi")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxo5y"]
+noise_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d2ral"]
+seamless = true
+noise = SubResource("FastNoiseLite_hxo5y")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2v0ua"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f7dwf"]
+seamless = true
+noise = SubResource("FastNoiseLite_2v0ua")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6spmg"]
+render_priority = 0
+shader = SubResource("VisualShader_2os3l")
+shader_parameter/NormalStrength = 0.15
+shader_parameter/Displacement = 6.795
+shader_parameter/Emission_Strength = 2.0
+shader_parameter/Emission_Noise_Effect = 3.0
+shader_parameter/Displacement_Texture = SubResource("NoiseTexture2D_d2ral")
+shader_parameter/Emission_Noise_Texture = SubResource("NoiseTexture2D_f7dwf")
+shader_parameter/Alpha_Mask = SubResource("NoiseTexture2D_8no0y")
+
+[sub_resource type="SphereMesh" id="SphereMesh_anpnh"]
+material = SubResource("ShaderMaterial_6spmg")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6rehp"]
 size = Vector3(0.2, 0.15, 0.1)
@@ -75,11 +458,23 @@ size = Vector3(0.2, 0.15, 0.1)
 [node name="DeathAnimation" type="Node3D"]
 script = ExtResource("1_xgb51")
 
-[node name="GliderPieceCenterThruster" type="RigidBody3D" parent="."]
+[node name="ParticlesExplosionCloud" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 100
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_mpvmc")
+draw_pass_1 = SubResource("SphereMesh_anpnh")
+
+[node name="GliderPieces" type="Node3D" parent="."]
+
+[node name="GliderPieceCenterThruster" type="RigidBody3D" parent="GliderPieces"]
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceCenterThruster"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceCenterThruster"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -87,10 +482,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("1_3mq6f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceCenterThruster"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceCenterThruster"]
 shape = SubResource("BoxShape3D_6rehp")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceCenterThruster"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceCenterThruster"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -99,12 +494,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceLeftTop" type="RigidBody3D" parent="."]
+[node name="GliderPieceLeftTop" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.179137, 0.0728449, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceLeftTop"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceLeftTop"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -112,10 +507,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("2_dhnjf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftTop"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceLeftTop"]
 shape = SubResource("BoxShape3D_xc1d7")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceLeftTop"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceLeftTop"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -124,12 +519,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceLeftWing" type="RigidBody3D" parent="."]
+[node name="GliderPieceLeftWing" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.427035, 0.0356042, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceLeftWing"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceLeftWing"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -137,10 +532,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("3_fmwng")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftWing"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceLeftWing"]
 shape = SubResource("BoxShape3D_qpb0q")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceLeftWing"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceLeftWing"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -149,12 +544,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceLeftWingBottom" type="RigidBody3D" parent="."]
+[node name="GliderPieceLeftWingBottom" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.180536, -0.00170393, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceLeftWingBottom"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceLeftWingBottom"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -162,10 +557,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("4_dl4jd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceLeftWingBottom"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceLeftWingBottom"]
 shape = SubResource("BoxShape3D_6xs8w")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceLeftWingBottom"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceLeftWingBottom"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -174,12 +569,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceRightBottom" type="RigidBody3D" parent="."]
+[node name="GliderPieceRightBottom" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186155, -0.00170393, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightBottom"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceRightBottom"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -187,10 +582,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("5_g64tv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightBottom"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceRightBottom"]
 shape = SubResource("BoxShape3D_81wrp")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightBottom"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceRightBottom"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -199,12 +594,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceRightThruster" type="RigidBody3D" parent="."]
+[node name="GliderPieceRightThruster" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.318023, 0.012608, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightThruster"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceRightThruster"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -212,10 +607,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("6_a3ljl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightThruster"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceRightThruster"]
 shape = SubResource("BoxShape3D_5xr2i")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightThruster"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceRightThruster"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -224,12 +619,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceRightTopFin" type="RigidBody3D" parent="."]
+[node name="GliderPieceRightTopFin" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0814341, 0.0952374, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightTopFin"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceRightTopFin"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -237,10 +632,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("7_yu5ej")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightTopFin"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceRightTopFin"]
 shape = SubResource("BoxShape3D_lt600")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightTopFin"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceRightTopFin"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -249,12 +644,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceRightWingSide" type="RigidBody3D" parent="."]
+[node name="GliderPieceRightWingSide" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395244, 0.0439284, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightWingSide"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceRightWingSide"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -262,10 +657,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("8_omph1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightWingSide"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceRightWingSide"]
 shape = SubResource("BoxShape3D_fekx4")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightWingSide"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceRightWingSide"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
@@ -274,12 +669,12 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
 
-[node name="GliderPieceRightWingTop" type="RigidBody3D" parent="."]
+[node name="GliderPieceRightWingTop" type="RigidBody3D" parent="GliderPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196656, 0.0402151, 0)
 mass = 0.1
 gravity_scale = 0.75
 
-[node name="Sprite3D2" type="Sprite3D" parent="GliderPieceRightWingTop"]
+[node name="Sprite3D2" type="Sprite3D" parent="GliderPieces/GliderPieceRightWingTop"]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 ignore_occlusion_culling = true
 billboard = 1
@@ -287,10 +682,10 @@ texture_filter = 0
 render_priority = 1
 texture = ExtResource("9_haol7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieceRightWingTop"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GliderPieces/GliderPieceRightWingTop"]
 shape = SubResource("BoxShape3D_15uv4")
 
-[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieceRightWingTop"]
+[node name="GPU_Particles" type="GPUParticles3D" parent="GliderPieces/GliderPieceRightWingTop"]
 cast_shadow = 0
 amount = 20
 lifetime = 0.5
