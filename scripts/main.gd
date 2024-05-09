@@ -53,7 +53,8 @@ var laser = preload("res://scenes/laser_root.tscn")
 var death_animation = preload("res://scenes/death_animation.tscn")
 
 func _ready():
-	menu.BeginGame.connect(_start_game)
+	#menu.BeginGame.connect(_start_game)
+	menu.BeginGame.connect(endingscenetest)
 	menu.ToggleParticles.connect(_toggle_particles)
 	menu.ToggleGraphics.connect(_toggle_graphics)
 	$WorldEnvironment/AnimationPlayer.play("RESET")
@@ -85,6 +86,16 @@ func _start_game():
 	#$ui_canvas.visible = true
 	
 	player3d.fade_blackout()
+
+func endingscenetest():
+	$Menu.visible = false
+	$ui_canvas.visible = false
+	player.global_position = $Marker3D.global_position
+	await get_tree().create_timer(1.0).timeout
+	
+	player3d.fade_blackout()
+	Global.victory = true
+	Global.alive = false
 
 func _process(delta):
 	if Input.is_action_pressed("shift"):

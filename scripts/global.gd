@@ -11,6 +11,7 @@ var damage_tree = 35.0
 var damage_explode = 40.0
 var damage_laser = 35.0
 var moving = false
+var victory = false
 
 var options_particles = true
 var options_screenshake = true
@@ -30,6 +31,7 @@ func reset_global_variables():
 	damage_explode = 20.0
 	damage_laser = 10.0
 	moving = false
+	victory = false
 
 	options_particles = true
 	options_screenshake = true

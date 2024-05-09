@@ -46,9 +46,12 @@ func _process(delta):
 			thrustersleftspin.emitting = false
 			thrustersrightspin.emitting = false
 	else:
-		camera.fov = lerp(camera.fov, 120.0, 2 * delta)
-		var target_xform = target.global_transform.translated_local(Vector3(0,1,0))
-		global_transform = global_transform.interpolate_with(target_xform, lerp_speed * 0.1 / 60)
+		if Global.victory:
+			camera.fov = lerp(camera.fov, 80.0, 0.25 * delta)
+		else:
+			camera.fov = lerp(camera.fov, 120.0, 2 * delta)
+			var target_xform = target.global_transform.translated_local(Vector3(0,1,0))
+			global_transform = global_transform.interpolate_with(target_xform, lerp_speed * 0.1 / 60)
 
 func remove_thrusters_on_death():
 	thrustersmain.visible = false

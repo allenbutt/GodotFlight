@@ -1,21 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://caali75t7itdv"]
+[gd_scene load_steps=13 format=3 uid="uid://caali75t7itdv"]
 
 [ext_resource type="Script" path="res://scripts/testing.gd" id="1_xat0c"]
 [ext_resource type="Texture2D" uid="uid://dq5n1c70cwqrt" path="res://art/Terrain/sunflowers_puresky_2k.exr" id="2_nd216"]
 [ext_resource type="PackedScene" uid="uid://d1xlldkbakg5t" path="res://scenes/player3dwindow.tscn" id="2_xwvwu"]
 [ext_resource type="Texture2D" path="res://art/Terrain/ground037_alb_ht.dds" id="4_hqlqw"]
 [ext_resource type="PackedScene" uid="uid://dkmfwlcjl184w" path="res://scenes/enemy_ship.tscn" id="6_00wkm"]
-[ext_resource type="ArrayMesh" uid="uid://vgxgtyo1awdx" path="res://art/blendermodel/NewTree/tree1.obj" id="6_k70fv"]
-[ext_resource type="PackedScene" uid="uid://bieth1mmq3rv4" path="res://art/blendermodel/NewTree/treetest.glb" id="7_crf03"]
-[ext_resource type="ArrayMesh" uid="uid://cl50ypxva5mi4" path="res://art/blendermodel/CedarTree/cedar_tree_model.obj" id="8_6dyky"]
-[ext_resource type="ArrayMesh" uid="uid://c3laaroxqwp3b" path="res://art/blendermodel/NewTree/treetest.obj" id="9_nfb8e"]
-[ext_resource type="ArrayMesh" uid="uid://bepf4sht01qvs" path="res://art/blendermodel/NewTree/treetest2.obj" id="10_w2m78"]
-[ext_resource type="ArrayMesh" uid="uid://b721wkh53u3c8" path="res://art/blendermodel/NewTree/new_array_mesh.tres" id="11_0bc1l"]
-[ext_resource type="Material" uid="uid://d28lq2qtgdyie" path="res://addons/proton_scatter/demos/assets/materials/m_pine_leaves.tres" id="12_7pt0b"]
-[ext_resource type="ArrayMesh" uid="uid://eel8bcvs2830" path="res://art/blendermodel/PineTreeCopy/PineTreeNew.tres" id="13_xr74v"]
-[ext_resource type="ArrayMesh" uid="uid://bpo1766xxblmx" path="res://art/blendermodel/PineTreeCopy/PineTreeNewLowPoly.tres" id="14_kcrfh"]
-[ext_resource type="PackedScene" uid="uid://caqxfqurbp3ku" path="res://addons/proton_scatter/demos/assets/pine_tree.tscn" id="15_051yd"]
-[ext_resource type="QuadMesh" uid="uid://hwmlg608yi3i" path="res://art/tree_billboard.tres" id="16_1gk8d"]
 [ext_resource type="PackedScene" uid="uid://cynvhe8t8n18o" path="res://scenes/death_animation.tscn" id="16_apqht"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qlcty"]
@@ -56,22 +45,6 @@ size = Vector2(100, 100)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_70msh"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_db1cq"]
-metallic_specular = 0.0
-roughness = 0.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_fniwl"]
-material = SubResource("StandardMaterial3D_db1cq")
-size = Vector2(80, 80)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w0wv5"]
-metallic_specular = 0.0
-roughness = 0.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_74fgf"]
-material = SubResource("StandardMaterial3D_w0wv5")
-size = Vector2(50, 50)
-
 [node name="testing" type="Node3D"]
 script = ExtResource("1_xat0c")
 
@@ -102,81 +75,7 @@ visible = false
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5697, 0, -13.2728)
 
-[node name="Tree1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.68195, 0.675027, -2.15736)
-mesh = ExtResource("6_k70fv")
-
-[node name="treetest" parent="." instance=ExtResource("7_crf03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35004, 2.67737, -4.23697)
-
-[node name="treetest2" parent="." instance=ExtResource("7_crf03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28782, 3.89521, -6.39312)
-
-[node name="Tree2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.11227, 4.85837, -3.06627)
-mesh = ExtResource("6_k70fv")
-
-[node name="Tree3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6078, 5.12816, -4.59937)
-mesh = ExtResource("6_k70fv")
-
-[node name="Tree4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0577, -1.97785, -18.4554)
-mesh = ExtResource("6_k70fv")
-
-[node name="CedarTreeModel" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.1752, -1.97785, -17.4464)
-mesh = ExtResource("8_6dyky")
-
-[node name="Treetest" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.4736, -1.97785, -33.9761)
-mesh = ExtResource("9_nfb8e")
-
-[node name="Treetest2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7594, -1.97785, -32.7876)
-mesh = ExtResource("9_nfb8e")
-
-[node name="treetest3" parent="." instance=ExtResource("7_crf03")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4488, -1.97785, -28.5044)
-
-[node name="Treetest3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.625, -1.97785, -13.2816)
-mesh = ExtResource("10_w2m78")
-
-[node name="Treetest4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.863, -1.97785, -12.1368)
-mesh = ExtResource("11_0bc1l")
-surface_material_override/2 = ExtResource("12_7pt0b")
-
-[node name="NewArrayMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0899, -1.97785, -11.1496)
-mesh = ExtResource("11_0bc1l")
-
-[node name="PineTreeNew" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8998, -1.97785, -8.01582)
-mesh = ExtResource("13_xr74v")
-
-[node name="PineTreeNewLowRes" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.196, -1.97785, -8.39239)
-mesh = ExtResource("14_kcrfh")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.815, 0, 0)
-mesh = SubResource("PlaneMesh_fniwl")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.815, 7.74418, 0)
-mesh = SubResource("PlaneMesh_74fgf")
-
-[node name="pine_tree" parent="." instance=ExtResource("15_051yd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.291, 0, -0.940245)
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95112, 1.1924, 0)
-mesh = ExtResource("16_1gk8d")
-
 [node name="DeathAnimation" parent="." instance=ExtResource("16_apqht")]
 transform = Transform3D(0.636872, 0, 0.770969, 0, 1, 0, -0.770969, 0, 0.636872, -6.28621, 2.68309, 0.614418)
 
 [editable path="Window"]
-[editable path="treetest3"]
