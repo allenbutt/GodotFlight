@@ -1,7 +1,7 @@
 extends Node3D
 
 var movement = 0.05
-var start = 0.05
+var start = 2500.0
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -46,6 +46,7 @@ var final_attack_start = false
 @onready var menu = $Menu
 @onready var multimeshes = $MultiMeshes
 @onready var environment = $WorldEnvironment
+@onready var portal = $PedestalScene
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
@@ -53,10 +54,11 @@ var laser = preload("res://scenes/laser_root.tscn")
 var death_animation = preload("res://scenes/death_animation.tscn")
 
 func _ready():
-	#menu.BeginGame.connect(_start_game)
-	menu.BeginGame.connect(endingscenetest)
+	menu.BeginGame.connect(_start_game)
+	#menu.BeginGame.connect(endingscenetest)
 	menu.ToggleParticles.connect(_toggle_particles)
 	menu.ToggleGraphics.connect(_toggle_graphics)
+	portal.player_enter.connect(endingscene)
 	$WorldEnvironment/AnimationPlayer.play("RESET")
 	#$Camera3D.current = true
 	$Path3D/PathFollow3D.progress = start
@@ -87,15 +89,17 @@ func _start_game():
 	
 	player3d.fade_blackout()
 
-func endingscenetest():
+func endingscene():
 	$Menu.visible = false
 	$ui_canvas.visible = false
 	player.global_position = $Marker3D.global_position
-	await get_tree().create_timer(1.0).timeout
-	
-	player3d.fade_blackout()
+	player3d.position = Vector3(0.0,0.0,0.0)
 	Global.victory = true
 	Global.alive = false
+	go_forward = false
+	Global.moving = false
+	$Window/Boundaries.visible = false
+	
 
 func _process(delta):
 	if Input.is_action_pressed("shift"):

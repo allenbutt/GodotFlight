@@ -14,7 +14,8 @@ var boost_shaking = false
 
 
 func _process(delta):
-	if Input.is_action_pressed("shift") and boost_shaking == false and randf_range(0,1) < 0.15 and Global.options_screenshake:
+	if Input.is_action_pressed("shift") and boost_shaking == false and randf_range(0,1) < 0.15 and \
+	Global.options_screenshake and Global.alive:
 		screen_shake_boost()
 
 

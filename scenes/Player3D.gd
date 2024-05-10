@@ -26,7 +26,9 @@ signal player_death
 
 func _ready():
 	Global.player_health = player_health_max
+	Global.player_shield = player_shield_max
 	blackout_animation_player.play("fade_in")
+
 
 func _process(delta):
 	shield_cooldown = clamp(shield_cooldown - 1 * delta * 60, 0, 1000)
