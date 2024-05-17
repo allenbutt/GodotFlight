@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://buo1cil07gyc8"]
+
+[ext_resource type="Script" path="res://scripts/ui_canvas.gd" id="1_yed0k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ok867"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.898039, 0.313726, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yidk3"]
+
+[node name="ui_timer" type="CanvasLayer"]
+script = ExtResource("1_yed0k")
+
+[node name="TimerContainerMargin" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -274.0
+offset_right = 12.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 120
+
+[node name="Panel2" type="Panel" parent="TimerContainerMargin"]
+visible = false
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ok867")
+
+[node name="MarginContainer" type="MarginContainer" parent="TimerContainerMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 2
+
+[node name="TimePanel" type="Panel" parent="TimerContainerMargin/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yidk3")
+
+[node name="TimeText" type="Label" parent="TimerContainerMargin/MarginContainer/TimePanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 81.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "Best Time:"
+
+[node name="TimeMinutes" type="Label" parent="TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 85.0
+offset_top = -11.0
+offset_right = 125.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "00:"
+
+[node name="TimeSeconds" type="Label" parent="TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 110.0
+offset_top = -11.0
+offset_right = 150.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "00:"
+
+[node name="TimeMilli" type="Label" parent="TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 135.0
+offset_top = -11.0
+offset_right = 175.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "00"

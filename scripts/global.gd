@@ -24,12 +24,12 @@ func reset_global_variables():
 	forward_speed = 0.115
 	forward_speed_base = 0.115
 	#standard 0.125
-	player_health = 50.0
-	player_shield = 20.0
-	damage_terrain = 10.0
-	damage_tree = 15.0
-	damage_explode = 20.0
-	damage_laser = 10.0
+	player_health = 100.0
+	player_shield = 50.0
+	damage_terrain = 25.0
+	damage_tree = 35.0
+	damage_explode = 40.0
+	damage_laser = 35.0
 	moving = false
 	victory = false
 

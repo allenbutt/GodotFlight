@@ -48,7 +48,7 @@ func player_movement(delta):
 #Angle the ship's model depending on moving left and right	
 	if direction.x > 0:
 		player_rotation_node.rotation.z = player_rotation_node.rotation.z - rotation_speed * delta * 60
-	if direction.x < 0:
+	if direction.x <= 0:
 		player_rotation_node.rotation.z = player_rotation_node.rotation.z + rotation_speed * delta * 60
 
 #Make local and global movement agree before applying velocity for the move_and_slide() function

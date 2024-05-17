@@ -1,11 +1,15 @@
 extends Node3D
 
 var movement = 0.05
-var start = 2500.0
+var start = 0.05
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
 #888.0 sharp turn
+var time: float = 0.0
+var minutes: int = 0
+var seconds: int = 0
+var msec: int = 0
 
 var go_forward = false
 
@@ -40,6 +44,9 @@ var final_attack_start = false
 
 @onready var player = $Window
 @onready var ui = $ui_canvas
+@onready var ui_TimeMinutes = $ui_timer/TimerContainerMargin/MarginContainer/TimePanel/TimeMinutes
+@onready var ui_TimeSeconds = $ui_timer/TimerContainerMargin/MarginContainer/TimePanel/TimeSeconds
+@onready var ui_TimeMilli = $ui_timer/TimerContainerMargin/MarginContainer/TimePanel/TimeMilli
 @onready var player3d = $Window/Player3D
 @onready var playercam = $Window/Player3D/CameraMount/PlayerCamera
 @onready var playersprite = $Window/Player3D/Player_Rotation/Sprite3D
@@ -76,12 +83,10 @@ func _ready():
 func _start_game():
 	$Menu.visible = false
 	$ui_canvas.visible = true
+	$ui_timer.visible = true
 	await get_tree().create_timer(1.0).timeout
-	#$Window/Boundaries.visible = true
 	go_forward = true
 	Global.moving = true
-	$ui_canvas.visible = true
-	#player3d.position = Vector3(0.0,0.0,0.0)
 	
 	await get_tree().create_timer(0.5).timeout
 	$Window/Boundaries.visible = true
@@ -99,9 +104,16 @@ func endingscene():
 	go_forward = false
 	Global.moving = false
 	$Window/Boundaries.visible = false
+	await get_tree().create_timer(5.0).timeout
+	$WorldEnvironment/AnimationPlayer.play("death_fade")
+	await get_tree().create_timer(1.0).timeout
+	Global.reset_global_variables()
+	$ui_timer.visible = false
+	get_tree().reload_current_scene()
 	
 
 func _process(delta):
+	_timercount(delta)
 	if Input.is_action_pressed("shift"):
 		Global.forward_speed = Global.forward_speed_base * 1.33
 	else:
@@ -117,6 +129,17 @@ func _process(delta):
 	if go_faster2 == false and $Path3D/PathFollow3D.progress > 1640.0:
 		go_faster2 = true
 		enact_go_faster()
+
+func _timercount(delta):
+	if Global.moving:
+		time += delta
+		msec = fmod(time, 1) * 100
+		seconds = fmod(time, 60)
+		minutes = fmod(time, 3600) / 60
+		ui_TimeMinutes.text = "%02d:" % minutes
+		ui_TimeSeconds.text = "%02d." % seconds
+		ui_TimeMilli.text = "%02d" % msec
+
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 125:
@@ -190,6 +213,7 @@ func player_killed():
 	$WorldEnvironment/AnimationPlayer.play("death_fade")
 	await get_tree().create_timer(1.0).timeout
 	Engine.time_scale = 1.0
+	$ui_timer.visible = false
 	Global.reset_global_variables()
 	get_tree().reload_current_scene()
 	

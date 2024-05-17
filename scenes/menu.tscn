@@ -770,7 +770,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.6, 0.898039, 0.313726, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_061ie"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_movwh"]
 
 [sub_resource type="FontFile" id="FontFile_qneuk"]
 subpixel_positioning = 0
@@ -1124,8 +1124,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -268.0
-offset_right = 2.0
+offset_left = -274.0
+offset_right = 12.0
 offset_bottom = 100.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 40
@@ -1138,16 +1138,59 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ecl2t")
 
 [node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/Panel/TimerContainerMargin"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 2
 
-[node name="TimeContainer" type="PanelContainer" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer"]
+[node name="TimePanel" type="Panel" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_061ie")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_movwh")
 
-[node name="Label" type="Label" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimeContainer"]
-layout_mode = 2
-text = "Best Time: 5:00"
+[node name="TimeText" type="Label" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 81.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "Best Time:"
+
+[node name="TimeMinutes" type="Label" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 85.0
+offset_top = -11.0
+offset_right = 125.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "-- :"
+
+[node name="TimeSeconds" type="Label" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 110.0
+offset_top = -11.0
+offset_right = 150.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "-- :"
+
+[node name="TimeMilli" type="Label" parent="AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 135.0
+offset_top = -11.0
+offset_right = 175.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "--"
 
 [node name="StartGameMargin" type="MarginContainer" parent="AspectRatioContainer/Panel"]
 layout_mode = 1
@@ -1209,14 +1252,15 @@ width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D5" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
-position = Vector2(565, 42)
+position = Vector2(591.537, 42)
+scale = Vector2(0.895522, 1)
 points = PackedVector2Array(256, 27, 319, 27)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
 [node name="Line2D7" type="Line2D" parent="AspectRatioContainer/Panel/Lines"]
 position = Vector2(777, 41)
-points = PackedVector2Array(256, 27, 280, 27)
+points = PackedVector2Array(265, 27, 280, 27)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 

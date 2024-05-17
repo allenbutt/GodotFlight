@@ -48,7 +48,7 @@ func _process(delta):
 	else:
 		if Global.victory:
 			camera.fov = lerp(camera.fov, 80.0, 0.25 * delta)
-			camera.rotation.z = lerp(camera.rotation.z, 90.0, 0.00005 * delta)
+			camera.rotation.z = lerp(camera.rotation.z, 90.0, 0.0001 * delta)
 		else:
 			camera.fov = lerp(camera.fov, 120.0, 2 * delta)
 			var target_xform = target.global_transform.translated_local(Vector3(0,1,0))
