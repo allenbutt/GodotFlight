@@ -3,6 +3,7 @@ extends Control
 signal BeginGame()
 signal ToggleParticles()
 signal ToggleGraphics()
+signal SaveOptions()
 
 @onready var buttonparticles = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonParticles
 @onready var buttonscreenshake = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonScreenshake
@@ -11,9 +12,10 @@ signal ToggleGraphics()
 @onready var buttonmusic = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonMusic
 
 func _ready():
-	set_label_text()
+	pass
 
 func set_label_text():
+	SaveOptions.emit()
 	if Global.options_particles:
 		buttonparticles.text = "Particles: On"
 	else:

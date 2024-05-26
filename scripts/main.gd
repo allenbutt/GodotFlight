@@ -1,5 +1,7 @@
 extends Node3D
 
+var save_path = "user://variable.save"
+
 var movement = 0.05
 var start = 0.05
 #0.5 start
@@ -54,6 +56,9 @@ var final_attack_start = false
 @onready var multimeshes = $MultiMeshes
 @onready var environment = $WorldEnvironment
 @onready var portal = $PedestalScene
+@onready var uitimerminutes = $Menu/AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel/TimeMinutes
+@onready var uitimerseconds = $Menu/AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel/TimeSeconds
+@onready var uitimermilli = $Menu/AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel/TimeMilli
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
@@ -61,10 +66,12 @@ var laser = preload("res://scenes/laser_root.tscn")
 var death_animation = preload("res://scenes/death_animation.tscn")
 
 func _ready():
+	_load_data()
 	menu.BeginGame.connect(_start_game)
 	#menu.BeginGame.connect(endingscenetest)
 	menu.ToggleParticles.connect(_toggle_particles)
 	menu.ToggleGraphics.connect(_toggle_graphics)
+	menu.SaveOptions.connect(_save_game)
 	portal.player_enter.connect(endingscene)
 	$WorldEnvironment/AnimationPlayer.play("RESET")
 	#$Camera3D.current = true
@@ -79,8 +86,16 @@ func _ready():
 	
 	$Window/Boundaries.visible = false
 	$ui_canvas.visible = false
+	
+	
+	if Global.best_time != 0.00:
+		set_timer_text(Global.best_time, uitimerminutes, uitimerseconds, uitimermilli)
+	menu.set_label_text()
+	_initiate_options()
 
 func _start_game():
+	#Global.best_time = 0.00
+	#_save_game()
 	$Menu.visible = false
 	$ui_canvas.visible = true
 	$ui_timer.visible = true
@@ -94,7 +109,29 @@ func _start_game():
 	
 	player3d.fade_blackout()
 
+func _save_game():
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(Global.options_graphics)
+	file.store_var(Global.options_music)
+	file.store_var(Global.options_particles)
+	file.store_var(Global.options_screenshake)
+	file.store_var(Global.options_sound)
+	file.store_var(Global.best_time)
+
+func _load_data():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		Global.options_graphics = file.get_var(Global.options_graphics)
+		Global.options_music = file.get_var(Global.options_music)
+		Global.options_particles = file.get_var(Global.options_particles)
+		Global.options_screenshake = file.get_var(Global.options_screenshake)
+		Global.options_sound = file.get_var(Global.options_sound)
+		Global.best_time = file.get_var(Global.best_time)
+
 func endingscene():
+	if time < Global.best_time or Global.best_time == 0.00:
+		Global.best_time = time
+	_save_game()
 	$Menu.visible = false
 	$ui_canvas.visible = false
 	player.global_position = $Marker3D.global_position
@@ -133,13 +170,15 @@ func _process(delta):
 func _timercount(delta):
 	if Global.moving:
 		time += delta
-		msec = fmod(time, 1) * 100
-		seconds = fmod(time, 60)
-		minutes = fmod(time, 3600) / 60
-		ui_TimeMinutes.text = "%02d:" % minutes
-		ui_TimeSeconds.text = "%02d." % seconds
-		ui_TimeMilli.text = "%02d" % msec
+		set_timer_text(time, ui_TimeMinutes, ui_TimeSeconds, ui_TimeMilli)
 
+func set_timer_text(timevalue, labelmin, labelsec, labelmil):
+		var mil = fmod(timevalue, 1) * 100
+		var sec = fmod(timevalue, 60)
+		var min = fmod(timevalue, 3600) / 60
+		labelmin.text = "%02d:" % min
+		labelsec.text = "%02d." % sec
+		labelmil.text = "%02d" % mil
 
 func enemy_movement(delta):
 	if move_enemy_1 == false and $Path3D/PathFollow3D.progress > 125:
@@ -262,7 +301,7 @@ func enemy2_attack():
 	var enemy = $EnemyShip2Path/PathFollow3D/EnemyShip2
 	for count in range(0,22):
 		var forward_offset = randf_range(10.0, 25.0) * Global.forward_speed * 8
-		var other_offset = Vector3(randf_range(-5.0,5.0),randf_range(-5.0,5.0),0)
+		var other_offset = Vector3(randf_range(-4.0,4.0),randf_range(-4.0,4.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
 		enemy_missile.remove_targeting()
@@ -446,6 +485,16 @@ func _toggle_graphics():
 		for meshes in multimeshes.get_children():
 			meshes.visible = true
 	else:
+		environment.environment.sdfgi_enabled = false
+		for meshes in multimeshes.get_children():
+			meshes.visible = false
+
+func _initiate_options():
+	if Global.options_particles == false:
+		player.thrustersmain.emitting = false
+		player.thrustersleft.emitting = false
+		player.thrustersright.emitting = false
+	if Global.options_graphics == false:
 		environment.environment.sdfgi_enabled = false
 		for meshes in multimeshes.get_children():
 			meshes.visible = false

@@ -44,7 +44,8 @@ grow_vertical = 0
 theme = ExtResource("1_riqct")
 theme_override_styles/background = SubResource("StyleBoxFlat_v132y")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1tk1f")
-value = 100.0
+max_value = 200.0
+value = 200.0
 
 [node name="Shieldbar" type="ProgressBar" parent="."]
 anchors_preset = 7

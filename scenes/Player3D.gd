@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var player_health_max = 100.0
+var player_health_max = 200.0
 var player_shield_max = 50.0
 var shield_cooldown_set = 300.0
 
