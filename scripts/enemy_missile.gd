@@ -9,6 +9,8 @@ var explosion = preload("res://scenes/explosion.tscn")
 
 var speed_multiplier = 1.0
 
+var player_target
+
 func _ready():
 	pass
 
@@ -24,6 +26,7 @@ func _on_area_3d_body_entered(body):
 	missile_exploding = true
 	var explode = explosion.instantiate()
 	explode.position = missile.position
+	explode.distance_to_player = missile.global_transform.origin.distance_to(player_target.global_transform.origin)
 	add_child(explode)
 	end_movement()
 	await get_tree().create_timer(2.0).timeout

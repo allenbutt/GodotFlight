@@ -1,8 +1,11 @@
-[gd_scene load_steps=165 format=3 uid="uid://h0m6qt4k3ial"]
+[gd_scene load_steps=168 format=3 uid="uid://h0m6qt4k3ial"]
 
 [ext_resource type="Script" path="res://scripts/explosion.gd" id="1_aaxac"]
 [ext_resource type="Shader" path="res://art/shaders/explosion.gdshader" id="2_jlhuf"]
 [ext_resource type="Texture2D" uid="uid://bwoywjjfvvwb3" path="res://art/fire/Flare00.PNG" id="2_v0y3j"]
+[ext_resource type="AudioStream" uid="uid://b40okiglpjgel" path="res://sounds/254071__tb0y298__firework-explosion.wav" id="5_s3jwx"]
+[ext_resource type="AudioStream" uid="uid://buwh8ex3hu5kt" path="res://sounds/268556__cydon__explosion_002.mp3" id="6_mpux5"]
+[ext_resource type="AudioStream" uid="uid://dekornslhaag1" path="res://sounds/560510__nox_sound__explosion_debris_short_stereo.wav" id="7_etneo"]
 [ext_resource type="Script" path="res://scripts/explosionarea.gd" id="10_qb1io"]
 
 [sub_resource type="Gradient" id="Gradient_hhjtj"]
@@ -1203,7 +1206,7 @@ spread = 0.0
 initial_velocity_min = 5.0
 initial_velocity_max = 5.0
 gravity = Vector3(0, 0, 0)
-scale_min = 15.0
+scale_min = 12.0
 scale_max = 15.0
 scale_curve = SubResource("CurveTexture_m0ejs")
 
@@ -1294,7 +1297,7 @@ material_override = SubResource("ShaderMaterial_ubfsd")
 cast_shadow = 0
 emitting = false
 amount = 1
-lifetime = 0.25
+lifetime = 0.35
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_iqudh")
 draw_pass_1 = SubResource("SphereMesh_kberc")
@@ -1329,3 +1332,21 @@ shape = SubResource("CylinderShape3D_cessa")
 visible = false
 mesh = SubResource("CylinderMesh_dsldb")
 skeleton = NodePath("../..")
+
+[node name="ExplodeSound1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_s3jwx")
+pitch_scale = 0.5
+max_distance = 60.0
+bus = &"SoundEffects"
+
+[node name="ExplodeSound2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_mpux5")
+volume_db = 10.0
+bus = &"SoundEffects"
+
+[node name="ExplodeSound3" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_etneo")
+volume_db = 10.0
+pitch_scale = 0.5
+max_distance = 35.0
+bus = &"SoundEffects"

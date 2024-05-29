@@ -3,7 +3,7 @@ extends Node3D
 var save_path = "user://variable.save"
 
 var movement = 0.05
-var start = 0.05
+var start = 240.0
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -301,9 +301,10 @@ func enemy2_attack():
 	var enemy = $EnemyShip2Path/PathFollow3D/EnemyShip2
 	for count in range(0,22):
 		var forward_offset = randf_range(10.0, 25.0) * Global.forward_speed * 8
-		var other_offset = Vector3(randf_range(-4.0,4.0),randf_range(-4.0,4.0),0)
+		var other_offset = Vector3(randf_range(-5.0,5.0),randf_range(-5.0,5.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
+		enemy_missile.player_target = player3d
 		enemy_missile.remove_targeting()
 		enemy_missile.speed_multiplier = 3.0
 		enemy_missile.global_position = enemy.global_position
@@ -317,9 +318,10 @@ func enemy2_attack2():
 	var enemy = $EnemyShip2Path/PathFollow3D/EnemyShip2
 	for count in range(0,22):
 		var forward_offset = randf_range(20.0, 30.0) * Global.forward_speed * 8
-		var other_offset = Vector3(randf_range(-12.0,12.0),randf_range(-12.0,12.0),0)
+		var other_offset = Vector3(randf_range(-7.0,7.0),randf_range(-7.0,7.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
+		enemy_missile.player_target = player3d
 		enemy_missile.speed_multiplier = 2.5
 		enemy_missile.global_position = enemy.global_position
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
@@ -335,6 +337,7 @@ func enemy3_attack():
 		var other_offset = Vector3(randf_range(-12.0,12.0),randf_range(-12.0,12.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
+		enemy_missile.player_target = player3d
 		enemy_missile.remove_targeting()
 		enemy_missile.speed_multiplier = 2.0
 		enemy_missile.global_position = enemy.global_position
@@ -350,6 +353,7 @@ func enemy3_attack():
 		var other_offset = Vector3(randf_range(-6.0,6.0),randf_range(-6.0,6.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
+		enemy_missile.player_target = player3d
 		enemy_missile.speed_multiplier = 2.0
 		enemy_missile.global_position = enemy.global_position
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
@@ -383,6 +387,7 @@ func enemy4_attack2():
 		var other_offset = Vector3(randf_range(-6.0,6.0),randf_range(-6.0,6.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
+		enemy_missile.player_target = player3d
 		enemy_missile.speed_multiplier = 2.0
 		enemy_missile.global_position = enemy.global_position
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
@@ -416,6 +421,7 @@ func enemy5_attack():
 		var other_offset = Vector3(randf_range(-6.0,6.0),randf_range(-6.0,6.0),0)
 		var enemy_missile = missile.instantiate()
 		add_child(enemy_missile)
+		enemy_missile.player_target = player3d
 		enemy_missile.speed_multiplier = 2.0
 		enemy_missile.global_position = enemy.global_position
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
@@ -432,6 +438,7 @@ func final_attack(enemyship):
 			var other_offset = Vector3(randf_range(-10.0,10.0),randf_range(-6.0,6.0),0)
 			var enemy_missile = missile.instantiate()
 			add_child(enemy_missile)
+			enemy_missile.player_target = player3d
 			enemy_missile.speed_multiplier = 4.0
 			enemy_missile.global_position = enemy.global_position
 			enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
@@ -463,6 +470,7 @@ func enemy6_attack():
 			var other_offset = Vector3(randf_range(-10.0,10.0),randf_range(-10.0,10.0),0)
 			var enemy_missile = missile.instantiate()
 			add_child(enemy_missile)
+			enemy_missile.player_target = player3d
 			enemy_missile.speed_multiplier = 3.0
 			enemy_missile.global_position = enemy.global_position
 			enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
