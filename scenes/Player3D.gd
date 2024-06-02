@@ -23,6 +23,7 @@ var upward_force = false
 signal take_hit
 signal set_shield
 signal player_death
+signal explosion_screen_shake
 
 func _ready():
 	Global.player_health = player_health_max
@@ -100,3 +101,7 @@ func fade_blackout():
 
 func destroy_blackout():
 	blackout.visible = false
+
+
+func _on_area_3d_explosion_screenshake_area_entered(area):
+	explosion_screen_shake.emit()

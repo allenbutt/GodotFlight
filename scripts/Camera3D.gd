@@ -49,3 +49,18 @@ func screen_shake_boost():
 
 	self.transform = camera_transform_base
 	boost_shaking = false
+
+func screen_shake_explosion():
+	var denominator = 5.0
+	if Global.options_screenshake:
+		var elapsed_time = 0.0
+		
+		while elapsed_time < period * 6.0:
+			var offset = Vector3(
+				randf_range(-magnitude/denominator, magnitude/denominator), randf_range(-magnitude/denominator, magnitude/denominator), 0.0)
+
+			self.transform.origin = camera_transform_base.origin + offset
+			elapsed_time += get_process_delta_time()
+			await get_tree().process_frame
+
+	self.transform = camera_transform_base

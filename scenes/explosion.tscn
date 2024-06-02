@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=3 uid="uid://h0m6qt4k3ial"]
+[gd_scene load_steps=169 format=3 uid="uid://h0m6qt4k3ial"]
 
 [ext_resource type="Script" path="res://scripts/explosion.gd" id="1_aaxac"]
 [ext_resource type="Shader" path="res://art/shaders/explosion.gdshader" id="2_jlhuf"]
@@ -1260,6 +1260,9 @@ top_radius = 1.0
 bottom_radius = 1.0
 height = 4.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_b3tty"]
+radius = 10.0
+
 [node name="Explosion" type="Node3D"]
 script = ExtResource("1_aaxac")
 
@@ -1333,20 +1336,29 @@ visible = false
 mesh = SubResource("CylinderMesh_dsldb")
 skeleton = NodePath("../..")
 
+[node name="Area3D2" type="Area3D" parent="Node3D"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3D2"]
+shape = SubResource("SphereShape3D_b3tty")
+
 [node name="ExplodeSound1" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_s3jwx")
 pitch_scale = 0.5
-max_distance = 60.0
+max_distance = 100.0
+panning_strength = 2.0
 bus = &"SoundEffects"
 
 [node name="ExplodeSound2" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_mpux5")
 volume_db = 10.0
+max_polyphony = 2
 bus = &"SoundEffects"
 
 [node name="ExplodeSound3" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("7_etneo")
 volume_db = 10.0
 pitch_scale = 0.5
-max_distance = 35.0
+max_distance = 55.0
 bus = &"SoundEffects"

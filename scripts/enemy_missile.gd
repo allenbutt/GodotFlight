@@ -11,8 +11,25 @@ var speed_multiplier = 1.0
 
 var player_target
 
+@onready var audioplayer1 = $Missile/LaunchSound1
+@onready var audioplayer2 = $Missile/LaunchSound2
+@onready var audioplayer3 = $Missile/LaunchSound3
+@onready var audioplayer4 = $Missile/LaunchSound4
+
 func _ready():
-	pass
+	match randi_range(2,4):
+		1:
+			audioplayer1.pitch_scale = randf_range(0.25, 0.55)
+			audioplayer1.play()
+		2:
+			audioplayer2.pitch_scale = randf_range(0.5, 1.0)
+			audioplayer2.play(0.1)
+		3:
+			audioplayer3.pitch_scale = randf_range(0.5, 1.0)
+			audioplayer3.play(0.12)
+		4:
+			audioplayer4.pitch_scale = randf_range(0.5, 1.0)
+			audioplayer4.play(0.08)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

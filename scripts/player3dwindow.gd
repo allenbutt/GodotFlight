@@ -15,7 +15,7 @@ var export_target = Node3D
 @onready var boundaries_image = $Boundaries
 
 func _ready():
-	pass # Replace with function body.
+	$Player3D.explosion_screen_shake.connect(explosion_near)
 
 
 
@@ -61,3 +61,6 @@ func remove_thrusters_on_death():
 	thrustersright.visible = false
 	thrustersrightspin.visible = false
 	boundaries_image.visible = false
+
+func explosion_near():
+	camera.screen_shake_explosion()

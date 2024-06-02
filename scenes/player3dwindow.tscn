@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://doucwypg2vdvd" path="res://art/gliderpieces/Glider2update.png" id="3_jbir3"]
 [ext_resource type="Script" path="res://scripts/FSM/FiniteStateMachine.gd" id="3_jv0lq"]
 [ext_resource type="Script" path="res://scripts/FSM/Normal.gd" id="4_64ccc"]
+[ext_resource type="Shape3D" uid="uid://u6wq75g7ausk" path="res://scenes/player3dwindow.tres" id="4_x4leu"]
 [ext_resource type="Script" path="res://scripts/FSM/Dash.gd" id="5_rr6ad"]
 [ext_resource type="Script" path="res://scripts/FSM/HitTerrain.gd" id="6_pedly"]
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
@@ -26,9 +27,6 @@ shader_parameter/tex = ExtResource("3_jbir3")
 
 [sub_resource type="BoxMesh" id="BoxMesh_jghw5"]
 size = Vector3(0.681, 0.169, 0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_smemg"]
-size = Vector3(0.681, 0.168806, 0.1)
 
 [sub_resource type="Gradient" id="Gradient_yxe5y"]
 offsets = PackedFloat32Array(0, 0.370748, 1)
@@ -238,7 +236,7 @@ mesh = SubResource("BoxMesh_jghw5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/Player_Rotation/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0887642, 0)
-shape = SubResource("BoxShape3D_smemg")
+shape = ExtResource("4_x4leu")
 
 [node name="GPU_Particles" type="GPUParticles3D" parent="Player3D/Player_Rotation"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.081, 0)
@@ -294,6 +292,13 @@ trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_nr6qm")
 draw_pass_1 = SubResource("CapsuleMesh_lcgbw")
 
+[node name="Area3DExplosionScreenshake" type="Area3D" parent="Player3D/Player_Rotation"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/Player_Rotation/Area3DExplosionScreenshake"]
+shape = ExtResource("4_x4leu")
+
 [node name="FSM" type="Node" parent="Player3D" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_jv0lq")
 initial_state = NodePath("Normal")
@@ -338,6 +343,7 @@ one_shot = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -4)
 
 [node name="PlayerCamera" type="Camera3D" parent="Player3D/CameraMount" node_paths=PackedStringArray("boundaries")]
+fov = 37.8493
 script = ExtResource("10_et4hb")
 boundaries = NodePath("../../../Boundaries")
 
@@ -454,5 +460,6 @@ texture = ExtResource("11_iqk1w")
 
 [connection signal="area_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="Player3D/Player_Rotation/Area3D" to="Player3D" method="_on_area_3d_body_entered"]
+[connection signal="area_entered" from="Player3D/Player_Rotation/Area3DExplosionScreenshake" to="Player3D" method="_on_area_3d_explosion_screenshake_area_entered"]
 [connection signal="timeout" from="Player3D/Upward_Force_Time" to="Player3D" method="_on_upward_force_time_timeout"]
 [connection signal="timeout" from="Player3D/Damage_Cooldown" to="Player3D" method="_on_damage_cooldown_timeout"]
