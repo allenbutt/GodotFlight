@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=43 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Shader" path="res://art/shaders/hit_effect.gdshader" id="2_4nydu"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://scripts/FSM/Dash.gd" id="5_rr6ad"]
 [ext_resource type="Script" path="res://scripts/FSM/HitTerrain.gd" id="6_pedly"]
 [ext_resource type="Script" path="res://scripts/FSM/HitAttack.gd" id="7_5bcft"]
+[ext_resource type="AudioStream" uid="uid://b7xbvosyj634k" path="res://sounds/585255__lesaucisson__swoosh-3-double.mp3" id="8_7gvo0"]
 [ext_resource type="Script" path="res://scripts/FSM/Death.gd" id="8_vfevf"]
+[ext_resource type="AudioStream" uid="uid://dp30d8qyxif3m" path="res://sounds/521377__jarusca__rocket-launch.mp3" id="9_8x5np"]
 [ext_resource type="Script" path="res://scripts/Camera3D.gd" id="10_et4hb"]
 [ext_resource type="Shader" path="res://art/shaders/environment.gdshader" id="11_1k1r0"]
 [ext_resource type="Texture2D" uid="uid://cw1rg0euwong1" path="res://art/Boundaries.png" id="11_iqk1w"]
@@ -318,6 +320,19 @@ window = NodePath("../../..")
 player_rotation_node = NodePath("../../Player_Rotation")
 Upward_Force_Timer = NodePath("../../Upward_Force_Time")
 dash_duration = 0.25
+
+[node name="DashSound" type="AudioStreamPlayer3D" parent="Player3D/FSM/Dash"]
+stream = ExtResource("8_7gvo0")
+attenuation_model = 3
+volume_db = 10.0
+pitch_scale = 1.5
+
+[node name="DashSound2" type="AudioStreamPlayer3D" parent="Player3D/FSM/Dash"]
+stream = ExtResource("9_8x5np")
+attenuation_model = 3
+volume_db = -5.0
+pitch_scale = 2.0
+bus = &"SoundEffects"
 
 [node name="HitTerrain" type="Node" parent="Player3D/FSM"]
 script = ExtResource("6_pedly")

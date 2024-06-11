@@ -150,6 +150,9 @@ func endingscene():
 	
 
 func _process(delta):
+	#if Input.is_action_just_pressed("spacebar") and $Window/Player3D/FSM/Normal.dash_cooldown_timer.get_time_left() == 0:
+		#$Dash_Sound.play(0.06)
+		#print("dash")
 	_timercount(delta)
 	if Input.is_action_pressed("shift"):
 		Global.forward_speed = Global.forward_speed_base * 1.33

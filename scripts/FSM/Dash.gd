@@ -17,6 +17,8 @@ var dashing = false
 
 func Enter():
 	dashing = true
+	$DashSound.play(0.055)
+	$DashSound2.play(0.00)
 	await get_tree().create_timer(dash_duration).timeout
 	dashing = false
 	state_transition.emit(self,"Normal")
@@ -30,7 +32,6 @@ func Update(delta):
 func player_movement(delta):
 	var direction = Vector3.ZERO
 	var shift_bonus = 1
-	
 	if Input.is_action_pressed("shift"):
 		shift_bonus = 1
 	else:
@@ -49,6 +50,7 @@ func player_movement(delta):
 	if direction.x > 0:
 		player_rotation_node.rotation.z = player_rotation_node.rotation.z - rotation_speed * delta * 60
 	if direction.x <= 0:
+		#print("rotate" + str(randi_range(0,9)))
 		player_rotation_node.rotation.z = player_rotation_node.rotation.z + rotation_speed * delta * 60
 
 #Make local and global movement agree before applying velocity for the move_and_slide() function
