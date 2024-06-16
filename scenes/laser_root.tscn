@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwuatdftwan2d"]
+[gd_scene load_steps=16 format=3 uid="uid://dwuatdftwan2d"]
 
 [ext_resource type="Script" path="res://scenes/laser_root.gd" id="1_vw1qx"]
 [ext_resource type="Script" path="res://scenes/laser_collision.gd" id="2_eumq7"]
+[ext_resource type="AudioStream" uid="uid://colqemuk0bul8" path="res://sounds/268344__julien-matthey__jm_noiz_laser-01.wav" id="3_fcc46"]
+[ext_resource type="AudioStream" uid="uid://bju1lml6he465" path="res://sounds/220128__thehiddenvoice__vibrating-low-bass-sond.wav" id="4_neob0"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_03lp8"]
 top_radius = 0.075
@@ -72,6 +74,69 @@ visible = false
 mesh = SubResource("SphereMesh_y6ox2")
 skeleton = NodePath("../..")
 
+[node name="Laser_Persistent_Sound" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
+[node name="Laser_Persistent_Sound2" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 150)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
+[node name="Laser_Persistent_Sound3" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 200)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
+[node name="Laser_Persistent_Sound4" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 250)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
+[node name="Laser_Persistent_Sound5" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 300)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
+[node name="Laser_Persistent_Sound6" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 350)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
+[node name="Laser_Persistent_Sound7" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400)
+stream = ExtResource("4_neob0")
+volume_db = -10.0
+autoplay = true
+max_distance = 30.0
+panning_strength = 2.0
+bus = &"SoundEffects"
+
 [node name="Area3D" type="Area3D" parent="LaserParent"]
 collision_mask = 0
 script = ExtResource("2_eumq7")
@@ -80,7 +145,16 @@ script = ExtResource("2_eumq7")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 250)
 shape = SubResource("CylinderShape3D_uq5nc")
 
+[node name="Persistent_Sounds" type="Node3D" parent="LaserParent"]
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 30.0
+autostart = true
+
+[node name="Laser_Launch" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_fcc46")
+attenuation_model = 3
+pitch_scale = 0.75
+bus = &"SoundEffects"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

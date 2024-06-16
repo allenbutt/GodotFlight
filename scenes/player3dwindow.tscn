@@ -1,10 +1,13 @@
-[gd_scene load_steps=43 format=3 uid="uid://d1xlldkbakg5t"]
+[gd_scene load_steps=47 format=3 uid="uid://d1xlldkbakg5t"]
 
 [ext_resource type="Script" path="res://scenes/Player3D.gd" id="1_5m3tf"]
 [ext_resource type="Shader" path="res://art/shaders/hit_effect.gdshader" id="2_4nydu"]
+[ext_resource type="AudioStream" uid="uid://r0csf1v67elx" path="res://sounds/146770__qubodup__rocket-boost-engine-loop.wav" id="2_e75w7"]
+[ext_resource type="AudioStream" uid="uid://brq1r50oavfcq" path="res://sounds/270542__littlerobotsoundfactory__laser_02.wav" id="3_a0ncm"]
 [ext_resource type="Texture2D" uid="uid://doucwypg2vdvd" path="res://art/gliderpieces/Glider2update.png" id="3_jbir3"]
 [ext_resource type="Script" path="res://scripts/FSM/FiniteStateMachine.gd" id="3_jv0lq"]
 [ext_resource type="Script" path="res://scripts/FSM/Normal.gd" id="4_64ccc"]
+[ext_resource type="AudioStream" uid="uid://btichub5jw0am" path="res://sounds/zapsplat_impacts_body_hard_fall_hit_ground_rubble_stones_004_86732.mp3" id="4_ap480"]
 [ext_resource type="Shape3D" uid="uid://u6wq75g7ausk" path="res://scenes/player3dwindow.tres" id="4_x4leu"]
 [ext_resource type="Script" path="res://scripts/FSM/Dash.gd" id="5_rr6ad"]
 [ext_resource type="Script" path="res://scripts/FSM/HitTerrain.gd" id="6_pedly"]
@@ -104,6 +107,10 @@ lightmap_size_hint = Vector2i(12, 12)
 material = SubResource("ShaderMaterial_6ntm7")
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ubbs5"]
+height = 1.0
+radius = 1.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4yrg2"]
 transparency = 1
@@ -219,6 +226,24 @@ script = ExtResource("1_5m3tf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.089, 0)
 shape = SubResource("BoxShape3D_1dtde")
 
+[node name="ForwardSound" type="AudioStreamPlayer3D" parent="Player3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 1.33333, 0, 0, 0, 1.33333, 0, 0, 0)
+stream = ExtResource("2_e75w7")
+volume_db = -20.0
+pitch_scale = 2.0
+autoplay = true
+bus = &"SoundEffects"
+
+[node name="TakeHitSound" type="AudioStreamPlayer3D" parent="Player3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 1.33333, 0, 0, 0, 1.33333, 0, 0, 0)
+stream = ExtResource("3_a0ncm")
+bus = &"SoundEffects"
+
+[node name="TakeHitGroundSound" type="AudioStreamPlayer3D" parent="Player3D"]
+transform = Transform3D(1.33333, 0, 0, 0, 1.33333, 0, 0, 0, 1.33333, 0, 0, 0)
+stream = ExtResource("4_ap480")
+bus = &"SoundEffects"
+
 [node name="Player_Rotation" type="Node3D" parent="Player3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="Player3D/Player_Rotation"]
@@ -326,12 +351,13 @@ stream = ExtResource("8_7gvo0")
 attenuation_model = 3
 volume_db = 10.0
 pitch_scale = 1.5
+bus = &"SoundEffects"
 
 [node name="DashSound2" type="AudioStreamPlayer3D" parent="Player3D/FSM/Dash"]
 stream = ExtResource("9_8x5np")
 attenuation_model = 3
 volume_db = -5.0
-pitch_scale = 2.0
+pitch_scale = 2.5
 bus = &"SoundEffects"
 
 [node name="HitTerrain" type="Node" parent="Player3D/FSM"]
@@ -368,6 +394,14 @@ cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_kpxns")
 skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Player3D/CameraMount/PlayerCamera"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player3D/CameraMount/PlayerCamera/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71375e-07, 0, -3.10416)
+shape = SubResource("CylinderShape3D_ubbs5")
 
 [node name="Blackout" type="MeshInstance3D" parent="Player3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 1.1)
@@ -478,3 +512,4 @@ texture = ExtResource("11_iqk1w")
 [connection signal="area_entered" from="Player3D/Player_Rotation/Area3DExplosionScreenshake" to="Player3D" method="_on_area_3d_explosion_screenshake_area_entered"]
 [connection signal="timeout" from="Player3D/Upward_Force_Time" to="Player3D" method="_on_upward_force_time_timeout"]
 [connection signal="timeout" from="Player3D/Damage_Cooldown" to="Player3D" method="_on_damage_cooldown_timeout"]
+[connection signal="area_entered" from="Player3D/CameraMount/PlayerCamera/Area3D" to="Player3D" method="_on_area_camera_tree"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://cynvhe8t8n18o"]
+[gd_scene load_steps=74 format=3 uid="uid://cynvhe8t8n18o"]
 
 [ext_resource type="Texture2D" uid="uid://2rhnafix5q4a" path="res://art/gliderpieces/GliderCenterThruster.png" id="1_3mq6f"]
 [ext_resource type="Script" path="res://scripts/death_animation.gd" id="1_xgb51"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c2epos1nuurqp" path="res://art/gliderpieces/GliderRightTopFin.png" id="7_yu5ej"]
 [ext_resource type="Texture2D" uid="uid://bk5aebtco3qyc" path="res://art/gliderpieces/GliderRightWingSide.png" id="8_omph1"]
 [ext_resource type="Texture2D" uid="uid://chkqijlsotmb3" path="res://art/gliderpieces/GliderRightWingTop.png" id="9_haol7"]
+[ext_resource type="AudioStream" uid="uid://bgvj3gyrkq2ea" path="res://sounds/audio_mangler_crashes_wood_01_249.mp3" id="11_d1qm6"]
 
 [sub_resource type="Gradient" id="Gradient_pc8io"]
 offsets = PackedFloat32Array(0.00340136, 0.0340136, 0.20068, 0.619565, 0.766304, 0.918478, 1)
@@ -693,3 +694,8 @@ randomness = 1.0
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_t5tqh")
 draw_pass_1 = SubResource("CapsuleMesh_yv2mg")
+
+[node name="Death_Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_d1qm6")
+pitch_scale = 0.75
+bus = &"SoundEffects"

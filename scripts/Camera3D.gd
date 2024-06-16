@@ -52,7 +52,7 @@ func screen_shake_boost():
 
 func screen_shake_explosion():
 	var denominator = 5.0
-	if Global.options_screenshake:
+	if Global.options_screenshake and Global.alive:
 		var elapsed_time = 0.0
 		
 		while elapsed_time < period * 6.0:

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dom8u2f0o7k54"]
+
+[ext_resource type="AudioStream" uid="uid://cktelt4twi7wh" path="res://sounds/zapsplat_foley_tree_leaves_branch_whoosh_impact_designed_017_47848.mp3" id="1_i3wmu"]
+[ext_resource type="Script" path="res://scripts/tree_whoosh_standalone.gd" id="2_kmaoy"]
+
+[node name="Tree_Whoosh_Standalone" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_i3wmu")
+volume_db = 10.0
+pitch_scale = 0.75
+panning_strength = 4.0
+bus = &"SoundEffects"
+script = ExtResource("2_kmaoy")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8atrm8lx0yj5"]
+
+[ext_resource type="AudioStream" uid="uid://b2opn1utm20c" path="res://sounds/zapsplat_cartoon_whoosh_swipe_fast_grab_dash_005_74746.mp3" id="1_ejup8"]
+[ext_resource type="Script" path="res://scripts/tree_whoosh_standalone_2.gd" id="2_3cmqh"]
+
+[node name="tree_whoosh_standalone_2" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_ejup8")
+bus = &"SoundEffects"
+script = ExtResource("2_3cmqh")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

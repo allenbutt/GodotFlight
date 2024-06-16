@@ -3,7 +3,8 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Laser_Launch.pitch_scale = randf_range(0.25,0.75)
+	$Laser_Launch.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

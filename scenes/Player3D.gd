@@ -18,6 +18,9 @@ var shield_cooldown = 0.0
 @onready var blackout = $Blackout
 @onready var blackout_animation_player = $Blackout/AnimationPlayer
 
+var tree_whoosh = preload("res://scenes/tree_whoosh_standalone.tscn")
+var tree_whoosh2 = preload("res://scenes/tree_whoosh_standalone_2.tscn")
+
 var upward_force = false
 
 signal take_hit
@@ -52,6 +55,8 @@ func _on_area_3d_area_entered(area):
 			damage = Global.damage_tree
 			#Global.player_health = Global.player_health - Global.damage_tree
 		damage = damage * randf_range(0.8,1.2)
+		$TakeHitSound.pitch_scale = randf_range(1.0,2.0)
+		$TakeHitSound.play()
 		player_hit(damage)
 
 #Interaction with terrain
@@ -59,6 +64,8 @@ func _on_area_3d_body_entered(body):
 	var damage = Global.damage_terrain
 	if upward_force == false and Global.alive:
 		$Upward_Force_Time.start()
+		$TakeHitGroundSound.pitch_scale = randf_range(1.0,2.0)
+		$TakeHitGroundSound.play()
 		upward_force = true
 		damage = damage * randf_range(0.8,1.2)
 		player_hit(damage)
@@ -74,6 +81,7 @@ func player_hit(damage):
 		$Player_Rotation/Sprite3D.visible = false
 		Global.alive = false
 		player_death.emit()
+		$ForwardSound.stop()
 	else:
 		hit_flash($Player_Rotation/Sprite3D)
 		shield_cooldown = shield_cooldown_set
@@ -105,3 +113,16 @@ func destroy_blackout():
 
 func _on_area_3d_explosion_screenshake_area_entered(area):
 	explosion_screen_shake.emit()
+
+
+func _on_area_camera_tree(area):
+	var whoosh_sound
+	if randf() > 0.0:
+		whoosh_sound = tree_whoosh.instantiate()
+		whoosh_sound.pitch_scale = randf_range(0.5,1.0)
+	else:
+		whoosh_sound = tree_whoosh2.instantiate()
+		whoosh_sound.pitch_scale = randf_range(0.5,1.0)
+	whoosh_sound.position = area.position
+	add_child(whoosh_sound)
+	whoosh_sound.play()
