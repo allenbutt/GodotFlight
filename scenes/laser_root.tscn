@@ -44,13 +44,11 @@ detail_mask = SubResource("NoiseTexture2D_ksj7w")
 detail_albedo = SubResource("NoiseTexture2D_2fpdw")
 disable_receive_shadows = true
 
-[sub_resource type="SphereMesh" id="SphereMesh_y6ox2"]
-radius = 0.3
-height = 0.6
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_uq5nc"]
 height = 500.0
 radius = 0.075
+
+[sub_resource type="BoxMesh" id="BoxMesh_gahss"]
 
 [node name="LaserRoot" type="Node3D" node_paths=PackedStringArray("laser_beam")]
 script = ExtResource("1_vw1qx")
@@ -69,70 +67,10 @@ transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 0, 0)
 visible = false
 target_position = Vector3(0, -50, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LaserParent"]
-visible = false
-mesh = SubResource("SphereMesh_y6ox2")
-skeleton = NodePath("../..")
-
-[node name="Laser_Persistent_Sound" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
+[node name="Laser_Persistent_Sound" type="AudioStreamPlayer3D" parent="LaserParent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
 stream = ExtResource("4_neob0")
 volume_db = -10.0
-autoplay = true
-max_distance = 30.0
-panning_strength = 2.0
-bus = &"SoundEffects"
-
-[node name="Laser_Persistent_Sound2" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 150)
-stream = ExtResource("4_neob0")
-volume_db = -10.0
-autoplay = true
-max_distance = 30.0
-panning_strength = 2.0
-bus = &"SoundEffects"
-
-[node name="Laser_Persistent_Sound3" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 200)
-stream = ExtResource("4_neob0")
-volume_db = -10.0
-autoplay = true
-max_distance = 30.0
-panning_strength = 2.0
-bus = &"SoundEffects"
-
-[node name="Laser_Persistent_Sound4" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 250)
-stream = ExtResource("4_neob0")
-volume_db = -10.0
-autoplay = true
-max_distance = 30.0
-panning_strength = 2.0
-bus = &"SoundEffects"
-
-[node name="Laser_Persistent_Sound5" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 300)
-stream = ExtResource("4_neob0")
-volume_db = -10.0
-autoplay = true
-max_distance = 30.0
-panning_strength = 2.0
-bus = &"SoundEffects"
-
-[node name="Laser_Persistent_Sound6" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 350)
-stream = ExtResource("4_neob0")
-volume_db = -10.0
-autoplay = true
-max_distance = 30.0
-panning_strength = 2.0
-bus = &"SoundEffects"
-
-[node name="Laser_Persistent_Sound7" type="AudioStreamPlayer3D" parent="LaserParent/MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400)
-stream = ExtResource("4_neob0")
-volume_db = -10.0
-autoplay = true
 max_distance = 30.0
 panning_strength = 2.0
 bus = &"SoundEffects"
@@ -156,5 +94,9 @@ stream = ExtResource("3_fcc46")
 attenuation_model = 3
 pitch_scale = 0.75
 bus = &"SoundEffects"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+mesh = SubResource("BoxMesh_gahss")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
