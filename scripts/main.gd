@@ -3,7 +3,7 @@ extends Node3D
 var save_path = "user://variable.save"
 
 var movement = 0.05
-var start = 180.0
+var start = 0.5
 #0.5 start
 #222.0 first_lake
 #440.0 downhill
@@ -155,11 +155,13 @@ func _process(delta):
 		#print("dash")
 	_timercount(delta)
 	if Input.is_action_pressed("shift"):
-		Global.forward_speed = Global.forward_speed_base * 1.33
+		#Global.forward_speed = Global.forward_speed_base * 1.33
+		Global.forward_speed = lerp(Global.forward_speed, Global.forward_speed_base * 1.33, 2.0 * delta)
 	else:
-		Global.forward_speed = Global.forward_speed_base
+		#Global.forward_speed = Global.forward_speed_base
+		Global.forward_speed = lerp(Global.forward_speed, Global.forward_speed_base, 2.0 * delta)
 	if player3d.taking_damage:
-		Global.forward_speed = Global.forward_speed * 0.75
+		Global.forward_speed = Global.forward_speed_base * 0.75
 	if go_forward:
 		$Path3D/PathFollow3D.progress = $Path3D/PathFollow3D.progress + Global.forward_speed * delta * 60
 	enemy_movement(delta)

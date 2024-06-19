@@ -17,6 +17,7 @@ var shield_cooldown = 0.0
 @onready var player_rotation_node = $Player_Rotation
 @onready var blackout = $Blackout
 @onready var blackout_animation_player = $Blackout/AnimationPlayer
+@onready var forward_point = $Forward_Direction_Point
 
 var tree_whoosh = preload("res://scenes/tree_whoosh_standalone.tscn")
 var tree_whoosh2 = preload("res://scenes/tree_whoosh_standalone_2.tscn")
@@ -39,6 +40,9 @@ func _process(delta):
 	if shield_cooldown <= 0 and Global.player_shield < player_shield_max:
 		Global.player_shield = clamp(Global.player_shield + .05 * delta * 60, 0, player_shield_max)
 		set_shield.emit()
+	if Global.victory:
+		$ForwardSound.stop()
+		$ForwardSound2.stop()
 
 
 #Interaction with hitboxes like trees and missiles
@@ -126,3 +130,7 @@ func _on_area_camera_tree(area):
 	whoosh_sound.position = area.position
 	add_child(whoosh_sound)
 	whoosh_sound.play()
+
+
+func _on_laser_audio_detection_area_area_entered(area):
+	area.player_hit(forward_point)

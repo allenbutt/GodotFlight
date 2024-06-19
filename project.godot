@@ -66,4 +66,5 @@ spacebar={
 3d_physics/layer_1="Ground"
 3d_physics/layer_2="Player"
 3d_physics/layer_3="ExplosionOnly"
+3d_physics/layer_4="LaserOnly"
 3d_physics/layer_5="TreeOnly"
