@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxanl27yyxd7n"]
+[gd_scene load_steps=12 format=3 uid="uid://bxanl27yyxd7n"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_35o6f"]
 [ext_resource type="Texture2D" uid="uid://bkocuscifh8wy" path="res://art/ButtonBorderSquare.png" id="1_jqfqt"]
 [ext_resource type="Texture2D" uid="uid://fdc7x4y8bfx8" path="res://art/ButtonBorderRectangle.png" id="2_fh232"]
 [ext_resource type="Texture2D" uid="uid://tuqlup17iqak" path="res://art/ButtonBorderHalfRect.png" id="2_tppt2"]
+[ext_resource type="AudioStream" uid="uid://q1q044waa7rk" path="res://sounds/546974__finix473__ui_click.wav" id="5_sm6wi"]
+[ext_resource type="AudioStream" uid="uid://dorr4oqjjteaf" path="res://sounds/721502__baggonotes__button_click1.wav" id="6_4fje2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qefd2"]
 
@@ -1307,9 +1309,24 @@ points = PackedVector2Array(148, 237, 148, 449)
 width = 2.0
 default_color = Color(0.6, 0.898039, 0.313726, 1)
 
+[node name="sfx_click_button" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sm6wi")
+bus = &"UI"
+
+[node name="sfx_highlight_button" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4fje2")
+max_polyphony = 3
+bus = &"UI"
+
+[connection signal="mouse_entered" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonParticles" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonParticles" to="." method="_on_button_particles_pressed"]
+[connection signal="mouse_entered" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonScreenshake" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonScreenshake" to="." method="_on_button_screenshake_pressed"]
+[connection signal="mouse_entered" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonGraphics" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonGraphics" to="." method="_on_button_graphics_pressed"]
+[connection signal="mouse_entered" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonSound" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonSound" to="." method="_on_button_sound_pressed"]
+[connection signal="mouse_entered" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonMusic" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonMusic" to="." method="_on_button_music_pressed"]
+[connection signal="mouse_entered" from="AspectRatioContainer/Panel/StartGameMargin/ButtonStart" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="AspectRatioContainer/Panel/StartGameMargin/ButtonStart" to="." method="_on_button_start_pressed"]

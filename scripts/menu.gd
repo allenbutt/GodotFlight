@@ -10,6 +10,8 @@ signal SaveOptions()
 @onready var buttongraphics = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonGraphics
 @onready var buttonsound = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonSound
 @onready var buttonmusic = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonMusic
+@onready var click_sound = $sfx_click_button
+@onready var highlight_sound = $sfx_highlight_button
 
 func _ready():
 	pass
@@ -39,30 +41,40 @@ func set_label_text():
 
 func _on_button_start_pressed():
 	BeginGame.emit()
+	click_sound.play()
 
 
 func _on_button_particles_pressed():
 	Global.options_particles = not Global.options_particles
 	set_label_text()
 	ToggleParticles.emit()
+	click_sound.play()
 
 
 func _on_button_screenshake_pressed():
 	Global.options_screenshake = not Global.options_screenshake
 	set_label_text()
+	click_sound.play()
 
 
 func _on_button_graphics_pressed():
 	Global.options_graphics = not Global.options_graphics
 	set_label_text()
 	ToggleGraphics.emit()
+	click_sound.play()
 
 
 func _on_button_sound_pressed():
 	Global.options_sound = not Global.options_sound
 	set_label_text()
+	click_sound.play()
 
 
 func _on_button_music_pressed():
 	Global.options_music = not Global.options_music
 	set_label_text()
+	click_sound.play()
+
+
+func _on_button_mouse_entered():
+	highlight_sound.play()
