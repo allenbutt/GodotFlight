@@ -863,7 +863,7 @@ grow_horizontal = 2
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_fdet3")
 theme_override_font_sizes/font_size = 35
-text = "FLIGHT GAME"
+text = "J E T - R U N"
 horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="AspectRatioContainer/Panel/TitleContainer"]

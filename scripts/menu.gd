@@ -3,6 +3,8 @@ extends Control
 signal BeginGame()
 signal ToggleParticles()
 signal ToggleGraphics()
+signal ToggleMusic()
+signal ToggleSound()
 signal SaveOptions()
 
 @onready var buttonparticles = $AspectRatioContainer/Panel/OptionsContainerMargin/MarginContainer/OptionsContainer/ButtonParticles
@@ -67,12 +69,14 @@ func _on_button_graphics_pressed():
 func _on_button_sound_pressed():
 	Global.options_sound = not Global.options_sound
 	set_label_text()
+	ToggleSound.emit()
 	click_sound.play()
 
 
 func _on_button_music_pressed():
 	Global.options_music = not Global.options_music
 	set_label_text()
+	ToggleMusic.emit()
 	click_sound.play()
 
 

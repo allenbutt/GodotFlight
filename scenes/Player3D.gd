@@ -13,6 +13,7 @@ var damage_cooldown = 0.75
 var taking_damage = false
 var hit_slowdown = false
 var shield_cooldown = 0.0
+var sound_going = false
 
 @onready var player_rotation_node = $Player_Rotation
 @onready var blackout = $Blackout
@@ -134,3 +135,12 @@ func _on_area_camera_tree(area):
 
 func _on_laser_audio_detection_area_area_entered(area):
 	area.player_hit(forward_point)
+
+func start_sound():
+	$ForwardSound.play()
+	$ForwardSound.volume_db = -10.0
+	$ForwardSound2.play()
+	$ForwardSound2.volume_db = -10.0
+	while $ForwardSound.volume_db < 0.00:
+		$ForwardSound.volume_db = $ForwardSound.volume_db + 0.25
+		await get_tree().create_timer(0.05).timeout

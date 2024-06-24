@@ -22,6 +22,8 @@ var go_faster = false
 var go_faster_amount = 0.06
 var go_faster2 = false
 var go_faster_amount2 = 0.06
+var go_faster3 = false
+var go_faster_amount3 = 0.20
 
 var move_enemy_1 = false
 var move_enemy_2 = false
@@ -59,6 +61,8 @@ var final_attack_start = false
 @onready var uitimerminutes = $Menu/AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel/TimeMinutes
 @onready var uitimerseconds = $Menu/AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel/TimeSeconds
 @onready var uitimermilli = $Menu/AspectRatioContainer/Panel/TimerContainerMargin/MarginContainer/TimePanel/TimeMilli
+@onready var menumusic = $MenuMusic
+@onready var gamemusic = $GameMusic
 
 var explosion = preload("res://scenes/explosion.tscn")
 var missile = preload("res://scenes/enemy_missile.tscn")
@@ -71,6 +75,8 @@ func _ready():
 	#menu.BeginGame.connect(endingscenetest)
 	menu.ToggleParticles.connect(_toggle_particles)
 	menu.ToggleGraphics.connect(_toggle_graphics)
+	menu.ToggleMusic.connect(_toggle_music)
+	menu.ToggleSound.connect(_toggle_sound)
 	menu.SaveOptions.connect(_save_game)
 	portal.player_enter.connect(endingscene)
 	$WorldEnvironment/AnimationPlayer.play("RESET")
@@ -92,10 +98,16 @@ func _ready():
 		set_timer_text(Global.best_time, uitimerminutes, uitimerseconds, uitimermilli)
 	menu.set_label_text()
 	_initiate_options()
+	
+	if Global.options_music:
+		menumusic.play()
+		menumusic.volume_db = -1.0
 
 func _start_game():
 	#Global.best_time = 0.00
 	#_save_game()
+	if Global.options_music:
+		fadeout(menumusic)
 	$Menu.visible = false
 	$ui_canvas.visible = true
 	$ui_timer.visible = true
@@ -108,6 +120,11 @@ func _start_game():
 	#$ui_canvas.visible = true
 	
 	player3d.fade_blackout()
+	player3d.start_sound()
+	await get_tree().create_timer(1.2).timeout
+	if Global.options_music:
+		gamemusic.play()
+		gamemusic.volume_db = -3.0
 
 func _save_game():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -141,6 +158,8 @@ func endingscene():
 	go_forward = false
 	Global.moving = false
 	$Window/Boundaries.visible = false
+	if Global.options_music:
+		fadeout(gamemusic)
 	await get_tree().create_timer(5.0).timeout
 	$WorldEnvironment/AnimationPlayer.play("death_fade")
 	await get_tree().create_timer(1.0).timeout
@@ -167,10 +186,13 @@ func _process(delta):
 	enemy_movement(delta)
 	if go_faster == false and $Path3D/PathFollow3D.progress > 450.0:
 		go_faster = true
-		enact_go_faster()
+		enact_go_faster(go_faster_amount)
 	if go_faster2 == false and $Path3D/PathFollow3D.progress > 1640.0:
 		go_faster2 = true
-		enact_go_faster()
+		enact_go_faster(go_faster_amount2)
+	if go_faster3 == false and $Path3D/PathFollow3D.progress > 2498.0:
+		go_faster3 = true
+		enact_go_faster(go_faster_amount3)
 
 func _timercount(delta):
 	if Global.moving:
@@ -278,9 +300,9 @@ func demo_explode():
 		enemy_missile.missile.global_transform = enemy_missile.missile.global_transform.looking_at(enemy_missile.missile.global_transform.origin - \
 		(player.global_transform.origin + player.global_transform.basis.z * forward_offset - enemy_missile.missile.global_transform.origin).normalized(), Vector3.UP)
 
-func enact_go_faster():
+func enact_go_faster(new_speed):
 	var starting_base_speed = Global.forward_speed_base
-	while(Global.forward_speed_base < starting_base_speed + go_faster_amount):
+	while(Global.forward_speed_base < starting_base_speed + new_speed):
 		Global.forward_speed_base = clamp(0, Global.forward_speed_base+.001, starting_base_speed + go_faster_amount)
 		await get_tree().create_timer(0.04).timeout
 
@@ -502,6 +524,22 @@ func _toggle_graphics():
 		for meshes in multimeshes.get_children():
 			meshes.visible = false
 
+func _toggle_music():
+	if Global.options_music:
+		menumusic.play()
+	else:
+		menumusic.stop()
+
+func _toggle_sound():
+	if Global.options_sound:
+		AudioServer.set_bus_mute(2,false)
+		AudioServer.set_bus_mute(3,false)
+		AudioServer.set_bus_mute(4,false)
+	else:
+		AudioServer.set_bus_mute(2,true)
+		AudioServer.set_bus_mute(3,true)
+		AudioServer.set_bus_mute(4,true)
+
 func _initiate_options():
 	if Global.options_particles == false:
 		player.thrustersmain.emitting = false
@@ -511,3 +549,16 @@ func _initiate_options():
 		environment.environment.sdfgi_enabled = false
 		for meshes in multimeshes.get_children():
 			meshes.visible = false
+	if Global.options_music == false:
+		gamemusic.stop()
+		menumusic.stop()
+	if Global.options_sound == false:
+		AudioServer.set_bus_mute(2,true)
+		AudioServer.set_bus_mute(3,true)
+		AudioServer.set_bus_mute(4,true)
+
+func fadeout(track : AudioStreamPlayer):
+	while track.volume_db > -20.0:
+		track.volume_db = track.volume_db - 0.35
+		await get_tree().create_timer(0.05).timeout
+	track.stop()

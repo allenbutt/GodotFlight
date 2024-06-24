@@ -235,7 +235,6 @@ transform = Transform3D(1.33333, 0, 0, 0, 1.33333, 0, 0, 0, 1.33333, 0, 0, 0)
 stream = ExtResource("2_e75w7")
 attenuation_model = 3
 pitch_scale = 2.0
-autoplay = true
 bus = &"SoundEffects"
 
 [node name="ForwardSound2" type="AudioStreamPlayer3D" parent="Player3D"]
@@ -244,7 +243,6 @@ stream = ExtResource("3_7o63d")
 attenuation_model = 3
 volume_db = -20.0
 pitch_scale = 0.5
-autoplay = true
 bus = &"SoundEffects"
 
 [node name="TakeHitSound" type="AudioStreamPlayer3D" parent="Player3D"]
