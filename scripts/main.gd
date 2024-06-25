@@ -1,6 +1,6 @@
 extends Node3D
 
-var save_path = "user://variable.save"
+var save_path = "user://flightvariables.save"
 
 var movement = 0.05
 var start = 0.5
@@ -23,7 +23,7 @@ var go_faster_amount = 0.06
 var go_faster2 = false
 var go_faster_amount2 = 0.06
 var go_faster3 = false
-var go_faster_amount3 = 0.20
+var go_faster_amount3 = 0.3
 
 var move_enemy_1 = false
 var move_enemy_2 = false
@@ -391,7 +391,7 @@ func enemy3_attack():
 func enemy4_attack():
 	enemy4_attack_start = true
 	var enemy = $EnemyShip4Path/PathFollow3D/EnemyShip4
-	for count in range(0,59):
+	for count in range(0,49):
 		for count2 in range(0,2):
 			var forward_offset = pow(count,1.1) * 2.25 + 20 + randf_range(0,1)
 			var other_offset = Vector3(0,randf_range(-1,8.0) - count/5,0)
